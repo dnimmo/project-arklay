@@ -1,0 +1,25 @@
+{
+  "name" : "project-arklay",
+  "description" : "A text adventure game",
+  "author" : "David nimmo <dnimmo@gmail.com>",
+  "contributors" : [{
+    "name" : "Jamie Mercer",
+    "email" : "jamie.mercer@gmail.com"
+  }],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/dnimmo/project-arklay"
+  },
+  "dependencies" : {
+    "gulp" : "3.9.0",
+    "gulp-minify-html" : "",
+    "gulp-sass" : "",
+    "gulp-uglify" : "",
+    "gulp-rename" : "",
+    "gulp-jslint" : "",
+    "gulp-watch" : "",
+    "browser-sync" : "",
+    "karma" : "",
+    "express" : ""    
+  }
+}
