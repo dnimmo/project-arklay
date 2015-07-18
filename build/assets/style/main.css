@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 3.5rem; }
+
+main {
+  text-align: center;
+  margin-top: 5%;
+  padding: 1rem;
+  margin-bottom: -30%; }
+
+h1 {
+  margin: 2rem 0;
+  font-size: 4rem; }
+
+h2 {
+  margin: 2rem 0; }
+
+.button {
+  border: 0.1rem solid #ffffff;
+  padding: 2rem;
+  display: inline-block;
+  margin: 2rem;
+  transition: all linear 0.3s;
+  color: #ffffff;
+  text-decoration: none; }
+  .button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer; }
+
+label {
+  margin: 1rem 0; }
+
+input[type='text'] {
+  background-color: #000000;
+  font-size: 2rem;
+  color: #ffffff;
+  border-width: 0 0 0.1rem 0;
+  text-align: center; }
+
+#directionOptions {
+  margin: 5rem;
+  list-style: none; }
+  #directionOptions li {
+    margin-top: 3rem;
+    cursor: pointer;
+    transition: all linear 0.3s;
+    padding: 1rem; }
+    @media (min-width: 700px) {
+      #directionOptions li.East, #directionOptions li.West {
+        display: inline-block; } }
+    #directionOptions li:hover {
+      background-color: #ffffff;
+      color: #000000; }
+
+#inventory {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  border-top: 0.1rem solid #ffffff;
+  width: 100%;
+  background-color: #000000; }
+  #inventory .inventoryContents {
+    padding: 2rem; }
+  #inventory h2 {
+    font-size: 2.2rem;
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer; }
+  #inventory li {
+    font-size: 1.6rem;
+    list-style: none;
+    border: 0.1rem solid #ffffff;
+    display: inline-block;
+    padding: 2rem;
+    margin: 1.5rem 1.5rem 1.5rem 0;
+    transition: all linear 0.3s; }
+    #inventory li:hover {
+      background-color: #ffffff;
+      color: #000000;
+      cursor: pointer; }
+
+@-webkit-keyframes roll-credits {
+  0% {
+    transform: translate3D(0, 60vh, 0); }
+  100% {
+    transform: translate3D(0, -100vh, 0); } }
+
+@-moz-keyframes roll-credits {
+  0% {
+    transform: translate3D(0, 60vh, 0); }
+  100% {
+    transform: translate3D(0, -100vh, 0); } }
+
+@-o-keyframes roll-credits {
+  0% {
+    transform: translate3D(0, 60vh, 0); }
+  100% {
+    transform: translate3D(0, -100vh, 0); } }
+
+@keyframes roll-credits {
+  0% {
+    transform: translate3D(0, 60vh, 0); }
+  100% {
+    transform: translate3D(0, -100vh, 0); } }
+
+.creditsContainer {
+  overflow: hidden;
+  padding: 5vw;
+  height: 80vh; }
+  .creditsContainer .credits {
+    text-align: center;
+    margin: auto;
+    transform: translate3D(0, -10000000rem, 0);
+    -webkit-animation: roll-credits 20s linear;
+    -moz-animation: roll-credits 20s linear;
+    -o-animation: roll-credits 20s linear;
+    animation: roll-credits 20s linear; }
+    .creditsContainer .credits li {
+      list-style: none;
+      margin-bottom: 4rem; }
+      .creditsContainer .credits li .emphasis {
+        font-weight: bold; }

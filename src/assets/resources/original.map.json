@@ -1,0 +1,71 @@
+{
+  "rooms": [
+    {
+      "slug" : "start",
+      "name" : "Start",
+      "description" : "You are in a clearing.",
+      "surroundings" : "To the North, you see a Castle. To the South, a Tavern",
+      "directions" : [{
+          "rel" : "North",
+          "link" : "/rooms/castle-door"
+        },{
+          "rel" : "South",
+          "link" : "/rooms/tavern-door"
+        }]
+    },
+    {
+      "slug": "tavern-door",
+      "name": "Tavern Door",
+      "description": "You see a tavern. On the door, a sign reads: 'Sorry, the tavern is closed at present. If you would like to help us out, take the key from under the mat and head over to the castle.",
+      "surroundings": "To the North, there is a clearing",
+      "directions" : [{
+          "rel" : "North",
+          "link" : "/rooms/start"
+        }],
+      "newItem": {
+        "name": "Key",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "An old iron key",
+        "messageWhenUsed": "You have unlocked the castle door",
+        "unlocks" : "/rooms/test-area"
+      }
+    },
+    {
+      "slug": "castle-door",
+      "name": "Castle Door",
+      "description": "You are standing at the door of a large, slightly creepy looking castle.",
+      "surroundings": "Head North to enter the castle, or South to return to the clearing.",
+      "directions" : [{ 
+        "rel" : "North",
+        "link" : "/rooms/test-area",
+        "blocked" : true
+      },{
+        "rel" : "South",
+        "link" : "/rooms/start"
+      }]
+    },
+    {
+      "slug": "test-area",
+      "name": "Inside the castle - test stuff",
+      "description": "You find yourself in a castle",
+      "surroundings": "Congratulations! You've won! Etc.",
+      
+      "directions" : [{
+          "rel" : "Roll credits",
+          "link" : "/rooms/credits"
+        }]
+    },
+    {
+      "slug": "credits",
+      "gameOver": true,
+      "description": "Everything",
+      "surroundings": "David Nimmo"
+    }]
+}

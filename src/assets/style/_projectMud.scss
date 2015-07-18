@@ -1,0 +1,82 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-family: 'Orbitron', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 3.5rem;
+}
+
+main{
+  text-align: center;
+  margin-top: 5%;
+  padding: 1rem;
+  margin-bottom: -30%;
+}
+
+h1{
+  margin: 2rem 0;
+  font-size: 4rem;
+}
+
+h2{
+  margin: 2rem 0;
+}
+
+.button{
+  border: 0.1rem solid #ffffff;
+  padding: 2rem;
+  display: inline-block;
+  margin: 2rem;
+  transition: $transition;
+  color: #ffffff;
+  text-decoration: none;
+  
+  &:hover{
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+  }
+}
+
+label{
+  margin: 1rem 0;
+}
+
+input[type='text']{
+  background-color: #000000;
+  font-size: 2rem;
+  color: #ffffff;
+  border-width: 0 0 0.1rem 0;
+  text-align: center;  
+}
+
+#directionOptions{
+  margin: 5rem;
+  list-style: none;
+  li{
+    margin-top: 3rem;
+    cursor: pointer;
+    transition: $transition;
+    padding: 1rem;
+    @include bp(m){
+      &.East, &.West{
+        display: inline-block;
+      }
+    }
+    
+    &:hover{
+      background-color: #ffffff;
+      color: #000000;
+    }
+  }
+}

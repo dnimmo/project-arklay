@@ -1,0 +1,401 @@
+{
+  "rooms": [
+    {
+      "slug" : "start",
+      "name" : "Foyer",
+      "description" : "You are in a foyer.",
+      "surroundings" : "A vast foyer, with a grand staircase and a couple of doors.",
+      "directions" : [{
+          "rel" : "Go upstairs",
+          "link" : "/rooms/upstairs-foyer"
+        },{
+          "rel" : "Door to West",
+          "link" : "/rooms/dining-hall"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/statue-room"
+        }]
+    },
+    {
+      "slug": "dining-hall",
+      "name": "Dining Hall",
+      "description": "A large dining hall.",
+      "surroundings": "A cavernous dining hall. A grandfather clock is steadily ticking, its sound echoing through the room.",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/lower-west-hall-one"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/start"
+        }]
+    },
+    {
+      "slug": "lower-west-hall-one",
+      "name": "Hallway",
+      "description": "A hallway stretches out ahead of you.",
+      "surroundings": "A number of doors line the hall.",
+      "directions" : [{
+        "rel" : "Door to North",
+        "link" : "/rooms/gallery"
+      },{
+        "rel" : "Door to West",
+        "link" : "/rooms/lounge"
+      },{ 
+        "rel" : "Door to East",
+        "link" : "/rooms/kitchen"
+      },{
+        "rel" : "Door to South",
+        "link" : "/rooms/dining-hall"
+      }]
+    },
+    {
+      "slug": "kitchen",
+      "name": "The kitchen",
+      "description": "An industrial-looking kitchen.",
+      "surroundings": "The walls, floor, and work surfaces are stained an odd, brownish colour",
+      "directions" : [{
+          "rel" : "Door to West",
+          "link" : "/rooms/lower-west-hall-one"
+        }]
+    },{
+      "slug": "gallery",
+      "name": "Gallery",
+      "description": "A large room full of various pieces of art.",
+      "surroundings": "There's no time to look at these now.",
+      "directions" : [{
+        "rel" : "Door to West",
+        "link" : "/rooms/lower-west-hall-two"
+      },{
+        "rel" : "Door to South",
+        "link" : "/rooms/lower-west-hall-one"
+      }]
+    },{
+      "slug": "lounge",
+      "name": "A lounge area",
+      "description": "A well-used lounge area.",
+      "surroundings": "There's a large fireplace that looks like it hasn't been used in quite some time, and a dusty grand piano, with sheet notes for The Moonlight Sonata. You regret never having learned to play the piano.",
+      "directions" : [{
+        "rel" : "Door to North",
+        "link" : "/rooms/lower-west-hall-two"
+      },{ 
+        "rel" : "Door to East",
+        "link" : "/rooms/lower-west-hall-one"
+      }]
+    },
+    {
+      "slug": "lower-west-hall-two",
+      "name": "Hallway",
+      "description": "A large hallway, with a musty smell in the air.",
+      "surroundings": "There's are doors to the West, South, and East",
+      "directions" : [{ 
+        "rel" : "Door to West",
+        "link" : "/rooms/library"
+      },{
+        "rel" : "Door to East",
+        "link" : "/rooms/gallery"
+      },{
+        "rel" : "Door to South",
+        "link" : "/rooms/lounge"
+      }]
+    },
+    {
+      "slug": "library",
+      "name": "Library",
+      "description": "A small library, full of useless books.",
+      "surroundings": "You notice that 'Tales of the Occult, Vol 2' is missing.",
+      "directions" : [{ 
+        "rel" : "Door to West",
+        "link" : "/rooms/secret-room",
+        "blocked" : true
+      },{
+        "rel" : "Door to East",
+        "link" : "/rooms/lower-west-hall-two"
+      }]
+    },
+    {
+      "slug": "secret-room",
+      "name": "A hidden room",
+      "description": "A well-hidden room.",
+      "surroundings": "The room is almost completely empty, save for a piece of paper on the floor, with a series of numbers scribbled on it.",
+      "directions" : [{ 
+        "rel" : "Door to East",
+        "link" : "/rooms/library"
+      }],
+      "newItem": {
+        "name": "Key code",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "A piece of paper with 2407 written on it",
+        "messageWhenUsed": "You have used the key kode",
+        "unlocks" : "/rooms/laboratory"
+      }
+    },{
+      "slug": "statue-room",
+      "name": "Statue room",
+      "description": "A square room with a prominent centerpiece.",
+      "surroundings": "It appears to be a statue of Zeus, throwing a bolt of lightning. Seems fitting for the weather outside.",
+      "directions" : [{
+        "rel" : "Door to North",
+        "link" : "/rooms/lower-east-hall"
+      },{ 
+        "rel" : "Door to West",
+        "link" : "/rooms/start"
+      }]
+    },{
+      "slug": "lower-east-hall",
+      "name": "Hallway",
+      "description": "A long hallway with large windows.",
+      "surroundings": "The weather outside is terrible. You can't see very far into the distance at all. There's a locked door to the North",
+      "directions" : [{
+        "rel" : "Door to North",
+        "link" : "/rooms/swimming-pool",
+        "blocked" : true
+      },{ 
+        "rel" : "Door to South",
+        "link" : "/rooms/statue-room"
+      }]
+    },{
+      "slug": "swimming-pool",
+      "name": "Swimming Pool",
+      "description": "An Olympic-sized swimming pool.",
+      "surroundings": "What sort of people live here?",
+      "directions" : [{
+        "rel" : "Door to North",
+        "link" : "/rooms/garage"
+      },{ 
+        "rel" : "Door to South",
+        "link" : "/rooms/lower-east-hall"
+      }]
+    },{
+      "slug": "garage",
+      "name": "Garage",
+      "description": "A large garage.",
+      "surroundings": "The garage is empty, apart from a large array of tools. You think a crowbar could come in handy.",
+      "directions" : [{ 
+        "rel" : "Door to South",
+        "link" : "/rooms/swimming-pool"
+      }],
+      "newItem": {
+        "name": "Crowbar",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "A sturdy crowbar",
+        "messageWhenUsed": "You prise off the wooden planks",
+        "unlocks" : "/rooms/upper-east-hallway-one"
+      }
+    },{
+      "slug" : "upstairs-foyer",
+      "name" : "Upstairs foyer",
+      "description" : "You are at the top of a grand staircase.",
+      "surroundings" : "You have a good view of the grand foyer from the top of the staircase. A door to the east has been boarded shut.",
+      "directions" : [{
+          "rel" : "Door to West",
+          "link" : "/rooms/upper-west-hallway"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/upper-east-hallway-one",
+          "blocked" : true
+        },{
+          "rel" : "Go downstairs",
+          "link" : "/rooms/start"
+        }]
+    },{
+      "slug" : "upper-east-hallway-one",
+      "name" : "Hallway",
+      "description" : "You are in a hallway.",
+      "surroundings" : "It's very dimly lit, and there are no natural sources of light in here. Your own footsteps echo behind you, and you can't be sure that you're alone.",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/upper-east-hallway-two"
+        },{
+          "rel" : "Door to West",
+          "link" : "/rooms/upstairs-foyer"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/master-bedroom"
+        }]
+    },{
+      "slug" : "upper-east-hallway-two",
+      "name" : "Another hallway",
+      "description" : "You are in yet another hallway.",
+      "surroundings" : "How many rooms does this place have?",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/trophy-room"
+        },{
+          "rel" : "Door to West",
+          "link" : "/rooms/aquarium"
+        },{
+          "rel" : "Door to South",
+          "link" : "/rooms/upper-east-hallway-one"
+        }]
+    },{
+      "slug" : "master-bedroom",
+      "name" : "The master bedroom",
+      "description" : "The master bedroom. A large four-poster bed is in the middle of the room.",
+      "surroundings" : "The carpet feels thick and plush beneath your feet. There's a set of French doors leading to a balcony, but it is locked.",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/walk-in-wardrobe"
+        },{
+          "rel" : "Door to West",
+          "link" : "/rooms/upper-east-hallway-one"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/en-suite"
+        },{
+          "rel" : "Door to South",
+          "link" : "/rooms/balcony",
+          "blocked" : true
+        }]
+    },{
+      "slug" : "en-suite",
+      "name" : "The master bedroom's en-suite",
+      "description" : "A fancy en-suite. There's a bidet, so that's quite exciting.",
+      "surroundings" : "There's a magazine rack here, which is empty except for a single book",
+      "directions" : [{
+          "rel" : "Door to West",
+          "link" : "/rooms/master-bedroom"
+        }],
+      "newItem": {
+        "name": "Book",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "Tales of the Occult, Vol. 2",
+        "messageWhenUsed": "The missing book sits neatly between volumes 1 and 3.",
+        "unlocks" : "/rooms/secret-room"
+      }
+    },{
+      "slug" : "walk-in-wardrobe",
+      "name" : "A walk-in wardrobe",
+      "description" : "A fancy walk-in wardrobe. Most of the clothes in here have been eaten away at by moths.",
+      "surroundings" : "The smell of damp fills your nostrils.",
+      "directions" : [{
+          "rel" : "Door to South",
+          "link" : "/rooms/master-bedroom"
+        }]
+    },{
+      "slug" : "balcony",
+      "name" : "Balcony",
+      "directions" : [{}],
+      "description" : "A balcony leading off from the master bedroom.",
+      "surroundings" : "I don't know how you got here, but you're not getting out. It's too high to survive the fall, and the door has locked behind you."
+    },{
+      "slug" : "aquarium",
+      "name" : "Aquarium",
+      "description" : "A large aquarium, full of exotic fish.",
+      "surroundings" : "I'm not sure how they're still alive, but the dim lights of their tanks is very soothing.",
+      "directions" : [{
+          "rel" : "Door to East",
+          "link" : "/rooms/upper-east-hallway-two"
+        }]
+    },{
+      "slug" : "trophy-room",
+      "name" : "Trophy room",
+      "description" : "A large trophy room, full of animals that have been stuffed and treated.",
+      "surroundings" : "You notice that a moose head has fallen onto the floor, and it seems like a good idea to take it with you.",
+      "directions" : [{
+          "rel" : "Door to South",
+          "link" : "/rooms/upper-east-hallway-two"
+        }],
+      "newItem": {
+        "name": "Moose head",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "The moose's cold, dead eyes stare into your soul.",
+        "messageWhenUsed": "You place the moose head onto the empty plaque.",
+        "unlocks" : "/rooms/study"
+      }
+    },{
+      "slug" : "upper-west-hallway",
+      "name" : "Hallway",
+      "description" : "You are in yet another hallway.",
+      "surroundings" : "I feel bad for their cleaner.",
+      "directions" : [{
+          "rel" : "Door to West",
+          "link" : "/rooms/guest-bedroom"
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/upstairs-foyer"
+        }]
+    },{
+      "slug" : "guest-bedroom",
+      "name" : "Guest bedroom",
+      "description" : "A well-decorated guest bedroom. It looks nicer than any hotel I've ever stayed in.",
+      "surroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a small key on a bedside table.",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/study",
+          "blocked" : true
+        },{
+          "rel" : "Door to East",
+          "link" : "/rooms/upper-west-hallway"
+        }],
+      "newItem": {
+        "name": "Key",
+        "options": [
+          {
+            "name": "Use"
+          },
+          {
+            "name": "Describe"
+          }
+        ],
+        "description": "A small key.",
+        "messageWhenUsed": "You have unlocked the door to the pool.",
+        "unlocks" : "/rooms/swimming-pool"
+      }
+    },{
+      "slug" : "study",
+      "name" : "Study",
+      "description" : "You are in a study, with a desk covered in scattered papers and cut-outs from news stories.",
+      "surroundings" : "There's a computer on a desk, with a prompt for a password on the screen.",
+      "directions" : [{
+          "rel" : "Door to North",
+          "link" : "/rooms/laboratory",
+          "blocked" : true
+        },{
+          "rel" : "Door to South",
+          "link" : "/rooms/guest-bedroom"
+        }]
+    },{
+      "slug" : "laboratory",
+      "name" : "Laboratory",
+      "description" : "This is unusual. There's a laboratory here!",
+      "surroundings" : "Piles of papers and folders are scattered everywhere. The information held within is terrifying. This is just the beginning...",
+     "directions" : [{
+          "rel" : "Roll credits",
+          "link" : "/rooms/credits"
+        }]
+    },
+    {
+      "slug": "credits",
+      "gameOver": true,
+      "description": "Everything",
+      "surroundings": "David Nimmo"
+    }]
+}

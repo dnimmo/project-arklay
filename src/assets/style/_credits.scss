@@ -1,0 +1,27 @@
+@include keyframes(roll-credits){
+  0% { transform: translate3D(0, 60vh, 0); }
+  100% { 
+    transform: translate3D(0, -100vh, 0); }
+}
+
+.creditsContainer{
+  overflow: hidden;
+  padding: 5vw;
+  height: 80vh;
+
+  .credits{
+    text-align: center;
+    margin: auto;
+    transform: translate3D(0, -10000000rem, 0);
+    @include animation(roll-credits 20s linear);
+
+    li{
+      list-style: none;
+      margin-bottom: 4rem;
+      .emphasis{
+        font-weight: bold;
+      }
+    }
+  }
+  
+}
