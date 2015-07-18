@@ -51,7 +51,7 @@ var	 jsFiles = [
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', ['test', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test',*/ 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
