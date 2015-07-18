@@ -181,7 +181,6 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
         // Add current room to visited rooms if not previously visited
         $scope.visitedRooms.push($scope.current.name);  
       }
-      console.log($scope.visitedRooms);
     }
   
   // Show item options
