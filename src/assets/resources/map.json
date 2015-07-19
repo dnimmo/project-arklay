@@ -181,6 +181,8 @@
       "name": "Garage",
       "description": "A large garage.",
       "surroundings": "The garage is empty, apart from a large array of tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
+      "hasChanged" : false,
+      "changedSurroundings": "The garage is empty, apart from a large array of tools. You're not entirely sure what they're for."
       "directions" : [{ 
         "rel" : "Door to South",
         "link" : "/rooms/swimming-pool"
