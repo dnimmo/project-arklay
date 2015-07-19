@@ -1,5 +1,5 @@
 // ============
-// Server stuff -- Almost certainly unnecessary now
+// Server stuff
 // ============
 var fs = require('fs');
 var express = require("express");
@@ -12,14 +12,12 @@ var credits = JSON.parse(fs.readFileSync('src/assets/resources/credits.json', 'u
 
 app.use(express.static(__dirname + "/build"));
 app.get('/rooms/:slug', function(req, res){
-  // Get the x and y co-ordinates and return the right room info
+  // Get the slug of the room we're moving to
   for (var i = 0; i < data.rooms.length; i++){        
 
     if(data.rooms[i].slug== req.params.slug){
       res.json(data.rooms[i]);
       return;
-    } else {
-      console.log('nothing to see here');
     }
   }
 });
