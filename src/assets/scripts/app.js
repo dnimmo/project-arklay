@@ -124,6 +124,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
           if(direction.link == room){
             // if a previously used item has unlocked a direction in this room, it should still be unlocked
             direction.blocked = false;
+            $scope.updateSurroundings();
           } 
         });
       });
@@ -136,12 +137,14 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
       angular.forEach($scope.inventory, function(item){
         if($scope.current.newItem.name == item.name){
           itemAlreadyPickedUp = true;
+          // Update text displayed if necessary
+          $scope.updateSurroundings();
         }
       });
       // Check to make sure any items picked up in this area haven't already been used
       angular.forEach($scope.unlockedRooms, function(room){
         if($scope.current.newItem.unlocks == room){
-           itemAlreadyPickedUp = true;
+          itemAlreadyPickedUp = true;
          }
       });
       // If item has never been picked up or used
@@ -154,6 +157,15 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     }
       
   });
+  }
+  
+  $scope.updateSurroundings = function(){
+    if($scope.current.canChange){
+      //Update the current surroundings
+      $scope.current.surroundings = $scope.current.changedSurroundings;
+    } else {
+      // Nothing to see here
+    }
   }
   
   // Register player - currently only used in credits
@@ -214,6 +226,8 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     if(checkItemResult){
       // Discard item
       $scope.discardItem();
+      // Update text displayed if necessary
+      $scope.updateSurroundings();
     } else {
       // Item can't be used in this room
       $scope.additionalMessage = "You can't do that here"; 

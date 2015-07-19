@@ -118,7 +118,9 @@
       "slug": "secret-room",
       "name": "A hidden room",
       "description": "A well-hidden room.",
-      "surroundings": "The room is almost completely empty, save for a piece of paper on the floor, with a series of numbers scribbled on it.",
+      "surroundings" : "The room is almost completely empty, save for a piece of paper on the floor, with a series of numbers scribbled on it.",
+      "canChange" : true,
+      "changedSurroundings" : "The room is almost completely empty.",
       "directions" : [{ 
         "rel" : "Door to East",
         "link" : "/rooms/library"
@@ -155,7 +157,7 @@
       "description": "A long hallway with large windows.",
       "surroundings": "The weather outside is terrible. You can't see very far into the distance at all. There's a locked door to the North.",
       "canChange" : true,
-      "changedSurroundings" : "The weather outside is terrible. You can't see very far into the distance at all. There are doords to the North and South.",
+      "changedSurroundings" : "The weather outside is terrible. You can't see very far into the distance at all. There are doors to the North and South.",
       "directions" : [{
         "rel" : "Door to North",
         "link" : "/rooms/swimming-pool",
@@ -182,7 +184,7 @@
       "description": "A large garage.",
       "surroundings": "The garage is empty, apart from a large array of tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
       "canChange" : true,
-      "changedSurroundings": "The garage is empty, apart from a large array of tools. You're not entirely sure what they're for."
+      "changedSurroundings": "The garage is empty, apart from a large array of tools. You're not entirely sure what they're for.",
       "directions" : [{ 
         "rel" : "Door to South",
         "link" : "/rooms/swimming-pool"
@@ -322,6 +324,8 @@
       "name" : "Trophy room",
       "description" : "A large trophy room, full of animals that have been stuffed and treated.",
       "surroundings" : "You notice that a moose head has fallen onto the floor, and it seems like a good idea to take it with you.",
+      "canChange" : true,
+      "changedSurroundings" : "It's pretty creepy in here.",
       "directions" : [{
           "rel" : "Door to South",
           "link" : "/rooms/upper-east-hallway-two"
@@ -358,10 +362,7 @@
       "description" : "A well-decorated guest bedroom.",
       "surroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a small key on a bedside table.",
       "canChange" : true,
-      "changedSurroundings" : [ 
-        "There's an unusual-looking plaque on the wall. It looks like it's missing something.",
-        "The moose head is staring at you from the wall. A secret door to the North has revealed itself."
-      ],
+      "changedSurroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something.",
       "directions" : [{
           "rel" : "Door to North",
           "link" : "/rooms/study",
