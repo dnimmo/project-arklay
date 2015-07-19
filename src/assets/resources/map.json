@@ -104,7 +104,7 @@
       "description": "A small library, full of useless books.",
       "surroundings": "You notice that 'Tales of the Occult, Vol 2' is missing.",
       "canChange" : true,
-      "changedSurroundings": "The bookcase is full, thanks to your careful tidying up. The replaced book has revealed a door in the West wall, which is an amazing feat of engineering.",
+      "surroundingsWhenItemUsed": "The bookcase is full, thanks to your careful tidying up. The replaced book has revealed a door in the West wall, which is an amazing feat of engineering.",
       "directions" : [{ 
         "rel" : "Door to West",
         "link" : "/rooms/secret-room",
@@ -120,7 +120,7 @@
       "description": "A well-hidden room.",
       "surroundings" : "The room is almost completely empty, save for a piece of paper on the floor, with a series of numbers scribbled on it.",
       "canChange" : true,
-      "changedSurroundings" : "The room is almost completely empty.",
+      "surroundingsWhenItemPickedUp" : "The room is almost completely empty.",
       "directions" : [{ 
         "rel" : "Door to East",
         "link" : "/rooms/library"
@@ -157,7 +157,7 @@
       "description": "A long hallway with large windows.",
       "surroundings": "The weather outside is terrible. You can't see very far into the distance at all. There's a locked door to the North.",
       "canChange" : true,
-      "changedSurroundings" : "The weather outside is terrible. You can't see very far into the distance at all. There are doors to the North and South.",
+      "surroundingsWhenItemUsed" : "The weather outside is terrible. You can't see very far into the distance at all. There are doors to the North and South.",
       "directions" : [{
         "rel" : "Door to North",
         "link" : "/rooms/swimming-pool",
@@ -182,9 +182,9 @@
       "slug": "garage",
       "name": "Garage",
       "description": "A large garage.",
-      "surroundings": "The garage is empty, apart from a large array of tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
+      "surroundings": "The garage is empty, apart from a few tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
       "canChange" : true,
-      "changedSurroundings": "The garage is empty, apart from a large array of tools. You're not entirely sure what they're for.",
+      "surroundingsWhenItemPickedUp": "The garage is empty, apart from a few tools. You're not entirely sure what they're for.",
       "directions" : [{ 
         "rel" : "Door to South",
         "link" : "/rooms/swimming-pool"
@@ -209,7 +209,7 @@
       "description" : "You are at the top of a grand staircase.",
       "surroundings" : "You have a good view of the foyer from the top of the staircase. A door to the east has been boarded shut.",
       "canChange" : true,
-      "changedSurroundings" : "You have a good view of the foyer from the top of the staircase. There are doors to the East and West.",
+      "surroundingsWhenItemUsed" : "You have a good view of the foyer from the top of the staircase. There are doors to the East and West.",
       "directions" : [{
           "rel" : "Door to West",
           "link" : "/rooms/upper-west-hallway"
@@ -276,7 +276,7 @@
       "description" : "A fancy en-suite. There's a bidet, so that's quite exciting.",
       "surroundings" : "There's a magazine rack here, which is empty except for a single book",
       "canChange" : true,
-      "changedSurroundings" : "The magazine rack remains empty.",
+      "surroundingsWhenItemPickedUp" : "The magazine rack remains empty.",
       "directions" : [{
           "rel" : "Door to West",
           "link" : "/rooms/master-bedroom"
@@ -325,7 +325,7 @@
       "description" : "A large trophy room, full of animals that have been stuffed and treated.",
       "surroundings" : "You notice that a moose head has fallen onto the floor, and it seems like a good idea to take it with you.",
       "canChange" : true,
-      "changedSurroundings" : "It's pretty creepy in here.",
+      "surroundingsWhenItemPickedUp" : "It's pretty creepy in here.",
       "directions" : [{
           "rel" : "Door to South",
           "link" : "/rooms/upper-east-hallway-two"
@@ -360,9 +360,10 @@
       "slug" : "guest-bedroom",
       "name" : "Guest bedroom",
       "description" : "A well-decorated guest bedroom.",
-      "surroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a small key on a bedside table.",
+      "surroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a door to the North, but it's locked. There's a small key on a bedside table.",
       "canChange" : true,
-      "changedSurroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something.",
+      "surroundingsWhenItemPickedUp" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a door to the North, but it's locked.",
+      "surroundingsWhenItemUsed" : "The moose's head is staring at you from its place on the wall, and the door to the North is unlocked.",
       "directions" : [{
           "rel" : "Door to North",
           "link" : "/rooms/study",
@@ -391,7 +392,7 @@
       "description" : "You are in a study, with a desk covered in scattered papers and cut-outs from news stories.",
       "surroundings" : "There's a computer on a desk, with a prompt for a password on the screen.",
       "canChange" : true,
-      "changedSurroundings" : "The computer has switched itself off, but a door to the North has revealed itself.",
+      "surroundingsWhenItemUsed" : "The computer has switched itself off, but a door to the North has revealed itself.",
       "directions" : [{
           "rel" : "Door to North",
           "link" : "/rooms/laboratory",

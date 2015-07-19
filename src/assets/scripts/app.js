@@ -124,7 +124,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
           if(direction.link == room){
             // if a previously used item has unlocked a direction in this room, it should still be unlocked
             direction.blocked = false;
-            $scope.updateSurroundings();
+            $scope.updateSurroundings('used');
           } 
         });
       });
@@ -138,7 +138,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
         if($scope.current.newItem.name == item.name){
           itemAlreadyPickedUp = true;
           // Update text displayed if necessary
-          $scope.updateSurroundings();
+          $scope.updateSurroundings('picked up');
         }
       });
       // Check to make sure any items picked up in this area haven't already been used
@@ -152,17 +152,24 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
         // Add the new item to the inventory
         GameItemFactory.add($scope.current.newItem);
         // Update our inventory
-        $scope.inventory = GameItemFactory.getInventory();        
+        $scope.inventory = GameItemFactory.getInventory();
+        // Display message to show item picked up
+        $scope.additionalMessage = '== "' + $scope.current.newItem.name + '" picked up ==';
       }
     }
       
   });
   }
   
-  $scope.updateSurroundings = function(){
+  $scope.updateSurroundings = function(usedOrPickedUp){
+    console.log($scope.current.surroundings);
+    // Update surroundings based on whether an item has been used or picked up
     if($scope.current.canChange){
-      //Update the current surroundings
-      $scope.current.surroundings = $scope.current.changedSurroundings;
+      if(usedOrPickedUp == 'picked up'){
+        $scope.current.surroundings = $scope.current.surroundingsWhenItemPickedUp;  
+       } else if (usedOrPickedUp == 'used'){
+         $scope.current.surroundings = $scope.current.surroundingsWhenItemUsed; 
+       } 
     } else {
       // Nothing to see here
     }
@@ -224,10 +231,12 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     var checkItemResult = GameItemFactory.use($scope.selectedItem.unlocks, $scope.current.directions);
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
+      // Display message to say that item has been used
+      $scope.additionalMessage = '== "' + $scope.selectedItem.name + '" used ==';
+      // Update text displayed if necessary
+      $scope.updateSurroundings('used');
       // Discard item
       $scope.discardItem();
-      // Update text displayed if necessary
-      $scope.updateSurroundings();
     } else {
       // Item can't be used in this room
       $scope.additionalMessage = "You can't do that here"; 
