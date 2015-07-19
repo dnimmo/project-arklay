@@ -403,7 +403,7 @@
       "description" : "This is unusual. There's a laboratory here!",
       "surroundings" : "Piles of papers and folders are scattered everywhere. The information held within is terrifying. This is just the beginning...",
      "directions" : [{
-          "rel" : "To be continued",
+          "rel" : "Roll credits",
           "link" : "/rooms/credits"
         }]
     }]
