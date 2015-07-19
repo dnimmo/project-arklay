@@ -8,6 +8,10 @@
     {
       "thing" : "Map / Story",
       "credit" : "Jamie Mercer and David Nimmo"
+    },
+    {
+      "thing" : "Testing",
+      "credit" : "Grant Hutchison"
     }
   ]
 }
