@@ -103,7 +103,7 @@
       "name": "Library",
       "description": "A small library, full of useless books.",
       "surroundings": "You notice that 'Tales of the Occult, Vol 2' is missing.",
-      "hasChanged": false,
+      "canChange" : true,
       "changedSurroundings": "The bookcase is full, thanks to your careful tidying up. The replaced book has revealed a door in the West wall, which is an amazing feat of engineering.",
       "directions" : [{ 
         "rel" : "Door to West",
@@ -154,7 +154,7 @@
       "name": "Hallway",
       "description": "A long hallway with large windows.",
       "surroundings": "The weather outside is terrible. You can't see very far into the distance at all. There's a locked door to the North.",
-      "hasChanged": false,
+      "canChange" : true,
       "changedSurroundings" : "The weather outside is terrible. You can't see very far into the distance at all. There are doords to the North and South.",
       "directions" : [{
         "rel" : "Door to North",
@@ -181,7 +181,7 @@
       "name": "Garage",
       "description": "A large garage.",
       "surroundings": "The garage is empty, apart from a large array of tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
-      "hasChanged" : false,
+      "canChange" : true,
       "changedSurroundings": "The garage is empty, apart from a large array of tools. You're not entirely sure what they're for."
       "directions" : [{ 
         "rel" : "Door to South",
@@ -206,7 +206,7 @@
       "name" : "Upstairs foyer",
       "description" : "You are at the top of a grand staircase.",
       "surroundings" : "You have a good view of the foyer from the top of the staircase. A door to the east has been boarded shut.",
-      "hasChanged" : false,
+      "canChange" : true,
       "changedSurroundings" : "You have a good view of the foyer from the top of the staircase. There are doors to the East and West.",
       "directions" : [{
           "rel" : "Door to West",
@@ -273,7 +273,7 @@
       "name" : "The master bedroom's en-suite",
       "description" : "A fancy en-suite. There's a bidet, so that's quite exciting.",
       "surroundings" : "There's a magazine rack here, which is empty except for a single book",
-      "hasChanged" : false,
+      "canChange" : true,
       "changedSurroundings" : "The magazine rack remains empty.",
       "directions" : [{
           "rel" : "Door to West",
@@ -357,7 +357,7 @@
       "name" : "Guest bedroom",
       "description" : "A well-decorated guest bedroom.",
       "surroundings" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a small key on a bedside table.",
-      "hasChanged" : false,
+      "canChange" : true,
       "changedSurroundings" : [ 
         "There's an unusual-looking plaque on the wall. It looks like it's missing something.",
         "The moose head is staring at you from the wall. A secret door to the North has revealed itself."
@@ -389,7 +389,7 @@
       "name" : "Study",
       "description" : "You are in a study, with a desk covered in scattered papers and cut-outs from news stories.",
       "surroundings" : "There's a computer on a desk, with a prompt for a password on the screen.",
-      "hasChanged" : false,
+      "canChange" : true,
       "changedSurroundings" : "The computer has switched itself off, but a door to the North has revealed itself.",
       "directions" : [{
           "rel" : "Door to North",
