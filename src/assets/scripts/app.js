@@ -162,7 +162,6 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   }
   
   $scope.updateSurroundings = function(usedOrPickedUp){
-    console.log($scope.current.surroundings);
     // Update surroundings based on whether an item has been used or picked up
     if($scope.current.canChange){
       if(usedOrPickedUp == 'picked up'){
