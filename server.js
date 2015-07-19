@@ -5,7 +5,7 @@ var fs = require('fs');
 var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
-var port = 8080;
+var port = 80;
 
 var data = JSON.parse(fs.readFileSync('src/assets/resources/map.json', 'utf8'));
 var credits = JSON.parse(fs.readFileSync('src/assets/resources/credits.json', 'utf8'));
