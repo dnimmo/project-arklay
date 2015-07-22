@@ -20,7 +20,7 @@
       "slug": "dining-hall",
       "name": "Dining Hall",
       "description": "A large dining hall.",
-      "surroundings": "A cavernous dining hall. A grandfather clock is steadily ticking, its sound echoing through the room.",
+      "surroundings": "A grandfather clock is steadily ticking, its sound echoing through the room.",
       "directions" : [{
           "rel" : "Door to North",
           "link" : "/rooms/lower-west-hall-one"

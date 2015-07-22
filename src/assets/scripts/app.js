@@ -1,4 +1,4 @@
-var app = angular.module('projectMud', ['ui.router']);
+var app = angular.module('projectArklay', ['ui.router']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   
@@ -29,7 +29,37 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   }
 ]);
 
+// Service to wrap socket.io in Angular
+app.service('socket', function($rootScope){
+	var socket = io.connect(null); //paramater is for address and port - passing in 'null' ensures that the browser's current address and port are used
+	return{
+		// socket.on
+		on: function(eventName, callback){
+			socket.on(eventName, function(){
+				var args = arguments;
+				// Bind to root scope and apply any changes on change
+				$rootScope.$apply(function(){
+					callback.apply(socket, args);
+				});
+			});
+		},
+		// socket.emit
+		emit: function(eventName, data, callback){
+			socket.emit(eventName, data, function(){
+				var args = arguments;
+				$rootScope.$apply(function(){
+					if(callback){
+						callback.apply(socket, args);
+					}
+				});
+			})
+		}
+	};
+})
+
+
 app.factory('GameMapFactory', ['$http', function($http) {
+  socket.emit('setup', 'start');
   return{    
     init:
       function(){
@@ -37,8 +67,14 @@ app.factory('GameMapFactory', ['$http', function($http) {
       },
     checkLocation: 
       function(current){
-        // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json 
+        // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json
         return $http.get(current);
+      },
+    checkForOtherPlayers:
+      function(currentRoom, previousRoom){
+        // Display a message if someone else is in the same room
+        console.log(currentRoom, previousRoom.slug);
+        socket.emit('checkForOtherPeople', currentRoom, previousRoom.slug);
       }
   }
 }]);
@@ -96,7 +132,8 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   $scope.itemOptionsOpen = false;
   $scope.showDescription = false;
   $scope.additionalMessage = '';
-  $scope.visitedRooms = [];
+  $scope.otherPlayerInRoom = '';
+  $scope.visitedRooms = [{}];
   $scope.unlockedRooms = [];
   $scope.credits = [];
   
@@ -112,11 +149,12 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
     // Assign promise response to $scope.current
     $scope.current = response.data;
-      
+    // Check to see if there's anyone else in the room
+    //console.log($scope.visitedRooms[$scope.visitedRooms.length-1]);
+    GameMapFactory.checkForOtherPlayers($scope.current.slug, $scope.visitedRooms[$scope.visitedRooms.length-1]);
     if($scope.current.gameOver){
       return;
     }
-      
     // Check to see if a locked area in this room has been previously unlocked
     if($scope.unlockedRooms.length != 0){
       angular.forEach($scope.current.directions, function(direction){
@@ -182,22 +220,23 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   // Move in a given direction
   $scope.move = function(roomToMoveTo){
     $scope.update(roomToMoveTo);
-    // reset any additional message on the screen
+    // Reset any additional message on the screen
     $scope.checkIfVisitedRoom();
     $scope.additionalMessage = '';
+    $scope.otherPlayerInRoom = '';
   }
   
   // Check if room has been visited
   $scope.checkIfVisitedRoom = function(){
       var hasBeenVisited = false;
       angular.forEach($scope.visitedRooms, function(room){
-        if(room == $scope.current.name){
+        if(room.name == $scope.current.name){
           hasBeenVisited = true;
         }
       });
       if(!hasBeenVisited){
         // Add current room to visited rooms if not previously visited
-        $scope.visitedRooms.push($scope.current.name);  
+        $scope.visitedRooms.push({"name" : $scope.current.name, "slug" : $scope.current.slug});  
       }
     }
   
@@ -244,5 +283,16 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   
   $scope.getCredits = CreditsFactory.getCredits().then(function(response){
     $scope.credits = response.data.credits;
+  });
+  
+  // ============
+  // Socket stuff
+  // ============
+  
+  // When two players are in the same room, display a message to let them know they are not alone
+  // This is handled in server.js
+  socket.on('someoneElseIsHere', function(data){
+    $scope.otherPlayerInRoom = data;
+    $scope.$apply();
   });
 }]);

@@ -1,4 +1,9 @@
-<label for='name'>What was your name again?  </label>
+<label for='name'>Your name: </label>
+<br/>
 <input type='text' data-ng-model='playerName'/>
-
+<br/>
+<label for='email'>Your email address: </label>
+<br/>
+<input type='email' data-ng-model='playerEmail'/>
+<br/>
 <a class='button' data-ui-sref='game' data-ng-click=registerPlayer(playerName)>Get started</a>

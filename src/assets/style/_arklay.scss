@@ -61,12 +61,13 @@ label{
   margin: 1rem 0;
 }
 
-input[type='text']{
+input[type='text'], input[type='email']{
   background-color: #000000;
   font-size: 2rem;
   color: #ffffff;
   border-width: 0 0 0.1rem 0;
   text-align: center;  
+  margin-bottom: 5rem;
 }
 
 #directionOptions{
