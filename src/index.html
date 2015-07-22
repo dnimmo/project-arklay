@@ -13,14 +13,15 @@
     </main>
     <section id='inventory' data-ng-if='inventory.length > 0'>
       <!--Put into separate partial-->
-      <h2 data-ng-click='inventoryOpen = !inventoryOpen'>Inventory</h2>
+      <h2 data-ng-click='toggleInventory()'>Inventory</h2>
       <div class="inventoryContents" data-ng-if='inventoryOpen'>
         <ul data-ng-if='!itemOptionsOpen'>
           <li data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>{{item.name}}</li>
         </ul>
+        <br />
+        <p class="closeInventory" data-ng-if='!itemOptionsOpen' data-ng-click='toggleInventory()'>&lt; Close Inventory &gt;</p>
         <p>{{selectedItem.description}}</p>
-        <p data-ng-if=(additionalMessage)> <i>This item can not be used here.</i></p>
-        <ul data-ng-if='itemOptionsOpen'>
+        <ul class='itemOptions' data-ng-if='itemOptionsOpen'>
           <li data-ng-click='use("{{selectedItem}}")'>Use</li>
           <li data-ng-click='clearSelectedItem()'>Cancel</li>
         </ul>

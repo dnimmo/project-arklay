@@ -1,27 +1,46 @@
 #inventory{
   text-align: center;
   position: fixed;
-  bottom: 0;
-  border-top: 0.1rem solid #ffffff;
+  top: 0;
+  border-bottom: 0.1rem solid #ffffff;
   width: 100%;
-  background-color: #000000;
+  background-color: rgba(0,0,0,0.9);
   
   .inventoryContents{
       padding: 2rem;
   }
   
+  .closeInventory{
+    margin-top: -2rem;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  
+  .itemOptions{
+    border-bottom: none;
+  }
   
   h2{
     font-size: 2.2rem;
     display: block;
     margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-    color: #000000;
+    padding: 1rem;
+    background-color: #000000;
+    color: #ffffff;
     cursor: pointer;
+    transition: $transition;
+    &:hover, &.open{
+      background-color: #ffffff;
+      color: #000000;
+    }
+  }
+  ul{
+    border-bottom: 0.1rem dashed;
+    padding-bottom: 4rem;
   }
   li{
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     list-style: none;
     border: 0.1rem solid #ffffff;
     display: inline-block;

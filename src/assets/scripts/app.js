@@ -144,6 +144,11 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   
   $scope.playerName;
   // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
+  
+  $scope.toggleInventory = function(){
+    $scope.inventoryOpen = !$scope.inventoryOpen;
+  }
+  
   $scope.update = function(roomToMoveTo){
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
     // Assign promise response to $scope.current
@@ -258,7 +263,9 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
       // Keep a record of the items used so far
       $scope.unlockedRooms.push($scope.selectedItem.unlocks);
       // Clear the current selected item (which no longer exists anyway)
-      $scope.clearSelectedItem();  
+      $scope.clearSelectedItem();
+      // Close inventory
+      $scope.toggleInventory();
   }
   
   $scope.use = function(){
@@ -275,7 +282,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
       $scope.discardItem();
     } else {
       // Item can't be used in this room
-      $scope.additionalMessage = "You can't do that here"; 
+      $scope.additionalMessage = "== You can't do that here =="; 
     }
   }
   

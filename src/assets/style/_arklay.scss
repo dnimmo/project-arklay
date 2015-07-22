@@ -23,9 +23,9 @@ body{
 
 main{
   text-align: center;
-  margin-top: 5%;
-  padding: 1rem;
-  margin-bottom: -30%;
+  margin-top: 10rem;
+  padding: 2rem;
+  overflow: hidden;
   
   @include bp(l){
     padding: 5%;
