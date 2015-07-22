@@ -73,7 +73,6 @@ app.factory('GameMapFactory', ['$http', function($http) {
     checkForOtherPlayers:
       function(currentRoom, previousRoom){
         // Display a message if someone else is in the same room
-        console.log(currentRoom, previousRoom.slug);
         socket.emit('checkForOtherPeople', currentRoom, previousRoom.slug);
       }
   }
@@ -150,7 +149,6 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     // Assign promise response to $scope.current
     $scope.current = response.data;
     // Check to see if there's anyone else in the room
-    //console.log($scope.visitedRooms[$scope.visitedRooms.length-1]);
     GameMapFactory.checkForOtherPlayers($scope.current.slug, $scope.visitedRooms[$scope.visitedRooms.length-1]);
     if($scope.current.gameOver){
       return;
