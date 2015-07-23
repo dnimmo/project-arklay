@@ -23,8 +23,11 @@ body{
 
 main{
   text-align: center;
-  margin-top: 10rem;
-  padding: 2rem;
+  margin-top: 8rem;
+  margin-bottom: -8rem;
+  padding-bottom: -8rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   overflow: hidden;
   
   @include bp(l){

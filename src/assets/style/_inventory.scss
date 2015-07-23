@@ -2,9 +2,10 @@
   text-align: center;
   position: fixed;
   top: 0;
+  border-top: 0.1rem solid #ffffff;
   border-bottom: 0.1rem solid #ffffff;
   width: 100%;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(50,50,50,1);
   
   .inventoryContents{
       padding: 2rem;
@@ -26,7 +27,8 @@
     display: block;
     margin: 0;
     padding: 1rem;
-    background-color: #000000;
+    min-height: 3rem;
+    background-color: rgba(50,50,50,1);
     color: #ffffff;
     cursor: pointer;
     transition: $transition;

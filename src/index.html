@@ -11,9 +11,10 @@
         
     <main data-ui-view>
     </main>
-    <section id='inventory' data-ng-if='inventory.length > 0'>
+    <section id='inventory'>
+    <!--<section id='inventory' data-ng-if='inventory.length > 0'>-->
       <!--Put into separate partial-->
-      <h2 data-ng-click='toggleInventory()'>Inventory</h2>
+      <h2 data-ng-click='toggleInventory()'>Inventory {{'('+inventory.length+')'}} </h2>
       <div class="inventoryContents" data-ng-if='inventoryOpen'>
         <ul data-ng-if='!itemOptionsOpen'>
           <li data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>{{item.name}}</li>
