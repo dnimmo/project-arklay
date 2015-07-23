@@ -11,13 +11,6 @@
       padding: 2rem;
   }
   
-  .closeInventory{
-    margin-top: -2rem;
-    &:hover{
-      cursor: pointer;
-    }
-  }
-  
   .itemOptions{
     border-bottom: none;
   }
@@ -35,25 +28,6 @@
     &:hover, &.open{
       background-color: #ffffff;
       color: #000000;
-    }
-  }
-  ul{
-    border-bottom: 0.1rem dashed;
-    padding-bottom: 4rem;
-  }
-  li{
-    font-size: 1.8rem;
-    list-style: none;
-    border: 0.1rem solid #ffffff;
-    display: inline-block;
-    padding: 2rem;
-    margin: 1.5rem 1.5rem 1.5rem 0;
-    transition: $transition;
-    
-    &:hover{
-      background-color: #ffffff;
-      color: #000000;
-      cursor: pointer;
     }
   }
 }

@@ -46,12 +46,14 @@ h2{
 
 .button{
   border: 0.1rem solid #ffffff;
-  padding: 2rem;
+  padding: 0.5rem 2.5rem 0.3rem;
   display: inline-block;
   margin: 2rem;
   transition: $transition;
   color: #ffffff;
   text-decoration: none;
+  font-size: 0.7em;
+  letter-spacing: 0.07em;
   
   &:hover{
     background-color: #ffffff;

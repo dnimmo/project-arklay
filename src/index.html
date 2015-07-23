@@ -17,14 +17,14 @@
       <h2 data-ng-click='toggleInventory()'>Inventory {{'('+inventory.length+')'}} </h2>
       <div class="inventoryContents" data-ng-if='inventoryOpen'>
         <ul data-ng-if='!itemOptionsOpen'>
-          <li data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>{{item.name}}</li>
+          <li class='button' data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>{{item.name}}</li>
         </ul>
         <br />
-        <p class="closeInventory" data-ng-if='!itemOptionsOpen' data-ng-click='toggleInventory()'>&lt; Close Inventory &gt;</p>
+        <p class="button" data-ng-if='!itemOptionsOpen' data-ng-click='toggleInventory()'>Close Inventory</p>
         <p>{{selectedItem.description}}</p>
         <ul class='itemOptions' data-ng-if='itemOptionsOpen'>
-          <li data-ng-click='use("{{selectedItem}}")'>Use</li>
-          <li data-ng-click='clearSelectedItem()'>Cancel</li>
+          <li class='button' data-ng-click='use("{{selectedItem}}")'>Use</li>
+          <li class='button' data-ng-click='clearSelectedItem()'>Cancel</li>
         </ul>
       </div>
     </section>
