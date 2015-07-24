@@ -8,7 +8,7 @@
   background-color: rgba(50,50,50,1);
   
   .inventoryContents{
-      padding: 2rem;
+      padding: 0 2rem 0 2rem;
   }
   
   .itemOptions{
@@ -28,6 +28,43 @@
     &:hover, &.open{
       background-color: #ffffff;
       color: #000000;
+    }
+  }
+  li{
+    &.button{
+      &.inv{
+        border: none;
+        border-radius: 10rem 10rem 0 0;
+      }
+    }
+    .item{
+      width: 5rem;
+      height: 5rem;
+      transition: $transition;
+      
+      p{
+        &:hover{
+          color: #ffffff;
+        }
+      }
+      
+      @include bp(m){
+        width: 10rem;
+        height: 10rem;
+      } 
+        p{
+          color: #ffffff;
+        }
+      }
+    
+      &:hover{
+        .item{
+          border-radius: 50rem;
+          background-color: rgba(50,50,50,1); 
+        }
+        p{
+          color: rgba(50,50,50,1); 
+        }
     }
   }
 }

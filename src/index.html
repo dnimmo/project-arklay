@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html data-ng-app='projectArklay' data-ng-cloak>
   <head>
+    <title>Project Arklay</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <meta name='description' content='An old-school text adventure game that you can play in your browser'>
     <link rel='author' href='https://plus.google.com/+DavidNimmo/posts'/>
     <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' href='assets/style/main.css'/>
+    <link rel='stylesheet' href='assets/style/main.css'/>    
   </head>
   <body data-ng-controller='MainCtrl'>
         
     <main data-ui-view>
     </main>
     <section id='inventory'>
-    <!--<section id='inventory' data-ng-if='inventory.length > 0'>-->
       <!--Put into separate partial-->
-      <h2 data-ng-click='toggleInventory()'>Inventory {{'('+inventory.length+')'}} </h2>
-      <div class="inventoryContents" data-ng-if='inventoryOpen'>
+      <h2 data-ng-if='inventory.length != 0' data-ng-click='toggleInventory()'>Inventory {{'('+inventory.length+')'}} </h2>
+      <div class="inventoryContents" data-ng-show='inventoryOpen'>
         <ul data-ng-if='!itemOptionsOpen'>
-          <li class='button' data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>{{item.name}}</li>
+          <li class="button inv" data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>
+            <svg class='item'>
+              <use xlink:href='{{item.image}}'></use>
+            </svg>
+            <p>{{item.name}}</p>
+          </li>
         </ul>
-        <br />
         <p class="button" data-ng-if='!itemOptionsOpen' data-ng-click='toggleInventory()'>Close Inventory</p>
         <p>{{selectedItem.description}}</p>
         <ul class='itemOptions' data-ng-if='itemOptionsOpen'>

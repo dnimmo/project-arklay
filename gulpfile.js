@@ -45,13 +45,18 @@ var	 jsFiles = [
 	];
 
 // ==================================================
+// Images
+// ==================================================
+var images = rootDir + '/**/*.svg';
+
+// ==================================================
 // Gulp tasks
 // ==================================================
 
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', [/*'test',*/ 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test',*/ 'move-images', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
@@ -109,6 +114,15 @@ gulp.task('process-javascript', function(){
 	console.log('Finished minifying JS');
 });
 
+// Copy images to 'build'
+// ----------------------
+
+gulp.task('move-images', function(){
+  console.log('Moving images');
+  return gulp.src(images)
+  .pipe(gulp.dest(destDir));
+})
+
 // JS Lint
 // -------
 
@@ -135,7 +149,7 @@ gulp.task('browser-sync', function(){
     }
   });
   // Watch files for changes, then reload on change
-  gulp.watch(destDir + '/**/*.hrml').on('change', browserSync.reload);
+  gulp.watch(destDir + '/**/*.html').on('change', browserSync.reload);
   gulp.watch(destDir + '/**/*.js').on('change', browserSync.reload);
   gulp.watch(destDir + '/**/*.css').on('change', browserSync.reload);
 });

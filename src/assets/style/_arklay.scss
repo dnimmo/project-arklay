@@ -30,7 +30,7 @@ main{
   padding-right: 2rem;
   overflow: hidden;
   
-  @include bp(l){
+  @include bp(m){
     padding: 5%;
   }
 }
