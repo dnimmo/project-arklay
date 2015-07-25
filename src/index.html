@@ -12,19 +12,19 @@
         
     <main data-ui-view>
     </main>
-    <section id='inventory' data-ng-show='inventory.length != 0'>
+    <div class='inventoryToggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0'>
+      <span class='inventoryStuff'>
+        <svg class='inventoryIcon'>
+            <use xlink:href='/assets/images/defs.svg#inventory'></use>
+        </svg> 
+      </span>
+      <span class='inventoryCount' data-ng-show="!inventoryOpen">
+        {{inventory.length}}
+      </span>
+    </div>
+    <section id='inventory' data-ng-show='inventoryOpen'>
       <!--Put into separate partial-->
-      <div class='inventoryToggle' data-ng-click='toggleInventory()'>
-        <span class='inventoryStuff'>
-          <svg class='inventoryIcon'>
-              <use xlink:href='/assets/images/defs.svg#inventory'></use>
-          </svg> 
-        </span>
-        <span class='inventoryCount' data-ng-show="!inventoryOpen">
-          {{inventory.length}}
-        </span>
-      </div>
-      <div class="inventoryContents" data-ng-show='inventoryOpen'>
+      <div class="inventoryContents">
         <ul data-ng-if='!itemOptionsOpen'>
           <li class="button inv" data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>
             <svg class='item'>

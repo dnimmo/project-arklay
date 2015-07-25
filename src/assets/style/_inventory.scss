@@ -4,6 +4,7 @@
   position: fixed;
   right: 1rem;
   top: 0;
+  cursor: pointer;
   
   @include bp(m){
     height: 8rem;
@@ -30,6 +31,7 @@
   top: 2.8rem;
   right: 2.1rem;
   color: #000000;
+  cursor: pointer;
   
   @include bp(m){
     top: 3.3rem;
@@ -48,10 +50,19 @@
   text-align: center;
   position: fixed;
   top: 0;
-  border-top: 0.1rem solid #ffffff;
-  border-bottom: 0.1rem solid #ffffff;
-  width: 100%;
-  background-color: rgba(50,50,50,1);
+  border-left: 0.1rem solid #ffffff;
+  width: 80%;
+  background-color: #323232;
+  right: 0;
+  min-height: 100vh;
+  
+  @include bp(m){
+    width: 60%;
+  }
+  
+  @include bp(l){
+    width: 30%;
+  }
   
   p{
     padding-top: 1rem;
