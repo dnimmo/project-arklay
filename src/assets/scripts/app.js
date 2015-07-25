@@ -131,6 +131,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   $scope.itemOptionsOpen = false;
   $scope.showDescription = false;
   $scope.additionalMessage = '';
+  $scope.itemMessage = '';
   $scope.otherPlayerInRoom = '';
   $scope.visitedRooms = [{}];
   $scope.unlockedRooms = [];
@@ -146,6 +147,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
   
   $scope.toggleInventory = function(){
+    $scope.additionalMessage = '';
     $scope.inventoryOpen = !$scope.inventoryOpen;
   }
   
@@ -195,7 +197,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
         // Update our inventory
         $scope.inventory = GameItemFactory.getInventory();
         // Display message to show item picked up
-        $scope.additionalMessage = '== "' + $scope.current.newItem.name + '" picked up ==';
+        $scope.itemMessage = '== "' + $scope.current.newItem.name + '" picked up ==';
       }
     }
       
@@ -225,6 +227,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     $scope.update(roomToMoveTo);
     // Reset any additional message on the screen
     $scope.checkIfVisitedRoom();
+    $scope.itemMessage= '';
     $scope.additionalMessage = '';
     $scope.otherPlayerInRoom = '';
   }
@@ -251,6 +254,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   
   // Cancel selected item
   $scope.clearSelectedItem = function(){
+    $scope.additionalMessage = '';
     $scope.selectedItem = '';
     // Close the inventory
     $scope.itemOptionsOpen = false; 
@@ -275,7 +279,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
       // Display message to say that item has been used
-      $scope.additionalMessage = '== "' + $scope.selectedItem.name + '" used ==';
+      $scope.itemMessage = '== "' + $scope.selectedItem.name + '" used ==';
       // Update text displayed if necessary
       $scope.updateSurroundings('used');
       // Discard item
