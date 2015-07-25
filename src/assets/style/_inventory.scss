@@ -32,8 +32,9 @@
   color: #000000;
   
   @include bp(m){
-    top: 2.8rem;
+    top: 3.3rem;
     right: 2.1rem;
+    font-size: 1.8rem;
   }
   
   @include bp(l){
