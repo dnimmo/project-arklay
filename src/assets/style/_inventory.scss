@@ -1,3 +1,48 @@
+.inventoryIcon{
+  height: 7rem;
+  width: 5rem;
+  position: fixed;
+  right: 1rem;
+  top: 0;
+  
+  @include bp(m){
+    height: 8rem;
+    width: 6rem;
+    position: fixed;
+    right: 0.5rem;
+    top: 0;
+  }
+  
+  @include bp(l){
+    height: 10rem;
+    width: 8rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+}
+.inventoryCount{
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  display: inline-block;
+  padding: 0.2rem 0.8rem 0rem 0.8rem;
+  position: fixed;
+  top: 2.8rem;
+  right: 2.1rem;
+  color: #000000;
+  
+  @include bp(m){
+    top: 2.8rem;
+    right: 2.1rem;
+  }
+  
+  @include bp(l){
+    top: 5.3rem;
+    right: 3.7rem;
+    font-size: 2.5rem;
+  }
+}
+
 #inventory{
   text-align: center;
   position: fixed;
@@ -7,6 +52,10 @@
   width: 100%;
   background-color: rgba(50,50,50,1);
   
+  p{
+    padding-top: 1rem;
+  }
+  
   .inventoryContents{
       padding: 0 2rem 0 2rem;
   }
@@ -15,20 +64,13 @@
     border-bottom: none;
   }
   
-  h2{
+  .inventoryToggle{
     font-size: 2.2rem;
     display: block;
     margin: 0;
-    padding: 1rem;
-    min-height: 3rem;
-    background-color: rgba(50,50,50,1);
     color: #ffffff;
     cursor: pointer;
     transition: $transition;
-    &:hover, &.open{
-      background-color: #ffffff;
-      color: #000000;
-    }
   }
   li{
     &.button{
