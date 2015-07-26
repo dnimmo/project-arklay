@@ -5,6 +5,8 @@
   right: 1rem;
   top: 0;
   cursor: pointer;
+  background-color: #000000;
+  border-radius: 5rem;
   
   @include bp(m){
     height: 8rem;
