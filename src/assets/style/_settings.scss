@@ -1,0 +1,59 @@
+.settingsIcon{
+  @extend %icons;
+  left: 0.5rem;
+}
+
+#settings{
+  @extend %menus;
+  width: 90%;
+  padding: 1rem;
+  left: 0;
+  border-right: 0.2rem solid #ffffff;
+  z-index: 80000;
+  
+  .button{
+    min-width: 80%;
+    
+    @include bp(m){
+      min-width: 90%;
+      margin-left: 5%;
+      float: left;
+    }
+  }
+  
+  .individualSetting{
+    h3{
+      margin-top: 0.5rem;
+    }
+    .button{
+      min-width: 35%;
+      float: left;
+      margin-top: 0;
+      
+      @include bp(m){
+        min-width: 33%;
+      }
+    }
+    input{
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
+  }
+  
+  label{
+    float: left;
+    width: 45%;
+  }
+  input{
+    background-color: #323232;
+  }
+  
+  .close{
+    display: block;
+    clear: both;
+  }
+  
+  @include bp(m){
+    width: 30%;
+  }
+}

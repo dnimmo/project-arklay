@@ -4,13 +4,13 @@
 <p data-ng-if='current.showReturnedMessage'>{{current.returnedMessage}}</p>
 <p>{{current.surroundings}}</p>
 
-<ul id="directionOptions">
-  <li data-ng-repeat='direction in current.directions' class='{{direction.rel}}' data-ng-if='!direction.blocked && direction.rel != "Roll credits" ' data-ng-click='move(direction.link)'>
+<ul id="directionOptions" style='border-color: {{settings.textColour}}'>
+  <li data-ng-repeat='direction in current.directions' class='{{direction.rel}}' data-ng-if='!direction.blocked && direction.rel != "Roll credits" ' data-ng-click='move(direction.link)' style='border-color: {{settings.backgroundColour}}'>
     {{direction.rel}}
   </li>
 </ul>
 
-<p class='button' data-ng-if='current.directions[0].rel=="Roll credits"' data-ui-sref='credits'>Roll Credits!</p>
+<p class='button' data-ng-if='current.directions[0].rel=="Roll credits"' data-ui-sref='credits' style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>Roll Credits!</p>
 
 <br />
 <p>{{otherPlayerInRoom}}</p>

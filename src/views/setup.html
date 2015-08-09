@@ -1,5 +1,5 @@
 <label for='name'>Your name: </label>
 <br/>
-<input type='text' data-ng-model='playerName'/>
+<input type='text' data-ng-model='playerName' style='background-color: {{settings.backgroundColour}}; color: {{settings.textColour}}; border-color: {{settings.textColour}}'/>
 <br/>
-<a class='button' data-ui-sref='game' data-ng-click=registerPlayer(playerName)>Get started</a>
+<a class='button' data-ui-sref='game' data-ng-click=registerPlayer(playerName) style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>Get started</a>

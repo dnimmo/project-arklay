@@ -6,14 +6,17 @@
       "description" : "You are in the foyer of what appears to be a mansion.",
       "surroundings" : "A vast, dimly-lit foyer, with a grand staircase and a couple of doors.",
       "directions" : [{
-          "rel" : "Go upstairs",
-          "link" : "/rooms/upstairs-foyer"
+          "rel" : "Upstairs",
+          "link" : "/rooms/upstairs-foyer",
+          "image" : "assets/images/defs.svg#upstairs"
         },{
-          "rel" : "Door to West",
-          "link" : "/rooms/dining-hall"
+          "rel" : "West",
+          "link" : "/rooms/dining-hall",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/statue-room"
+          "rel" : "East",
+          "link" : "/rooms/statue-room",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },
     {
@@ -22,11 +25,13 @@
       "description": "A large dining hall.",
       "surroundings": "A grandfather clock is steadily ticking, its sound echoing through the room.",
       "directions" : [{
-          "rel" : "Door to North",
-          "link" : "/rooms/lower-west-hall-one"
+          "rel" : "North",
+          "link" : "/rooms/lower-west-hall-one",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/start"
+          "rel" : "East",
+          "link" : "/rooms/start",          
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },
     {
@@ -35,17 +40,21 @@
       "description": "A hallway stretches out ahead of you.",
       "surroundings": "A number of doors line the hall.",
       "directions" : [{
-        "rel" : "Door to North",
-        "link" : "/rooms/gallery"
+        "rel" : "North",
+        "link" : "/rooms/gallery", 
+        "image" : "assets/images/defs.svg#arrow"
       },{
-        "rel" : "Door to West",
-        "link" : "/rooms/lounge"
+        "rel" : "West",
+        "link" : "/rooms/lounge",
+        "image" : "assets/images/defs.svg#arrow"
       },{ 
-        "rel" : "Door to East",
-        "link" : "/rooms/kitchen"
+        "rel" : "East",
+        "link" : "/rooms/kitchen",
+        "image" : "assets/images/defs.svg#arrow"
       },{
-        "rel" : "Door to South",
-        "link" : "/rooms/dining-hall"
+        "rel" : "South",
+        "link" : "/rooms/dining-hall",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },
     {
@@ -54,8 +63,9 @@
       "description": "An industrial-looking kitchen.",
       "surroundings": "The walls, floor, and work surfaces are stained an odd, brownish colour",
       "directions" : [{
-          "rel" : "Door to West",
-          "link" : "/rooms/lower-west-hall-one"
+          "rel" : "West",
+          "link" : "/rooms/lower-west-hall-one",
+        "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug": "gallery",
@@ -63,11 +73,13 @@
       "description": "A large room full of various pieces of art.",
       "surroundings": "There's no time to look at these now.",
       "directions" : [{
-        "rel" : "Door to West",
-        "link" : "/rooms/lower-west-hall-two"
+        "rel" : "West",
+        "link" : "/rooms/lower-west-hall-two",
+        "image" : "assets/images/defs.svg#arrow"
       },{
-        "rel" : "Door to South",
-        "link" : "/rooms/lower-west-hall-one"
+        "rel" : "South",
+        "link" : "/rooms/lower-west-hall-one",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },{
       "slug": "lounge",
@@ -75,11 +87,13 @@
       "description": "A well-used lounge area.",
       "surroundings": "There's a large fireplace that looks like it hasn't been used in quite some time, and a dusty grand piano, with sheet notes for The Moonlight Sonata. You regret never having learned to play the piano.",
       "directions" : [{
-        "rel" : "Door to North",
-        "link" : "/rooms/lower-west-hall-two"
+        "rel" : "North",
+        "link" : "/rooms/lower-west-hall-two",
+        "image" : "assets/images/defs.svg#arrow"
       },{ 
-        "rel" : "Door to East",
-        "link" : "/rooms/lower-west-hall-one"
+        "rel" : "East",
+        "link" : "/rooms/lower-west-hall-one",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },
     {
@@ -88,14 +102,17 @@
       "description": "A large hallway, with a musty smell in the air.",
       "surroundings": "There are doors to the West, South, and East",
       "directions" : [{ 
-        "rel" : "Door to West",
-        "link" : "/rooms/library"
+        "rel" : "West",
+        "link" : "/rooms/library",
+        "image" : "assets/images/defs.svg#arrow"
       },{
-        "rel" : "Door to East",
-        "link" : "/rooms/gallery"
+        "rel" : "East",
+        "link" : "/rooms/gallery",
+        "image" : "assets/images/defs.svg#arrow"
       },{
-        "rel" : "Door to South",
-        "link" : "/rooms/lounge"
+        "rel" : "South",
+        "link" : "/rooms/lounge",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },
     {
@@ -106,12 +123,14 @@
       "canChange" : true,
       "surroundingsWhenItemUsed": "The bookcase is full, thanks to your careful tidying up. The replaced book has revealed a door in the West wall, which is an amazing feat of engineering.",
       "directions" : [{ 
-        "rel" : "Door to West",
+        "rel" : "West",
         "link" : "/rooms/secret-room",
+        "image" : "assets/images/defs.svg#arrow",
         "blocked" : true
       },{
-        "rel" : "Door to East",
-        "link" : "/rooms/lower-west-hall-two"
+        "rel" : "East",
+        "link" : "/rooms/lower-west-hall-two",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },
     {
@@ -122,8 +141,9 @@
       "canChange" : true,
       "surroundingsWhenItemPickedUp" : "The room is almost completely empty.",
       "directions" : [{ 
-        "rel" : "Door to East",
-        "link" : "/rooms/library"
+        "rel" : "East",
+        "link" : "/rooms/library",
+        "image" : "assets/images/defs.svg#arrow"
       }],
       "newItem": {
         "name": "Key code",
@@ -146,11 +166,13 @@
       "description": "A square room with a prominent centerpiece.",
       "surroundings": "It appears to be a statue of Zeus, throwing a bolt of lightning. Seems fitting for the weather outside.",
       "directions" : [{
-        "rel" : "Door to North",
-        "link" : "/rooms/lower-east-hall"
+        "rel" : "North",
+        "link" : "/rooms/lower-east-hall",
+        "image" : "assets/images/defs.svg#arrow"
       },{ 
-        "rel" : "Door to West",
-        "link" : "/rooms/start"
+        "rel" : "West",
+        "link" : "/rooms/start",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },{
       "slug": "lower-east-hall",
@@ -160,12 +182,14 @@
       "canChange" : true,
       "surroundingsWhenItemUsed" : "The weather outside is terrible. You can't see very far into the distance at all. There are doors to the North and South.",
       "directions" : [{
-        "rel" : "Door to North",
+        "rel" : "North",
         "link" : "/rooms/swimming-pool",
+        "image" : "assets/images/defs.svg#arrow",
         "blocked" : true
       },{ 
-        "rel" : "Door to South",
-        "link" : "/rooms/statue-room"
+        "rel" : "South",
+        "link" : "/rooms/statue-room",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },{
       "slug": "swimming-pool",
@@ -173,11 +197,13 @@
       "description": "An Olympic-sized swimming pool.",
       "surroundings": "What sort of people live here?",
       "directions" : [{
-        "rel" : "Door to North",
-        "link" : "/rooms/garage"
+        "rel" : "North",
+        "link" : "/rooms/garage",
+        "image" : "assets/images/defs.svg#arrow"
       },{ 
-        "rel" : "Door to South",
-        "link" : "/rooms/lower-east-hall"
+        "rel" : "South",
+        "link" : "/rooms/lower-east-hall",
+        "image" : "assets/images/defs.svg#arrow"
       }]
     },{
       "slug": "garage",
@@ -187,8 +213,9 @@
       "canChange" : true,
       "surroundingsWhenItemPickedUp": "The garage is empty, apart from a few tools. You're not entirely sure what they're for.",
       "directions" : [{ 
-        "rel" : "Door to South",
-        "link" : "/rooms/swimming-pool"
+        "rel" : "South",
+        "link" : "/rooms/swimming-pool",
+        "image" : "assets/images/defs.svg#arrow"
       }],
       "newItem": {
         "name": "Crowbar",
@@ -213,15 +240,18 @@
       "canChange" : true,
       "surroundingsWhenItemUsed" : "You have a good view of the foyer from the top of the staircase. There are doors to the East and West.",
       "directions" : [{
-          "rel" : "Door to West",
-          "link" : "/rooms/upper-west-hallway"
+          "rel" : "West",
+          "link" : "/rooms/upper-west-hallway",
+        "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
+          "rel" : "East",
           "link" : "/rooms/upper-east-hallway-one",
+          "image" : "assets/images/defs.svg#arrow",
           "blocked" : true
         },{
-          "rel" : "Go downstairs",
-          "link" : "/rooms/start"
+          "rel" : "Downstairs",
+          "link" : "/rooms/start",
+          "image" : "assets/images/defs.svg#downstairs"
         }]
     },{
       "slug" : "upper-east-hallway-one",
@@ -229,29 +259,35 @@
       "description" : "You are in a hallway.",
       "surroundings" : "It's very dimly lit, and there are no natural sources of light in here. Your own footsteps echo behind you, and you can't be sure that you're alone.",
       "directions" : [{
-          "rel" : "Door to North",
-          "link" : "/rooms/upper-east-hallway-two"
+          "rel" : "North",
+          "link" : "/rooms/upper-east-hallway-two",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to West",
-          "link" : "/rooms/upstairs-foyer"
+          "rel" : "West",
+          "link" : "/rooms/upstairs-foyer",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/master-bedroom"
+          "rel" : "East",
+          "link" : "/rooms/master-bedroom",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "upper-east-hallway-two",
       "name" : "Another hallway",
-      "description" : "You are in yet another hallway.",
+      "description" : "You are in a hallway.",
       "surroundings" : "How many rooms does this place have?",
       "directions" : [{
-          "rel" : "Door to North",
-          "link" : "/rooms/trophy-room"
+          "rel" : "North",
+          "link" : "/rooms/trophy-room",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to West",
-          "link" : "/rooms/aquarium"
+          "rel" : "West",
+          "link" : "/rooms/aquarium",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to South",
-          "link" : "/rooms/upper-east-hallway-one"
+          "rel" : "South",
+          "link" : "/rooms/upper-east-hallway-one",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "master-bedroom",
@@ -259,17 +295,21 @@
       "description" : "The master bedroom. A large four-poster bed is in the middle of the room.",
       "surroundings" : "The carpet feels thick and plush beneath your feet. There's a set of French doors leading to a balcony, but it is locked.",
       "directions" : [{
-          "rel" : "Door to North",
-          "link" : "/rooms/walk-in-wardrobe"
+          "rel" : "North",
+          "link" : "/rooms/walk-in-wardrobe",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to West",
-          "link" : "/rooms/upper-east-hallway-one"
+          "rel" : "West",
+          "link" : "/rooms/upper-east-hallway-one",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/en-suite"
+          "rel" : "East",
+          "link" : "/rooms/en-suite",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to South",
+          "rel" : "South",
           "link" : "/rooms/balcony",
+          "image" : "assets/images/defs.svg#arrow",
           "blocked" : true
         }]
     },{
@@ -280,8 +320,9 @@
       "canChange" : true,
       "surroundingsWhenItemPickedUp" : "The magazine rack remains empty.",
       "directions" : [{
-          "rel" : "Door to West",
-          "link" : "/rooms/master-bedroom"
+          "rel" : "West",
+          "link" : "/rooms/master-bedroom",
+          "image" : "assets/images/defs.svg#arrow"
         }],
       "newItem": {
         "name": "Book",
@@ -304,8 +345,9 @@
       "description" : "A fancy walk-in wardrobe. Most of the clothes in here have been eaten away at by moths.",
       "surroundings" : "The smell of damp fills your nostrils.",
       "directions" : [{
-          "rel" : "Door to South",
-          "link" : "/rooms/master-bedroom"
+          "rel" : "South",
+          "link" : "/rooms/master-bedroom",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "balcony",
@@ -319,8 +361,9 @@
       "description" : "A large aquarium, full of exotic fish.",
       "surroundings" : "I'm not sure how they're still alive, but the dim blue lights of their tanks is very soothing. There's a faint whirring noise coming from the tank.",
       "directions" : [{
-          "rel" : "Door to East",
-          "link" : "/rooms/upper-east-hallway-two"
+          "rel" : "East",
+          "link" : "/rooms/upper-east-hallway-two",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "trophy-room",
@@ -330,8 +373,9 @@
       "canChange" : true,
       "surroundingsWhenItemPickedUp" : "It's pretty creepy in here.",
       "directions" : [{
-          "rel" : "Door to South",
-          "link" : "/rooms/upper-east-hallway-two"
+          "rel" : "South",
+          "link" : "/rooms/upper-east-hallway-two",
+          "image" : "assets/images/defs.svg#arrow"
         }],
       "newItem": {
         "name": "Moose head",
@@ -354,11 +398,13 @@
       "description" : "You are in yet another hallway.",
       "surroundings" : "'No wonder it's so filthy around here! I couldn't be bothered to clean these hallways either', you think to yourself.",
       "directions" : [{
-          "rel" : "Door to West",
-          "link" : "/rooms/guest-bedroom"
+          "rel" : "West",
+          "link" : "/rooms/guest-bedroom",
+          "image" : "assets/images/defs.svg#arrow"
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/upstairs-foyer"
+          "rel" : "East",
+          "link" : "/rooms/upstairs-foyer",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "guest-bedroom",
@@ -369,12 +415,14 @@
       "surroundingsWhenItemPickedUp" : "There's an unusual-looking plaque on the wall. It looks like it's missing something. There's a door to the North, but it's locked.",
       "surroundingsWhenItemUsed" : "The moose's head is staring at you from its place on the wall, and the door to the North is unlocked.",
       "directions" : [{
-          "rel" : "Door to North",
+          "rel" : "North",
           "link" : "/rooms/study",
+          "image" : "assets/images/defs.svg#arrow",
           "blocked" : true
         },{
-          "rel" : "Door to East",
-          "link" : "/rooms/upper-west-hallway"
+          "rel" : "East",
+          "link" : "/rooms/upper-west-hallway",
+          "image" : "assets/images/defs.svg#arrow"
         }],
       "newItem": {
         "name": "Key",
@@ -399,12 +447,14 @@
       "canChange" : true,
       "surroundingsWhenItemUsed" : "The computer has switched itself off, but a door to the North has revealed itself.",
       "directions" : [{
-          "rel" : "Door to North",
+          "rel" : "North",
           "link" : "/rooms/laboratory",
+          "image" : "assets/images/defs.svg#arrow",
           "blocked" : true
         },{
-          "rel" : "Door to South",
-          "link" : "/rooms/guest-bedroom"
+          "rel" : "South",
+          "link" : "/rooms/guest-bedroom",
+          "image" : "assets/images/defs.svg#arrow"
         }]
     },{
       "slug" : "laboratory",
@@ -413,7 +463,8 @@
       "surroundings" : "Piles of papers and folders are scattered everywhere. The information held within is terrifying. This is just the beginning...",
      "directions" : [{
           "rel" : "Roll credits",
-          "link" : "/rooms/credits"
+          "link" : "/rooms/credits",
+          "image" : "assets/images/defs.svg#upstairs"
         }]
     }]
 }

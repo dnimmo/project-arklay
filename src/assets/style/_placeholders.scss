@@ -1,0 +1,32 @@
+%icons{
+  height: 7rem;
+  width: 5rem;
+  position: fixed;
+  top: 0;
+  cursor: pointer;
+  background-color: #000000;
+  border-radius: 5rem;
+  
+  @include bp(m){
+    height: 8rem;
+    width: 6rem;
+    position: fixed;
+    top: 0;
+  }
+  
+  @include bp(l){
+    height: 10rem;
+    width: 8rem;
+    margin-top: 1rem;
+  }
+}
+
+%menus{
+  text-align: center;
+  position: fixed;
+  top: 0;
+  background-color: #323232;
+  right: 0;
+  min-height: 100vh;
+  z-index: 1340;
+}

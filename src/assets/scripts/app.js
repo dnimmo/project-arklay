@@ -63,12 +63,13 @@ app.factory('GameMapFactory', ['$http', function($http) {
   return{    
     init:
       function(){
-        return $http.get('/rooms/start');
+        // Always cache results: Since a get request is called for every room, and the player will be re-visiting rooms, no need to have them keep requesting resources they should already have
+        return $http.get('/rooms/start', {cache: true});
       },
     checkLocation: 
       function(current){
         // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json
-        return $http.get(current);
+        return $http.get(current, {cache: true});
       },
     checkForOtherPlayers:
       function(currentRoom, previousRoom){
@@ -125,92 +126,178 @@ app.factory('CreditsFactory', ['$http', function($http){
 }]);
 
 app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'CreditsFactory', function($scope, GameMapFactory, GameItemFactory, CreditsFactory) {
+  // Assign $scope to a 'view model' variable to save my poor fingers
+  var vm = $scope;
   // Set-up stuff, probably needs to be more sensible
-  $scope.inventoryOpen = false;
-  $scope.inventory = GameItemFactory.getInventory();
-  $scope.itemOptionsOpen = false;
-  $scope.showDescription = false;
-  $scope.additionalMessage = '';
-  $scope.itemMessage = '';
-  $scope.otherPlayerInRoom = '';
-  $scope.visitedRooms = [{}];
-  $scope.unlockedRooms = [];
-  $scope.credits = [];
+  vm.inventoryOpen = false;
+  vm.inventory = GameItemFactory.getInventory();
+  vm.itemOptionsOpen = false;
+  vm.showDescription = false;
+  vm.additionalMessage = '';
+  vm.itemMessage = '';
+  vm.otherPlayerInRoom = '';
+  vm.visitedRooms = [{}];
+  vm.unlockedRooms = [];
+  vm.credits = [];
+  // Should this be a separate factory? I'm not 100% convinced either way
+  vm.settings = {
+    'open' : false,
+    'backgroundColourOpen' : false,
+    'menuColourOpen' : false,
+    'textColourOpen' : false,
+    'menuTextColourOpen' : false,
+    'optionsOpen' : false
+  };
   
+    // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
+  vm.toggleSettings = function(){
+    vm.settings.open = !vm.settings.open;
+  }
+  
+  vm.settings.individual = function(setting){
+    if(setting == 'default'){
+      // Reset settings to defaults
+      vm.settings.backgroundColour = '';
+      vm.settings.textColour = '';
+      vm.settings.menuColour = '';
+      vm.settings.menuTextColour = '';
+    } else {
+      vm.settings.optionsOpen = true;
+      switch(setting){
+        case 'backgroundColour':
+          vm.settings.backgroundColourOpen = true;
+          // Store the value on opening the menu in case the user cancels
+          vm.settings.tempBackgroundColour = vm.settings.backgroundColour;
+          break;
+        case 'textColour':
+          vm.settings.textColourOpen = true;
+          // Store the value on opening the menu in case the user cancels
+          vm.settings.tempTextColour = vm.settings.textColour;
+          break;
+        case 'menuColour':
+          vm.settings.menuColourOpen = true;
+          // Store the value on opening the menu in case the user cancels
+          vm.settings.tempMenuColour = vm.settings.menuColour;
+          break;
+        case 'menuTextColour':
+          vm.settings.menuTextColourOpen = true;
+          // Store the value on opening the menu in case the user cancels
+          vm.settings.tempMenuTextColour = vm.settings.menuTextColour;
+          break; 
+      }
+    }
+  };
+  
+  // Handle whether settings are saved or reset. Saved is a boolean, if it's true it's kept as-is, if it's false it's reset to default
+  vm.settings.close = function(setting, toChange){
+    vm.settings.optionsOpen = false;
+    switch(setting){
+      case 'backgroundColour':
+          vm.settings.backgroundColourOpen = false;
+          if(!toChange){
+            // Revert to previously stored colour
+            vm.settings.backgroundColour = vm.settings.tempBackgroundColour;
+          }
+        break;
+      case 'textColour':
+          vm.settings.textColourOpen = false;
+          if(!toChange){
+            // Revert to previously stored colour
+            vm.settings.textColour = vm.settings.tempTextColour;
+          }
+        break;
+      case 'menuColour':
+          vm.settings.menuColourOpen = false;
+          if(!toChange){
+            // Revert to previously stored colour
+            vm.settings.menuColour = vm.settings.tempMenuColour;
+          }
+        break;
+      case 'menuTextColour':
+          vm.settings.menuTextColourOpen = false;
+          if(!toChange){
+            // Revert to previously stored colour
+            vm.settings.menuTextColour = vm.settings.tempMenuTextColour;
+          }
+        break;
+    }
+  }
+  
+  // Initialise the game from /rooms/start
   GameMapFactory.init()
     .then(function(response){
       // Set starting info
-      $scope.current = response.data;
+      vm.current = response.data;
     });
   
-  $scope.playerName;
+  vm.playerName;
   // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
   
-  $scope.toggleInventory = function(){
-    $scope.additionalMessage = '';
-    $scope.inventoryOpen = !$scope.inventoryOpen;
+  vm.toggleInventory = function(){
+    vm.additionalMessage = '';
+    vm.inventoryOpen = !vm.inventoryOpen;
   }
   
-  $scope.update = function(roomToMoveTo){
+  vm.update = function(roomToMoveTo){
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
-    // Assign promise response to $scope.current
-    $scope.current = response.data;
+    // Assign promise response to vm.current
+    vm.current = response.data;
     // Check to see if there's anyone else in the room
-    GameMapFactory.checkForOtherPlayers($scope.current.slug, $scope.visitedRooms[$scope.visitedRooms.length-1]);
-    if($scope.current.gameOver){
+    GameMapFactory.checkForOtherPlayers(vm.current.slug, vm.visitedRooms[vm.visitedRooms.length-1]);
+    if(vm.current.gameOver){
       return;
     }
     // Check to see if a locked area in this room has been previously unlocked
-    if($scope.unlockedRooms.length != 0){
-      angular.forEach($scope.current.directions, function(direction){
-        angular.forEach($scope.unlockedRooms, function(room){
+    if(vm.unlockedRooms.length != 0){
+      angular.forEach(vm.current.directions, function(direction){
+        angular.forEach(vm.unlockedRooms, function(room){
           if(direction.link == room){
             // if a previously used item has unlocked a direction in this room, it should still be unlocked
             direction.blocked = false;
-            $scope.updateSurroundings('used');
+            vm.updateSurroundings('used');
           } 
         });
       });
     }
       
     // Check to see if there's a new item here
-    if (typeof $scope.current.newItem === 'object'){
+    if (typeof vm.current.newItem === 'object'){
       var itemAlreadyPickedUp = false;
       // Check to make sure we don't already have this item in the inventory
-      angular.forEach($scope.inventory, function(item){
-        if($scope.current.newItem.name == item.name){
+      angular.forEach(vm.inventory, function(item){
+        if(vm.current.newItem.name == item.name){
           itemAlreadyPickedUp = true;
           // Update text displayed if necessary
-          $scope.updateSurroundings('picked up');
+          vm.updateSurroundings('picked up');
         }
       });
       // Check to make sure any items picked up in this area haven't already been used
-      angular.forEach($scope.unlockedRooms, function(room){
-        if($scope.current.newItem.unlocks == room){
+      angular.forEach(vm.unlockedRooms, function(room){
+        if(vm.current.newItem.unlocks == room){
           itemAlreadyPickedUp = true;
          }
       });
       // If item has never been picked up or used
       if(!itemAlreadyPickedUp){
         // Add the new item to the inventory
-        GameItemFactory.add($scope.current.newItem);
+        GameItemFactory.add(vm.current.newItem);
         // Update our inventory
-        $scope.inventory = GameItemFactory.getInventory();
+        vm.inventory = GameItemFactory.getInventory();
         // Display message to show item picked up
-        $scope.itemMessage = '== "' + $scope.current.newItem.name + '" picked up ==';
+        vm.itemMessage = '== "' + vm.current.newItem.name + '" picked up ==';
       }
     }
       
   });
   }
   
-  $scope.updateSurroundings = function(usedOrPickedUp){
+  vm.updateSurroundings = function(usedOrPickedUp){
     // Update surroundings based on whether an item has been used or picked up
-    if($scope.current.canChange){
+    if(vm.current.canChange){
       if(usedOrPickedUp == 'picked up'){
-        $scope.current.surroundings = $scope.current.surroundingsWhenItemPickedUp;  
+        vm.current.surroundings = vm.current.surroundingsWhenItemPickedUp;  
        } else if (usedOrPickedUp == 'used'){
-         $scope.current.surroundings = $scope.current.surroundingsWhenItemUsed; 
+         vm.current.surroundings = vm.current.surroundingsWhenItemUsed; 
        } 
     } else {
       // Nothing to see here
@@ -218,80 +305,80 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   }
   
   // Register player - currently only used in credits
-  $scope.registerPlayer = function(name){
-    $scope.playerName = name;
+  vm.registerPlayer = function(name){
+    vm.playerName = name;
   }
   
   // Move in a given direction
-  $scope.move = function(roomToMoveTo){
-    $scope.update(roomToMoveTo);
+  vm.move = function(roomToMoveTo){
+    vm.update(roomToMoveTo);
     // Reset any additional message on the screen
-    $scope.checkIfVisitedRoom();
-    $scope.itemMessage= '';
-    $scope.additionalMessage = '';
-    $scope.otherPlayerInRoom = '';
+    vm.checkIfVisitedRoom();
+    vm.itemMessage= '';
+    vm.additionalMessage = '';
+    vm.otherPlayerInRoom = '';
   }
   
   // Check if room has been visited
-  $scope.checkIfVisitedRoom = function(){
+  vm.checkIfVisitedRoom = function(){
       var hasBeenVisited = false;
-      angular.forEach($scope.visitedRooms, function(room){
-        if(room.name == $scope.current.name){
+      angular.forEach(vm.visitedRooms, function(room){
+        if(room.name == vm.current.name){
           hasBeenVisited = true;
         }
       });
       if(!hasBeenVisited){
         // Add current room to visited rooms if not previously visited
-        $scope.visitedRooms.push({"name" : $scope.current.name, "slug" : $scope.current.slug});  
+        vm.visitedRooms.push({"name" : vm.current.name, "slug" : vm.current.slug});  
       }
     }
   
   // Show item options
-  $scope.showOptions = function(item){
-    $scope.itemOptionsOpen = true;
-    $scope.selectedItem = item;
+  vm.showOptions = function(item){
+    vm.itemOptionsOpen = true;
+    vm.selectedItem = item;
   }
   
   // Cancel selected item
-  $scope.clearSelectedItem = function(){
-    $scope.additionalMessage = '';
-    $scope.selectedItem = '';
+  vm.clearSelectedItem = function(){
+    vm.additionalMessage = '';
+    vm.selectedItem = '';
     // Close the inventory
-    $scope.itemOptionsOpen = false; 
+    vm.itemOptionsOpen = false; 
   }
   
   // Handle items that have been used
-  $scope.discardItem = function(){
+  vm.discardItem = function(){
       // Discard current item
-      GameItemFactory.remove($scope.selectedItem);
+      GameItemFactory.remove(vm.selectedItem);
       // Keep a record of the items used so far
-      $scope.unlockedRooms.push($scope.selectedItem.unlocks);
+      vm.unlockedRooms.push(vm.selectedItem.unlocks);
       // Clear the current selected item (which no longer exists anyway)
-      $scope.clearSelectedItem();
+      vm.clearSelectedItem();
       // Close inventory
-      $scope.toggleInventory();
+      vm.toggleInventory();
   }
   
-  $scope.use = function(){
-    $scope.additionalMessage = '';
+  vm.use = function(){
+    vm.additionalMessage = '';
     // checkItemResult returns true if the item can be used, and false if it can't
-    var checkItemResult = GameItemFactory.use($scope.selectedItem.unlocks, $scope.current.directions);
+    var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions);
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
       // Display message to say that item has been used
-      $scope.itemMessage = '== "' + $scope.selectedItem.name + '" used ==';
+      vm.itemMessage = '== "' + vm.selectedItem.name + '" used ==';
       // Update text displayed if necessary
-      $scope.updateSurroundings('used');
+      vm.updateSurroundings('used');
       // Discard item
-      $scope.discardItem();
+      vm.discardItem();
     } else {
       // Item can't be used in this room
-      $scope.additionalMessage = "== You can't do that here =="; 
+      vm.additionalMessage = "== You can't do that here =="; 
     }
   }
   
-  $scope.getCredits = CreditsFactory.getCredits().then(function(response){
-    $scope.credits = response.data.credits;
+  vm.getCredits = CreditsFactory.getCredits().then(function(response){
+    vm.credits = response.data.credits;
   });
   
   // ============
@@ -301,28 +388,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   // When two players are in the same room, display a message to let them know they are not alone
   // This is handled in server.js
   socket.on('someoneElseIsHere', function(data){
-    $scope.otherPlayerInRoom = data;
-    $scope.$apply();
+    vm.otherPlayerInRoom = data;
+    vm.$apply();
   });
 }]);
-
-// Fullscreen test
-var pfx = ["webkit", "moz", "ms", "o", ""];
-function RunPrefixMethod(obj, method) {
-	
-	var p = 0, m, t;
-	while (p < pfx.length && !obj[m]) {
-		m = method;
-		if (pfx[p] == "") {
-			m = m.substr(0,1).toLowerCase() + m.substr(1);
-		}
-		m = pfx[p] + m;
-		t = typeof obj[m];
-		if (t != "undefined") {
-			pfx = [pfx[p]];
-			return (t == "function" ? obj[m]() : obj[m]);
-		}
-		p++;
-	}
-
-}
