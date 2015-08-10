@@ -37,6 +37,10 @@
     input{
       margin-top: 2rem;
       margin-bottom: 3rem;
+      
+      @include bp(m){
+        width: 90%;
+      }
     }
   }
   
