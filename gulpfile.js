@@ -17,11 +17,12 @@ var browserSync = require('browser-sync').create();
 var karma = require('karma').server;
 
 // ==================================================
-// Root and destination directories - Change these to suit!
+// Required directories - Change these to suit!
 // ==================================================
 
 var rootDir = './src';
-var destDir = './build'; 
+var destDir = './build';
+var bowerComponentsDir = './bower_components';
 
 // ==================================================
 // HTML files to be watched
@@ -45,6 +46,15 @@ var	 jsFiles = [
 	];
 
 // ==================================================
+// Bower components to be included
+// ==================================================
+
+var bowerComponents = [
+    bowerComponentsDir + '/angular.js/angular.min.js',
+    bowerComponentsDir + '/angular-ui-router/release/angular-ui-router.min.js',
+];
+
+// ==================================================
 // Images
 // ==================================================
 var images = rootDir + '/**/*.svg';
@@ -56,7 +66,7 @@ var images = rootDir + '/**/*.svg';
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', [/*'test',*/ 'move-images', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-images', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
@@ -114,6 +124,16 @@ gulp.task('process-javascript', function(){
 	console.log('Finished minifying JS');
 });
 
+// Copy necessary bower components to 'build'
+// ------------------------------------------
+
+gulp.task('move-bower-components', function(){
+  console.log('Moving Bower components');
+  return gulp.src(bowerComponents)
+  // Additional path on destDir here as the bower_components don't live in src/assets/scripts
+  .pipe(gulp.dest(destDir+'/assets/scripts'));
+});
+
 // Copy images to 'build'
 // ----------------------
 
@@ -121,7 +141,8 @@ gulp.task('move-images', function(){
   console.log('Moving images');
   return gulp.src(images)
   .pipe(gulp.dest(destDir));
-})
+});
+
 
 // JS Lint
 // -------

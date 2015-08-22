@@ -380,7 +380,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   vm.getCredits = CreditsFactory.getCredits().then(function(response){
     vm.credits = response.data.credits;
   });
-  
+
   // ============
   // Socket stuff
   // ============

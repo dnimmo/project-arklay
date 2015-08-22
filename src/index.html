@@ -3,6 +3,7 @@
   <head>
     <title>Project Arklay</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <meta name='theme-color' content='#323232'/>
     <meta name='description' content='An old-school text adventure game that you can play in your browser'>
     <link rel='author' href='https://plus.google.com/+DavidNimmo/posts'/>
     <link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
@@ -13,7 +14,7 @@
     <main data-ui-view>
     </main>
     <div class='settingsToggle' data-ng-click='toggleSettings()'>
-      <svg class='settingsIcon' style='background-color: {{settings.backgroundColour}}'>
+      <svg class='settingsIcon' alt='Settings' style='background-color: {{settings.backgroundColour}}'>
             <use xlink:href='/assets/images/defs.svg#settings'></use>
         </svg> 
     </div>
@@ -53,7 +54,7 @@
       </div>   
     </section>
     <div class='inventoryToggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0' >
-        <svg class='inventoryIcon' style='background-color: {{settings.backgroundColour}}'>
+        <svg class='inventoryIcon' alt='Inventory' style='background-color: {{settings.backgroundColour}}'>
             <use xlink:href='/assets/images/defs.svg#inventory'></use>
         </svg>
       <span class='inventoryCount' data-ng-show="!inventoryOpen" style='color: {{settings.backgroundColour}}'>
@@ -80,8 +81,8 @@
         <p class="additionalInfo" style='color: {{settings.menuTextColour}}'>{{additionalMessage}}</p>
       </div>
     </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
-    <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="assets/scripts/angular.min.js"></script>
+    <script src="assets/scripts/angular-ui-router.min.js"></script>
     <script src="assets/scripts/app.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
 	  <script>var socket=io();</script>
