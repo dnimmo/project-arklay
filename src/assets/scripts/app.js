@@ -125,6 +125,14 @@ app.factory('CreditsFactory', ['$http', function($http){
   }
 }]);
 
+// Settings panel directive
+app.directive('settingsPanel', function(){
+  return {
+    templateUrl: 'directive-templates/settings-panel.html'
+  }
+})
+
+// The main controller
 app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'CreditsFactory', function($scope, GameMapFactory, GameItemFactory, CreditsFactory) {
   // Assign $scope to a 'view model' variable to save my poor fingers
   var vm = $scope;

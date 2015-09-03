@@ -14,7 +14,7 @@ var	rename	= require('gulp-rename');
 var	lint	= require('gulp-jslint');
 var	watch	= require('gulp-watch');
 var browserSync = require('browser-sync').create();
-//var karma = require('karma').server;
+var karma = require('karma').server;
 
 // ==================================================
 // Required directories - Change these to suit!
@@ -42,7 +42,8 @@ var	scssFiles = rootDir + '/**/*.scss';
 
 var	 jsFiles = [
 		rootDir + '/**/*.js',
-		'!'+rootDir+'/**/*.min.js'
+		'!'+rootDir+'/**/*.min.js',
+    '!'+rootDir+'/tests'
 	];
 
 // ==================================================
