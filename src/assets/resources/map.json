@@ -158,7 +158,8 @@
         ],
         "description": "A piece of paper with 2407 written on it",
         "messageWhenUsed": "You have used the key kode",
-        "unlocks" : "/rooms/laboratory"
+        "unlocks" : "/rooms/laboratory",
+        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
       }
     },{
       "slug": "statue-room",
@@ -230,7 +231,8 @@
         ],
         "description": "A sturdy crowbar",
         "messageWhenUsed": "You prise off the wooden planks",
-        "unlocks" : "/rooms/upper-east-hallway-one"
+        "unlocks" : "/rooms/upper-east-hallway-one",
+        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3"
       }
     },{
       "slug" : "upstairs-foyer",
@@ -337,7 +339,8 @@
         ],
         "description": "Tales of the Occult, Vol. 2",
         "messageWhenUsed": "The missing book sits neatly between volumes 1 and 3.",
-        "unlocks" : "/rooms/secret-room"
+        "unlocks" : "/rooms/secret-room",
+        "soundWhenUsed" : "../assets/sounds/wallMove.mp3"
       }
     },{
       "slug" : "walk-in-wardrobe",
@@ -390,7 +393,8 @@
         ],
         "description": "The moose's cold, dead eyes stare into your soul.",
         "messageWhenUsed": "You place the moose head onto the empty plaque.",
-        "unlocks" : "/rooms/study"
+        "unlocks" : "/rooms/study",
+        "soundWhenUsed" : "../assets/sounds/mountingMooseHead.mp3"
       }
     },{
       "slug" : "upper-west-hallway",
@@ -437,7 +441,8 @@
         ],
         "description": "A small key.",
         "messageWhenUsed": "You have unlocked the door to the pool.",
-        "unlocks" : "/rooms/swimming-pool"
+        "unlocks" : "/rooms/swimming-pool",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"        
       }
     },{
       "slug" : "study",

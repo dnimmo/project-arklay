@@ -14,7 +14,7 @@ var	rename	= require('gulp-rename');
 var	lint	= require('gulp-jslint');
 var	watch	= require('gulp-watch');
 var browserSync = require('browser-sync').create();
-// var karma = require('karma').server;
+//var karma = require('karma').server;
 
 // ==================================================
 // Required directories - Change these to suit!
@@ -58,8 +58,10 @@ var bowerComponents = [
 // ==================================================
 // Images
 // ==================================================
-var images = rootDir + '/**/*.svg';
-
+var assets = [
+    rootDir + '/**/images/*.*',
+    rootDir + '/**/sounds/*.*'
+];
 // ==================================================
 // Gulp tasks
 // ==================================================
@@ -67,11 +69,11 @@ var images = rootDir + '/**/*.svg';
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-images', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
-
+/*
 gulp.task('test', function (done) {
   console.log('Running tests');
   karma.start({
@@ -80,7 +82,7 @@ gulp.task('test', function (done) {
   }, done);
   console.log('Finished running tests');
 });
-
+*/
 // Minify HTML files [gulp-minify-html]
 // ------------------------------------
 
@@ -135,12 +137,12 @@ gulp.task('move-bower-components', function(){
   .pipe(gulp.dest(destDir+'/assets/scripts'));
 });
 
-// Copy images to 'build'
+// Copy assets to 'build'
 // ----------------------
 
-gulp.task('move-images', function(){
-  console.log('Moving images');
-  return gulp.src(images)
+gulp.task('move-assets', function(){
+  console.log('Moving assets');
+  return gulp.src(assets)
   .pipe(gulp.dest(destDir));
 });
 

@@ -88,6 +88,10 @@ app.factory('GameItemFactory', [function() {
       },
     add:
       function(item){
+        // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
+        if(item.soundWhenUsed != 'undefined'){
+          item.soundEffect = new Audio(item.soundWhenUsed);
+        }
         inventory.push(item);
         return inventory;
       },
@@ -157,7 +161,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     'optionsOpen' : false
   };
   
-    // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
+  // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
     vm.settings.open = !vm.settings.open;
   }
@@ -373,6 +377,10 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions);
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
+      // Play audio (if there is an audio file associated with this item)
+      if(vm.selectedItem.soundEffect != 'undefined'){
+        vm.selectedItem.soundEffect.play();
+      }
       // Display message to say that item has been used
       vm.itemMessage = '== "' + vm.selectedItem.name + '" used ==';
       // Update text displayed if necessary

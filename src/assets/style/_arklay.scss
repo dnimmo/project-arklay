@@ -88,6 +88,7 @@ input[type='text'], input[type='email']{
     margin: 1rem auto;
     border: 0.2rem solid #000000;
     padding: 1rem;
+    transition: $transition;
     
     &:hover{
       font-weight: bolder;
