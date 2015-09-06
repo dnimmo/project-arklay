@@ -84,6 +84,9 @@ app.factory('GameItemFactory', [function() {
   // Register sound effects
   var newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
   var errorSound = new Audio('../assets/sounds/error.mp3');
+  var volume = 0.4;
+  newItemSound.volume = volume;
+  errorSound.volume = volume;
   return {
     getInventory: 
       function(){
