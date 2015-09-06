@@ -170,13 +170,12 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     'menuColourOpen' : false,
     'textColourOpen' : false,
     'menuTextColourOpen' : false,
-    'optionsOpen' : false
+    'optionsOpen' : false,
+    'soundEnabled' : true
   };
   
   // Set background music
   var backgroundMusic = new Audio('../assets/sounds/rain.mp3');
-  backgroundMusic.loop = true;
-  backgroundMusic.play();
   
   // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
@@ -413,6 +412,16 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   vm.getCredits = CreditsFactory.getCredits().then(function(response){
     vm.credits = response.data.credits;
   });
+  
+  vm.playBackgroundMusic = function(){
+    if(vm.settings.soundEnabled){
+      backgroundMusic.loop = true;
+      backgroundMusic.play();
+    } else {
+      // If sound has been disabled
+      backgroundMusic.pause();
+    }
+  }
   
   vm.playCreditsSound = function(){
     var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
