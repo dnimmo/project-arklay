@@ -76,11 +76,6 @@
   
   li {
     
-    @include bp(m) {
-      height: 10rem;
-      width: 10rem;
-    }
-    
     &.inv {
       border: 0;
     }
