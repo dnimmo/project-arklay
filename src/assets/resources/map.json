@@ -232,6 +232,7 @@
         "description": "A sturdy crowbar",
         "messageWhenUsed": "You prise off the wooden planks",
         "unlocks" : "/rooms/upper-east-hallway-one",
+        "soundWhenPickedUp" : '../assets/sounds/crowbarPickUp.mp3',
         "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3"
       }
     },{

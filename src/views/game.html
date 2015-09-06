@@ -9,7 +9,7 @@
   </li>
 </ul>
 
-<p class='button' data-ng-if='current.directions[0].rel=="Roll credits"' data-ui-sref='credits' style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>Roll Credits!</p>
+<p class='button' data-ng-if='current.directions[0].rel=="Roll credits"' data-ui-sref='credits' style='color: {{settings.textColour}}; border-color: {{settings.textColour}}' data-ng-click='playCreditsSound()'>Roll Credits!</p>
 
 <br />
 <p>{{otherPlayerInRoom}}</p>

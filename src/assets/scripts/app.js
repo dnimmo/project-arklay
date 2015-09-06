@@ -21,11 +21,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('game', {
     url: '/game',
     templateUrl: 'views/game.html'
-  })
+    })
     .state('credits', {
     url: '/credits',
     templateUrl: 'views/credits.html'
-  })
+    })
   }
 ]);
 
@@ -81,6 +81,9 @@ app.factory('GameMapFactory', ['$http', function($http) {
 
 app.factory('GameItemFactory', [function() {
   var inventory = [];
+  // Register sound effects
+  var newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
+  var errorSound = new Audio('../assets/sounds/error.mp3');
   return {
     getInventory: 
       function(){
@@ -93,6 +96,8 @@ app.factory('GameItemFactory', [function() {
           item.soundEffect = new Audio(item.soundWhenUsed);
         }
         inventory.push(item);
+        // Play chime when item is picked up
+        newItemSound.play();
         return inventory;
       },
     remove:
@@ -113,6 +118,10 @@ app.factory('GameItemFactory', [function() {
             itemHasBeenUsed = true;
           }
         });
+        // If this is still false then item has not been used; play error chime
+        if(!itemHasBeenUsed){
+          errorSound.play();
+        }
         // Return true or false so we know if we need to discard the current item
         return itemHasBeenUsed;
     }
@@ -160,6 +169,11 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     'menuTextColourOpen' : false,
     'optionsOpen' : false
   };
+  
+  // Set background music
+  var backgroundMusic = new Audio('../assets/sounds/rain.mp3');
+  backgroundMusic.loop = true;
+  backgroundMusic.play();
   
   // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
@@ -396,6 +410,11 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   vm.getCredits = CreditsFactory.getCredits().then(function(response){
     vm.credits = response.data.credits;
   });
+  
+  vm.playCreditsSound = function(){
+    var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
+    creditsSound.play();
+  }
 
   // ============
   // Socket stuff
