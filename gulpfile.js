@@ -14,6 +14,7 @@ var	rename	= require('gulp-rename');
 var	lint	= require('gulp-jslint');
 var	watch	= require('gulp-watch');
 var browserSync = require('browser-sync').create();
+var scssLint = require('gulp-scss-lint');
 //var karma = require('karma').server;
 
 // ==================================================
@@ -69,7 +70,7 @@ var assets = [
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'scss-lint', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
@@ -109,7 +110,16 @@ gulp.task('process-stylesheets', function(){
 	// Leave processed file in the same location as the original
 	.pipe(gulp.dest(destDir));
 	console.log('Finished processing SCSS files');
-})
+});
+
+
+// SCSS Lint
+// ---------
+
+gulp.task('scss-lint', function(){
+  gulp.src(scssFiles)
+  .pipe(scssLint());
+});
 
 // Minify JS files [gulp-uglify]
 // -----------------------------
@@ -145,7 +155,6 @@ gulp.task('move-assets', function(){
   return gulp.src(assets)
   .pipe(gulp.dest(destDir));
 });
-
 
 // JS Lint
 // -------
@@ -185,7 +194,7 @@ gulp.task('watch', function(){
   // Watch HTML files
   gulp.watch(htmlFiles, ['process-html']);
 	// Watch SCSS files
-	gulp.watch(scssFiles, ['process-stylesheets']);
+	gulp.watch(scssFiles, ['process-stylesheets', 'scss-lint']);
 	// Watch JS files
-	gulp.watch(jsFiles, ['test', 'process-javascript']/*, 'js-lint']*/);
+	gulp.watch(jsFiles, [/*'test',*/ 'process-javascript']/*, 'js-lint']*/);
 })

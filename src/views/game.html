@@ -3,7 +3,7 @@
 <p data-ng-if='current.showReturnedMessage'>{{current.returnedMessage}}</p>
 <p>{{current.surroundings}}</p>
 
-<ul id="directionOptions" style='border-color: {{settings.textColour}}'>
+<ul class="direction-options" style='border-color: {{settings.textColour}}'>
   <li data-ng-repeat='direction in current.directions' class='{{direction.rel}}' data-ng-if='!direction.blocked && direction.rel != "Roll credits" ' data-ng-click='move(direction.link)' style='border-color: {{settings.backgroundColour}}'>
     {{direction.rel}}
   </li>

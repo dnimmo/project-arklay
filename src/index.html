@@ -16,17 +16,17 @@
     <!-- Settings panel located in directive-templates/settings-panel.html -->
     <settings-panel></settings-panel>
     <!-- Inventory start -->
-    <div class='inventoryToggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0' >
-        <svg class='inventoryIcon' alt='Inventory' style='background-color: {{settings.backgroundColour}}'>
+    <div class='inventory-toggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0' >
+        <svg class='inventory-icon' alt='Inventory' style='background-color: {{settings.backgroundColour}}'>
             <use xlink:href='/assets/images/defs.svg#inventory'></use>
         </svg>
-      <span class='inventoryCount' data-ng-show="!inventoryOpen" style='color: {{settings.backgroundColour}}'>
+      <span class='inventory-count' data-ng-show="!inventoryOpen" style='color: {{settings.backgroundColour}}'>
         {{inventory.length}}
       </span>
     </div>
-    <section id='inventory' data-ng-show='inventoryOpen' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
+    <section class='inventory' data-ng-show='inventoryOpen' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
       <!--Put into separate partial-->
-      <div class="inventoryContents">
+      <div class="inventory-contents">
         <ul data-ng-if='!itemOptionsOpen'>
           <li class="button inv" data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>
             <svg class='item'>
@@ -41,7 +41,7 @@
           <li class='button' data-ng-click='use("{{selectedItem}}")' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Use</li>
           <li class='button' data-ng-click='clearSelectedItem()' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</li>
         </ul>
-        <p class="additionalInfo" style='color: {{settings.menuTextColour}}'>{{additionalMessage}}</p>
+        <p class="additional-info" style='color: {{settings.menuTextColour}}'>{{additionalMessage}}</p>
       </div>
     </section>
     <!-- Inventory end -->

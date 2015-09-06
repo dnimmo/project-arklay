@@ -1,101 +1,108 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html{
+html {
   font-size: 62.5%;
 }
 
-body{
+body {
+  background-color: $colour-palette-1;
+  color: $colour-palette-2;
   font-family: 'PT Serif', serif;
-  background-color: #000000;
-  color: #ffffff;
   font-size: 2rem;
   line-height: 3.5rem;
   transition: $transition;
   
-  @include bp(l){
+  @include bp(l) {
     font-size: 3rem;
     line-height: 4.5rem;
   }
 }
 
-main{
-  text-align: center;
+main {
   margin-top: 8rem;
+  overflow: hidden;
   padding-left: 2rem;
   padding-right: 2rem;
-  overflow: hidden;
+  text-align: center;
   
-  @include bp(m){
+  @include bp(m) {
     padding: 5%;
   }
 }
 
-h1{
-  margin: 2rem 0;
+h1 {
   font-size: 4rem;
-}
-
-h2{
   margin: 2rem 0;
 }
 
-.button{
-  border: 0.1rem solid #ffffff;
-  padding: 0.5rem 2.5rem 0.3rem;
+h2 {
+  margin: 2rem 0;
+}
+
+.button {
+  border: .1rem solid $colour-palette-2;
+  color: $colour-palette-2;
   display: inline-block;
+  font-size: .7em;
+  letter-spacing: .07em;
   margin: 2rem;
-  transition: $transition;
-  color: #ffffff;
+  min-width: 8rem;
+  padding: .3rem 1rem;
   text-decoration: none;
-  font-size: 0.7em;
-  letter-spacing: 0.07em;
+  transition: $transition;
   
-  &:hover{
-    background-color: #ffffff;
-    color: #000000;
+  &:hover {
+    background-color: $colour-palette-2;
+    color: $colour-palette-1;
     cursor: pointer;
   }
 }
 
-label{
+.emphasis {
+  font-weight: bold;
+}
+
+label {
   margin: 1rem 0;
 }
 
-input[type='text'], input[type='email']{
-  background-color: #000000;
+input {
+  background-color: $colour-palette-1;
+  border-width: 0 0 .1rem;
+  color: $colour-palette-2;
   font-size: 2rem;
-  color: #ffffff;
-  border-width: 0 0 0.1rem 0;
-  text-align: center;  
   margin-bottom: 5rem;
+  text-align: center;  
 }
 
-#directionOptions{
-  margin: 5rem 0 0 0;
+.direction-options {
+  border-top: .2rem solid $colour-palette-2;
   list-style: none;
-  border-top: 0.2rem solid #ffffff;
+  margin: 5rem 0 0;
   padding-top: 2rem;
-  li{ 
-    font-size: 2rem;
+  
+  li { 
+    border: .2rem solid $colour-palette-1;
     cursor: pointer;
-    transition: $transition;
+    font-size: 2rem;
     height: 6rem;
-    min-width: 12rem;
     margin: 1rem auto;
-    border: 0.2rem solid #000000;
+    min-width: 12rem;
     padding: 1rem;
+    text-transform: capitalize;
     transition: $transition;
     
-    &:hover{
+    &:hover {
       font-weight: bolder;
     }
   }
   
-  .East, .West{
+  .east, 
+  .west {
     display: inline-block;
   }
 }

@@ -1,63 +1,67 @@
-.settingsIcon{
+.settings-icon {
   @extend %icons;
-  left: 0.5rem;
+  left: .5rem;
 }
 
-#settings{
+.settings {
   @extend %menus;
-  width: 90%;
-  padding: 1rem;
+  border-right: .2rem solid $colour-palette-2;
   left: 0;
-  border-right: 0.2rem solid #ffffff;
+  padding: 1rem;
+  width: 90%;
   z-index: 80000;
   
-  .button{
+  @include bp(m) {
+    width: 30%;
+  }
+  
+  .button {
     min-width: 80%;
     
-    @include bp(m){
-      min-width: 90%;
-      margin-left: 5%;
+    @include bp(m) {
       float: left;
+      margin-left: 5%;
+      min-width: 90%;
     }
   }
   
-  .individualSetting{
-    h3{
-      margin-top: 0.5rem;
+  .individual-setting {
+    
+    h3 {
+      margin-top: .5rem;
     }
-    .button{
-      min-width: 35%;
+    
+    .button {
       float: left;
       margin-top: 0;
+      min-width: 35%;
       
-      @include bp(m){
+      @include bp(m) {
         min-width: 33%;
       }
     }
-    input{
-      margin-top: 2rem;
+    
+    input {
       margin-bottom: 3rem;
+      margin-top: 2rem;
       
-      @include bp(m){
+      @include bp(m) {
         width: 90%;
       }
     }
   }
   
-  label{
+  label {
     float: left;
     width: 45%;
   }
-  input{
-    background-color: #323232;
+  
+  input {
+    background-color: $colour-palette-3;
   }
   
-  .close{
-    display: block;
+  .close {
     clear: both;
-  }
-  
-  @include bp(m){
-    width: 30%;
+    display: block;
   }
 }

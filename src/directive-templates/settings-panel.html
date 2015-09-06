@@ -1,10 +1,10 @@
 <!-- Settings start -->
-<div class='settingsToggle' data-ng-click='toggleSettings()'>
-  <svg class='settingsIcon' alt='Settings' style='background-color: {{settings.backgroundColour}}'>
+<div class='settings-toggle' data-ng-click='toggleSettings()'>
+  <svg class='settings-icon' alt='Settings' style='background-color: {{settings.backgroundColour}}'>
     <use xlink:href='/assets/images/defs.svg#settings'></use>
   </svg> 
 </div>
-<section id="settings" data-ng-show='settings.open' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
+<section id="settings" class="settings" data-ng-show='settings.open' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
   <div data-ng-show='!settings.optionsOpen'>
     <p class='button' data-ng-click='settings.individual("backgroundColour")' data-ng-hide='settings.backgroundColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Background Colour</p>
     <p class='button' data-ng-click='settings.individual("textColour")' data-ng-hide='settings.textColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Text Colour</p>
@@ -14,25 +14,25 @@
     <p class="button close" data-ng-if='!itemOptionsOpen' data-ng-click='toggleSettings()' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Close Settings</p>
   </div>
 
-  <div data-ng-show='settings.backgroundColourOpen' class='individualSetting'>
+  <div data-ng-show='settings.backgroundColourOpen' class='individual-setting'>
     <h3>Background Colour</h3>
     <input type="text" id="backgroundColour" data-ng-model='settings.backgroundColour' style='color: {{settings.menuTextColour}}; background-color: {{settings.menuColour}}; border-color: {{settings.menuTextColour}}' placeholder="Enter a colour"/>
     <p class='button' data-ng-click='settings.close("backgroundColour", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>
     <p class='button' data-ng-click='settings.close("backgroundColour", false)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</p>
   </div>
-  <div data-ng-show='settings.textColourOpen' class='individualSetting'>
+  <div data-ng-show='settings.textColourOpen' class='individual-setting'>
     <h3>Text Colour</h3>
     <input type="text" id="textColour" data-ng-model='settings.textColour' style='color: {{settings.menuTextColour}}; background-color: {{settings.menuColour}}; border-color: {{settings.menuTextColour}}' placeholder="Enter a colour"/>
     <p class='button' data-ng-click='settings.close("textColour", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>
     <p class='button' data-ng-click='settings.close("textColour", false)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</p>
   </div>
-  <div data-ng-show='settings.menuTextColourOpen' class='individualSetting'>
+  <div data-ng-show='settings.menuTextColourOpen' class='individual-setting'>
     <h3>Menu Text Colour</h3>
     <input type="text" id="menuTextColour" data-ng-model='settings.menuTextColour' style='color: {{settings.menuTextColour}}; background-color: {{settings.menuColour}}; border-color: {{settings.menuTextColour}}' placeholder="Enter a colour"/>
     <p class='button' data-ng-click='settings.close("menuTextColour", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>
     <p class='button' data-ng-click='settings.close("menuTextColour", false)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</p>
   </div>
-  <div data-ng-show='settings.menuColourOpen' class='individualSetting'>
+  <div data-ng-show='settings.menuColourOpen' class='individual-setting'>
     <h3>Menu Colour</h3>
     <input type="text" id="menuColour" data-ng-model='settings.menuColour' style='color: {{settings.menuTextColour}}; background-color: {{settings.menuColour}}; border-color: {{settings.menuTextColour}}' placeholder="Enter a colour"/>
     <p class='button' data-ng-click='settings.close("menuColour", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>

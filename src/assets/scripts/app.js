@@ -33,7 +33,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 app.service('socket', function($rootScope){
 	var socket = io.connect(null); //paramater is for address and port - passing in 'null' ensures that the browser's current address and port are used
 	return{
-		// socket.on
+		// socket.on - this lets us assign what happens on specific events
 		on: function(eventName, callback){
 			socket.on(eventName, function(){
 				var args = arguments;
@@ -43,7 +43,7 @@ app.service('socket', function($rootScope){
 				});
 			});
 		},
-		// socket.emit
+		// socket.emit - this lets us emit events back to the server
 		emit: function(eventName, data, callback){
 			socket.emit(eventName, data, function(){
 				var args = arguments;
@@ -425,6 +425,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   
   vm.playCreditsSound = function(){
     var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
+    creditsSound.playbackRate = 1.2;
     creditsSound.play();
   }
 

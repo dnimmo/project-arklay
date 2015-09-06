@@ -1,99 +1,103 @@
-.inventoryIcon{
+.inventory-icon {
   @extend %icons;
   right: 1rem;
   
-  @include bp(m){
-    right: 0.5rem;
+  @include bp(m) {
+    right: .5rem;
   }
   
-  @include bp(l){
+  @include bp(l) {
     margin-right: 1rem;
   }
 }
-.inventoryCount{
-  font-size: 1.6rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  display: inline-block;
-  padding: 0.2rem 0.8rem 0rem 0.8rem;
-  position: fixed;
-  top: 2.8rem;
-  right: 2.1rem;
-  color: #000000;
+
+.inventory-count {
+  border-radius: .5rem;
+  color: $colour-palette-1;
   cursor: pointer;
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: .2rem .8rem 0;
+  position: fixed;
+  right: 2.1rem;
+  top: 2.8rem;
   
-  @include bp(m){
-    top: 3.3rem;
-    right: 2.1rem;
+  @include bp(m) {
     font-size: 1.8rem;
+    right: 2.1rem;
+    top: 3.3rem;
   }
   
-  @include bp(l){
-    top: 5.3rem;
-    right: 3.7rem;
+  @include bp(l) {
     font-size: 2.5rem;
+    right: 3.7rem;
+    top: 5.3rem;
   }
 }
 
-#inventory{
+.inventory {
   @extend %menus;
-  border-left: 0.1rem solid #ffffff;
+  border-left: .1rem solid $colour-palette-2;
   right: 0;
   width: 90%;
   
-  .inventoryContents{
-      padding: 2rem 2rem 0 2rem;
+  @include bp(m) {
+    width: 45%;
+    
+    p {
+      color: $colour-palette-2;
+    }
   }
   
-  .itemOptions{
-    border-bottom: none;
+  .inventory-contents {
+    padding: 2rem 2rem 0;
   }
   
-  .inventoryToggle{
-    font-size: 2.2rem;
-    display: block;
-    margin: 0;
-    color: #ffffff;
+  .item-options {
+    border-bottom: 0;
+  }
+  
+  .inventory-toggle {
+    color: $colour-palette-2;
     cursor: pointer;
+    display: block;
+    font-size: 2.2rem;
+    margin: 0;
     transition: $transition;
   }
-  li{
-    &.button{
-      &.inv{
-        border: none;
-      }
-    }
-    .item{
-      width: 7rem;
-      height: 7rem;
-      transition: $transition;
-      
-      p{
-        &:hover{
-          color: #ffffff;
-        }
-      }
-      
-      @include bp(m){
-        width: 10rem;
-        height: 10rem;
-      } 
-        p{
-          color: #ffffff;
-        }
-      }
+  
+  p {
     
-      &:hover{
-        .item{
-          border-radius: 50rem;
-          background-color: rgba(50,50,50,1); 
-        }
-        p{
-          color: rgba(50,50,50,1); 
-        }
+    &:hover {
+      color: $colour-palette-2;
     }
   }
-  @include bp(m){
-    width: 45%;
+  
+  li {
+    
+    @include bp(m) {
+      height: 10rem;
+      width: 10rem;
+    }
+    
+    &.inv {
+      border: 0;
+    }
+    
+    .item {
+      height: 7rem;
+      transition: $transition;
+      width: 7rem;
+      
+    }
+    
+    &:hover {
+    
+      .item {
+        background-color: $colour-palette-4;
+        border-radius: 50rem;
+      }
+    }
   }
 }
