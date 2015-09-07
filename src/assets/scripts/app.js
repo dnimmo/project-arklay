@@ -49,7 +49,7 @@ app.factory('GameItemFactory', [function() {
   // Register sound effects
   var newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
   var errorSound = new Audio('../assets/sounds/error.mp3');
-  var volume = 0.4;
+  var volume = 0.5;
   newItemSound.volume = volume;
   errorSound.volume = volume;
   return {
@@ -140,7 +140,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   };
   
   // Set background music
-  var backgroundMusic = new Audio('../assets/sounds/rain.mp3');
+  var backgroundMusic = new Audio('../assets/sounds/shadowLoop.mp3');
   
   // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
@@ -379,6 +379,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   vm.playBackgroundMusic = function(){
     if(vm.settings.soundEnabled){
       backgroundMusic.loop = true;
+      backgroundMusic.volume = 0.7;
       backgroundMusic.play();
     } else {
       // If sound has been disabled
