@@ -67,13 +67,6 @@
     transition: $transition;
   }
   
-  p {
-    
-    &:hover {
-      color: $colour-palette-2;
-    }
-  }
-  
   li {
     
     &.inv {
@@ -87,11 +80,22 @@
       
     }
     
-    &:hover {
+    p {
+      transition: $transition;
+    }
     
-      .item {
+    &:hover {
+      background-color: $colour-palette-2;
+      border-radius: .1rem;
+      color: $colour-palette-4;
+      
+      svg {
         background-color: $colour-palette-4;
         border-radius: 50rem;
+      }
+      
+      p {
+        color: $colour-palette-4;
       }
     }
   }
