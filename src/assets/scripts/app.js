@@ -29,37 +29,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
   }
 ]);
 
-// Service to wrap socket.io in Angular
-app.service('socket', function($rootScope){
-	var socket = io.connect(null); //paramater is for address and port - passing in 'null' ensures that the browser's current address and port are used
-	return{
-		// socket.on - this lets us assign what happens on specific events
-		on: function(eventName, callback){
-			socket.on(eventName, function(){
-				var args = arguments;
-				// Bind to root scope and apply any changes on change
-				$rootScope.$apply(function(){
-					callback.apply(socket, args);
-				});
-			});
-		},
-		// socket.emit - this lets us emit events back to the server
-		emit: function(eventName, data, callback){
-			socket.emit(eventName, data, function(){
-				var args = arguments;
-				$rootScope.$apply(function(){
-					if(callback){
-						callback.apply(socket, args);
-					}
-				});
-			})
-		}
-	};
-})
-
-
 app.factory('GameMapFactory', ['$http', function($http) {
-  socket.emit('setup', 'start');
   return{    
     init:
       function(){
@@ -70,11 +40,6 @@ app.factory('GameMapFactory', ['$http', function($http) {
       function(current){
         // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json
         return $http.get(current, {cache: true});
-      },
-    checkForOtherPlayers:
-      function(currentRoom, previousRoom){
-        // Display a message if someone else is in the same room
-        socket.emit('checkForOtherPeople', currentRoom, previousRoom.slug);
       }
   }
 }]);
@@ -428,15 +393,4 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     creditsSound.playbackRate = 1.2;
     creditsSound.play();
   }
-
-  // ============
-  // Socket stuff
-  // ============
-  
-  // When two players are in the same room, display a message to let them know they are not alone
-  // This is handled in server.js
-  socket.on('someoneElseIsHere', function(data){
-    vm.otherPlayerInRoom = data;
-    vm.$apply();
-  });
 }]);
