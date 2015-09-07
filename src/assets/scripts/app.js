@@ -235,8 +235,6 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
     // Assign promise response to vm.current
     vm.current = response.data;
-    // Check to see if there's anyone else in the room
-    GameMapFactory.checkForOtherPlayers(vm.current.slug, vm.visitedRooms[vm.visitedRooms.length-1]);
     if(vm.current.gameOver){
       return;
     }
