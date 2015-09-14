@@ -15,7 +15,8 @@ var	lint	= require('gulp-jslint');
 var	watch	= require('gulp-watch');
 var browserSync = require('browser-sync').create();
 var scssLint = require('gulp-scss-lint');
-//var karma = require('karma').server;
+var babel = require('gulp-babel');
+var karma = require('karma').server;
 
 // ==================================================
 // Required directories - Change these to suit!
@@ -70,11 +71,11 @@ var assets = [
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', [/*'test',*/ 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'scss-lint', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', ['test', 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'scss-lint', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
-/*
+
 gulp.task('test', function (done) {
   console.log('Running tests');
   karma.start({
@@ -83,7 +84,7 @@ gulp.task('test', function (done) {
   }, done);
   console.log('Finished running tests');
 });
-*/
+
 // Minify HTML files [gulp-minify-html]
 // ------------------------------------
 
@@ -125,9 +126,9 @@ gulp.task('scss-lint', function(){
 // -----------------------------
 
 gulp.task('process-javascript', function(){
-	console.log('Minifying JS');
 	// Watch JS files, but ignore already minified ones
 	gulp.src(jsFiles)
+  .pipe(babel())
 	.pipe(uglify())
 	// Add '.min' to minified files
 	.pipe(rename({
@@ -196,5 +197,5 @@ gulp.task('watch', function(){
 	// Watch SCSS files
 	gulp.watch(scssFiles, ['process-stylesheets', 'scss-lint']);
 	// Watch JS files
-	gulp.watch(jsFiles, [/*'test',*/ 'process-javascript']/*, 'js-lint']*/);
+	gulp.watch(jsFiles, ['test', 'process-javascript']/*, 'js-lint']*/);
 })

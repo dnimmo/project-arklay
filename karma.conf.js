@@ -16,8 +16,11 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'bower_components/angular.js/angular.min.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'https://raw.githubusercontent.com/jasmine/jasmine-ajax/master/lib/mock-ajax.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'src/tests/**/*.js'
+      'src/assets/scripts/app.js',
+      'src/tests/unit/Game-Item-Factory-unit-tests.js'
     ],
 
 

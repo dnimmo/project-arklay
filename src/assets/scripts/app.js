@@ -58,28 +58,30 @@ app.factory('GameItemFactory', [function() {
         return inventory;
       },
     add:
-      function(item){
+      function(item, soundEnabled){
         // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
         if(item.soundWhenUsed != 'undefined'){
           item.soundEffect = new Audio(item.soundWhenUsed);
         }
         inventory.push(item);
-        // Play chime when item is picked up
-        newItemSound.play();
+        // Play chime when item is picked up, if sound is enabled
+        if(soundEnabled){
+          newItemSound.play(); 
+        }
         return inventory;
       },
     remove:
       function(item){
+        // Remove the item that's passed in by checking its index in the inventory and then splicing the inventory on that index
         var itemPosition = inventory.indexOf(item);
         inventory.splice(itemPosition, 1);
         return inventory;
       },
     use:
-      function(unlocks, currentRoomSurroundings){
+      function(unlocks, currentRoomSurroundings, soundEnabled){
         var itemHasBeenUsed = false;
         // For each direction available in the current room, check to see if the link to the room matches the link in selectedItem.unlocks
         angular.forEach(currentRoomSurroundings, function(direction){
-          
           // If the item being used unlocks a direction in the current room, set itemHasBeenUsed to true and unblock the relevant direction
           if(direction.link == unlocks){
             direction.blocked = false;
@@ -87,7 +89,7 @@ app.factory('GameItemFactory', [function() {
           }
         });
         // If this is still false then item has not been used; play error chime
-        if(!itemHasBeenUsed){
+        if(!itemHasBeenUsed && soundEnabled){
           errorSound.play();
         }
         // Return true or false so we know if we need to discard the current item
@@ -114,7 +116,7 @@ app.directive('settingsPanel', function(){
 })
 
 // The main controller
-app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'CreditsFactory', function($scope, GameMapFactory, GameItemFactory, CreditsFactory) {
+app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemFactory', 'CreditsFactory', function($rootScope, $scope, GameMapFactory, GameItemFactory, CreditsFactory) {
   // Assign $scope to a 'view model' variable to save my poor fingers
   var vm = $scope;
   // Set-up stuff, probably needs to be more sensible
@@ -140,7 +142,8 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   };
   
   // Set background music
-  var backgroundMusic = new Audio('../assets/sounds/shadowLoop.mp3');
+  var backgroundMusic = new Audio('../assets/sounds/backgroundMusic.flac');
+  backgroundMusic.playbackRate = .8;
   
   // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
@@ -154,6 +157,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
       vm.settings.textColour = '';
       vm.settings.menuColour = '';
       vm.settings.menuTextColour = '';
+      vm.settings.soundEnabled = true;
     } else {
       vm.settings.optionsOpen = true;
       switch(setting){
@@ -176,6 +180,11 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
           vm.settings.menuTextColourOpen = true;
           // Store the value on opening the menu in case the user cancels
           vm.settings.tempMenuTextColour = vm.settings.menuTextColour;
+          break;
+        case 'sound':
+          vm.settings.soundOpen = true;
+          // Store the value on opening the menu in case the user cancels
+          vm.settings.tempSoundOption = vm.settings.soundEnabled;
           break; 
       }
     }
@@ -213,6 +222,13 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
             vm.settings.menuTextColour = vm.settings.tempMenuTextColour;
           }
         break;
+      case 'sound':
+          vm.settings.soundOpen = false;
+          if(!toChange){
+            // Revert to previously stored sound setting
+            vm.settings.soundEnabled = vm.settings.tempSoundOption;
+          }
+        break;
     }
   }
   
@@ -224,7 +240,6 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     });
   
   vm.playerName;
-  // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
   
   vm.toggleInventory = function(){
     vm.additionalMessage = '';
@@ -232,6 +247,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   }
   
   vm.update = function(roomToMoveTo){
+    // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
     // Assign promise response to vm.current
     vm.current = response.data;
@@ -271,7 +287,7 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
       // If item has never been picked up or used
       if(!itemAlreadyPickedUp){
         // Add the new item to the inventory
-        GameItemFactory.add(vm.current.newItem);
+        GameItemFactory.add(vm.current.newItem, vm.settings.soundEnabled);
         // Update our inventory
         vm.inventory = GameItemFactory.getInventory();
         // Display message to show item picked up
@@ -353,11 +369,11 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
   vm.use = function(){
     vm.additionalMessage = '';
     // checkItemResult returns true if the item can be used, and false if it can't
-    var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions);
+    var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions, vm.settings.soundEnabled);
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
       // Play audio (if there is an audio file associated with this item)
-      if(vm.selectedItem.soundEffect != 'undefined'){
+      if(vm.selectedItem.soundEffect != 'undefined' && vm.settings.soundEnabled){
         vm.selectedItem.soundEffect.play();
       }
       // Display message to say that item has been used
@@ -376,20 +392,34 @@ app.controller('MainCtrl', ['$scope', 'GameMapFactory', 'GameItemFactory', 'Cred
     vm.credits = response.data.credits;
   });
   
-  vm.playBackgroundMusic = function(){
+  vm.handleBackgroundMusic = function(toggle){
+    // You can call this function with a parameter to toggle whether the sound is enabled or not - this is for the settings menu. The reason this is optional is to allow the game to start with music playing / not playing without having to pass a parameter in
+    if(toggle){
+      vm.settings.soundEnabled = !vm.settings.soundEnabled;
+    }
     if(vm.settings.soundEnabled){
       backgroundMusic.loop = true;
-      backgroundMusic.volume = 0.7;
+      backgroundMusic.volume = 0.6;
       backgroundMusic.play();
     } else {
       // If sound has been disabled
-      backgroundMusic.pause();
+      //backgroundMusic.pause();
     }
   }
   
   vm.playCreditsSound = function(){
-    var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
-    creditsSound.playbackRate = 1.2;
-    creditsSound.play();
+    if(vm.settings.soundEnabled){    
+      var creditsMusic = new Audio('../assets/sounds/credits.mp3');
+      var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
+      creditsSound.playbackRate = 1;
+      backgroundMusic.volume = 0;
+      creditsMusic.play();
+      creditsSound.play(); 
+    }
   }
+  
+  // Allow music to start on page load - does not work in Android Chrome as it does not allow auto-play
+  vm.$watch(vm.settings.soundEnabled, function(){
+    vm.handleBackgroundMusic(false);
+  });
 }]);

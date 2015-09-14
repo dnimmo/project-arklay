@@ -6,11 +6,19 @@
 </div>
 <section id="settings" class="settings" data-ng-show='settings.open' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
   <div data-ng-show='!settings.optionsOpen'>
+    <!--Background Colour-->
     <p class='button' data-ng-click='settings.individual("backgroundColour")' data-ng-hide='settings.backgroundColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Background Colour</p>
+    <!--Text Colour-->
     <p class='button' data-ng-click='settings.individual("textColour")' data-ng-hide='settings.textColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Text Colour</p>
+    <!--Menu Colour-->
     <p class='button' data-ng-click='settings.individual("menuColour")' data-ng-hide='settings.menuColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Menu Colour</p>
+    <!--Menu Text Colour-->
     <p class='button' data-ng-click='settings.individual("menuTextColour")' data-ng-hide='settings.menuTextColourOpen' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Menu Text Colour</p>
+    <!--Music/SFX
+    <p class='button' data-ng-click='settings.individual("sound")' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}' data-ng-hide='settings.soundOpen' >Music/Sound Effects</p>
+    <!--Reset To Defaults-->
     <p class='button' data-ng-click='settings.individual("default")' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Reset To Defaults</p>
+    <!--Close Settings-->
     <p class="button close" data-ng-if='!itemOptionsOpen' data-ng-click='toggleSettings()' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Close Settings</p>
   </div>
 
@@ -37,6 +45,13 @@
     <input type="text" id="menuColour" data-ng-model='settings.menuColour' style='color: {{settings.menuTextColour}}; background-color: {{settings.menuColour}}; border-color: {{settings.menuTextColour}}' placeholder="Enter a colour"/>
     <p class='button' data-ng-click='settings.close("menuColour", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>
     <p class='button' data-ng-click='settings.close("menuColour", false)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</p>
-  </div>   
+  </div> 
+  <div data-ng-show='settings.soundOpen' class='individual-setting'>
+    <h3>Sound</h3>
+    <p>Current setting: <span data-ng-show='settings.soundEnabled'>on</span><span data-ng-hide='settings.soundEnabled'>off</span></p>
+    <p class='button toggle'><span data-ng-click='handleBackgroundMusic(true)' data-ng-show='settings.soundEnabled'>Turn Off</span><span data-ng-click='handleBackgroundMusic(true)' data-ng-hide='settings.soundEnabled'>Turn On</span></p><br/>
+    <p class='button' data-ng-click='settings.close("sound", true)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Set</p>
+    <p class='button' data-ng-click='settings.close("sound", false)' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</p>
+  </div> 
 </section>
 <!-- Settings end -->

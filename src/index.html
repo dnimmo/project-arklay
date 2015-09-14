@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html data-ng-app='projectArklay' data-ng-cloak>
+<html data-ng-app='projectArklay' 
+      data-ng-cloak 
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:svg="http://www.w3.org/2000/svg">
   <head>
     <title>Project Arklay</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'/>
-    <meta name='theme-color' content='#323232'/>
-    <meta name='description' content='An old-school text adventure game that you can play in your browser'>
-    <link rel='author' href='https://plus.google.com/+DavidNimmo/posts'/>
-    <link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' href='assets/style/main.css'/>    
+    <meta name='viewport' 
+          content='width=device-width, initial-scale=1'/>
+    <meta name='theme-color' 
+          content='#323232'/>
+    <meta name='description' 
+          content='An old-school text adventure game that you can play in your browser'>
+    <link rel='author' 
+          href='https://plus.google.com/+DavidNimmo/posts'/>
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif' 
+          rel='stylesheet' 
+          type='text/css'>
+    <link rel='stylesheet' 
+          href='assets/style/main.css'/>    
   </head>
-  <body data-ng-controller='MainCtrl' style='background-color: {{settings.backgroundColour}}; color: {{settings.textColour}}'>
+  <body data-ng-controller='MainCtrl' 
+        style='background-color: {{settings.backgroundColour}}; color: {{settings.textColour}}'>
         
     <main data-ui-view>
     </main>
-    <!-- Settings panel located in directive-templates/settings-panel.html -->
+    <!-- Settings panel located in ../directive-templates/settings-panel.html -->
     <settings-panel></settings-panel>
     <!-- Inventory start -->
     <div class='inventory-toggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0' >
