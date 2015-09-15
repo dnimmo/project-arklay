@@ -94,7 +94,31 @@ app.factory('GameItemFactory', [function() {
         }
         // Return true or false so we know if we need to discard the current item
         return itemHasBeenUsed;
-    }
+    },
+    checkIfItemHasAlreadyBeenUsed:
+      // If an item's already been used, you don't want the player to be able to pick it up when they go back to where it was originally
+      function(item, unlockedRooms){
+        var itemHasAlreadyBeenUsed = false;
+        
+        angular.forEach(unlockedRooms, function(room){
+          if(item.unlocks == room){
+            itemHasAlreadyBeenUsed = true;
+           }
+        });
+        // Return true or false so we know if this item has been used previously
+        return itemHasAlreadyBeenUsed;
+    },
+    checkIfItemAlreadyHeld:
+      // If an item is already in the inventory, you don't want it to be able to be added again
+      function(item){
+        var itemIsAlreadyHeld = false;
+          angular.forEach(inventory, function(inventoryItem){
+            if(inventoryItem.name == item.name){
+              itemIsAlreadyHeld = true;
+            }
+          });
+        return itemIsAlreadyHeld;
+      }
   }
 }]);
 
@@ -269,23 +293,16 @@ app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemF
       
     // Check to see if there's a new item here
     if (typeof vm.current.newItem === 'object'){
-      var itemAlreadyPickedUp = false;
       // Check to make sure we don't already have this item in the inventory
-      angular.forEach(vm.inventory, function(item){
-        if(vm.current.newItem.name == item.name){
-          itemAlreadyPickedUp = true;
-          // Update text displayed if necessary
-          vm.updateSurroundings('picked up');
-        }
+      var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
+      var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.unlockedRooms);
+      if(itemAlreadyPickedUp, function(){
+        // Update text displayed
+        vm.updateSurroundings('picked up');
       });
-      // Check to make sure any items picked up in this area haven't already been used
-      angular.forEach(vm.unlockedRooms, function(room){
-        if(vm.current.newItem.unlocks == room){
-          itemAlreadyPickedUp = true;
-         }
-      });
+      
       // If item has never been picked up or used
-      if(!itemAlreadyPickedUp){
+      if(!itemAlreadyPickedUp && !itemAlreadyUsed){
         // Add the new item to the inventory
         GameItemFactory.add(vm.current.newItem, vm.settings.soundEnabled);
         // Update our inventory
