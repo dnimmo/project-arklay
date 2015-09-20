@@ -16,6 +16,7 @@
 //   @include animation('animationName animationOptions')
 // }
 
+// scss-lint:disable VendorPrefix
 @mixin animation($animate...) {
   $max: length($animate);
   $animations: '';

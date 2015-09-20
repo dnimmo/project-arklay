@@ -18,9 +18,12 @@ module.exports = function(config) {
       'bower_components/angular.js/angular.min.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'https://raw.githubusercontent.com/jasmine/jasmine-ajax/master/lib/mock-ajax.js',
-      'node_modules/angular-mocks/angular-mocks.js',
+      'bower_components/angular.js/angular-mocks.js',
       'src/assets/scripts/app.js',
-      'src/tests/unit/Game-Item-Factory-unit-tests.js'
+      'src/tests/unit/credits-factory.js',
+      'src/tests/unit/game-map-factory.js',
+      'src/tests/unit/game-item-factory.js',
+      'src/tests/unit/main-controller.js'
     ],
 
 

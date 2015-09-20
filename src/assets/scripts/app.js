@@ -30,17 +30,61 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 ]);
 
 app.factory('GameMapFactory', ['$http', function($http) {
+  var unlockedRooms = [];
+  var visitedRooms = [];
+ 
   return{    
     init:
-      function(){
-        // Always cache results: Since a get request is called for every room, and the player will be re-visiting rooms, no need to have them keep requesting resources they should already have
-        return $http.get('/rooms/start', {cache: true});
-      },
+    function(){
+      // Always cache results: Since a get request is called for every room, and the player will be re-visiting rooms, no need to have them keep requesting resources they should already have
+      return $http.get('/rooms/start', {cache: true});
+    },
     checkLocation: 
-      function(current){
-        // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json
-        return $http.get(current, {cache: true});
+    function(current){
+      // Get info from [url]/rooms/[slug]. Room info is all stored in src/assets/resources/map.json
+      return $http.get(current, {cache: true});
+    },
+    initialiseVisitedRooms:
+    function(){
+      return visitedRooms;
+    },
+    addToVisitedRooms:
+    function(room){
+      visitedRooms.push(room);
+    },
+    checkIfRoomHasBeenVisited:
+    function(room){
+      var hasBeenVisited = false;
+      angular.forEach(visitedRooms, function(roomThatHasBeenVisited){
+        if(roomThatHasBeenVisited.name == room.name){
+          hasBeenVisited = true;
+        }
+      });
+      return hasBeenVisited
+    },
+    initialiseUnlockedRooms:
+    function(){
+      return unlockedRooms;
+    },
+    addToUnlockedRooms:
+    function(room){
+      unlockedRooms.push(room);
+    },
+    checkIfSurroundingsAreUnlocked:
+    function(surroundings){
+      var unlockedSurroundings = [];
+      if(unlockedRooms.length != 0){
+        angular.forEach(surroundings, function(direction){
+          angular.forEach(unlockedRooms, function(room){
+            if(direction.link == room){
+              unlockedSurroundings.push(direction.link);
+              // if a previously used item has unlocked a direction in this room, it should still be unlocked
+            } 
+          });
+        });
       }
+      return unlockedSurroundings;
+    }
   }
 }]);
 
@@ -53,72 +97,72 @@ app.factory('GameItemFactory', [function() {
   newItemSound.volume = volume;
   errorSound.volume = volume;
   return {
-    getInventory: 
-      function(){
-        return inventory;
-      },
     add:
-      function(item, soundEnabled){
-        // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
-        if(item.soundWhenUsed != 'undefined'){
-          item.soundEffect = new Audio(item.soundWhenUsed);
-        }
-        inventory.push(item);
-        // Play chime when item is picked up, if sound is enabled
-        if(soundEnabled){
-          newItemSound.play(); 
-        }
-        return inventory;
-      },
-    remove:
-      function(item){
-        // Remove the item that's passed in by checking its index in the inventory and then splicing the inventory on that index
-        var itemPosition = inventory.indexOf(item);
-        inventory.splice(itemPosition, 1);
-        return inventory;
-      },
-    use:
-      function(unlocks, currentRoomSurroundings, soundEnabled){
-        var itemHasBeenUsed = false;
-        // For each direction available in the current room, check to see if the link to the room matches the link in selectedItem.unlocks
-        angular.forEach(currentRoomSurroundings, function(direction){
-          // If the item being used unlocks a direction in the current room, set itemHasBeenUsed to true and unblock the relevant direction
-          if(direction.link == unlocks){
-            direction.blocked = false;
-            itemHasBeenUsed = true;
-          }
-        });
-        // If this is still false then item has not been used; play error chime
-        if(!itemHasBeenUsed && soundEnabled){
-          errorSound.play();
-        }
-        // Return true or false so we know if we need to discard the current item
-        return itemHasBeenUsed;
-    },
-    checkIfItemHasAlreadyBeenUsed:
-      // If an item's already been used, you don't want the player to be able to pick it up when they go back to where it was originally
-      function(item, unlockedRooms){
-        var itemHasAlreadyBeenUsed = false;
-        
-        angular.forEach(unlockedRooms, function(room){
-          if(item.unlocks == room){
-            itemHasAlreadyBeenUsed = true;
-           }
-        });
-        // Return true or false so we know if this item has been used previously
-        return itemHasAlreadyBeenUsed;
+    function(item, soundEnabled){
+      // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
+      if(item.soundWhenUsed != 'undefined'){
+        item.soundEffect = new Audio(item.soundWhenUsed);
+      }
+      inventory.push(item);
+      // Play chime when item is picked up, if sound is enabled
+      if(soundEnabled){
+        newItemSound.play();
+      }
+      return inventory;
     },
     checkIfItemAlreadyHeld:
-      // If an item is already in the inventory, you don't want it to be able to be added again
-      function(item){
-        var itemIsAlreadyHeld = false;
-          angular.forEach(inventory, function(inventoryItem){
-            if(inventoryItem.name == item.name){
-              itemIsAlreadyHeld = true;
-            }
-          });
-        return itemIsAlreadyHeld;
+    // If an item is already in the inventory, you don't want it to be able to be added again
+    function(item){
+      var itemIsAlreadyHeld = false;
+        angular.forEach(inventory, function(inventoryItem){
+          if(inventoryItem.name == item.name){
+            itemIsAlreadyHeld = true;
+          }
+        });
+      return itemIsAlreadyHeld;
+    },
+    checkIfItemHasAlreadyBeenUsed:
+    // If an item's already been used, you don't want the player to be able to pick it up when they go back to where it was originally
+    function(item, unlockedRooms){
+      var itemHasAlreadyBeenUsed = false;
+        
+      angular.forEach(unlockedRooms, function(room){
+        if(item.unlocks == room){
+          itemHasAlreadyBeenUsed = true;
+         }
+      });
+      // Return true or false so we know if this item has been used previously
+      return itemHasAlreadyBeenUsed;
+    },
+    getInventory: 
+    function(){
+      return inventory;
+    },
+    remove:
+    function(item){
+      // Remove the item that's passed in by checking its index in the inventory and then splicing the inventory on that index
+      var itemPosition = inventory.indexOf(item);
+      inventory.splice(itemPosition, 1);
+      return inventory;
+    },
+    use:
+    function(unlocks, currentRoomSurroundings, soundEnabled){
+      var itemHasBeenUsed = false;
+        // For each direction available in the current room, check to see if the link to the room matches the link in selectedItem.unlocks
+      angular.forEach(currentRoomSurroundings, function(direction){
+        // If the item being used unlocks a direction in the current room, set itemHasBeenUsed to true and unblock the relevant direction
+        if(direction.link == unlocks){
+          direction.blocked = false;
+          itemHasBeenUsed = true;
+        }
+      });
+      // If this is still false then item has not been used; play error chime
+      if(!itemHasBeenUsed && soundEnabled){
+        errorSound.play();
       }
+      // Return true or false so we know if we need to discard the current item
+      return itemHasBeenUsed;
+    },
   }
 }]);
 
@@ -150,9 +194,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemF
   vm.showDescription = false;
   vm.additionalMessage = '';
   vm.itemMessage = '';
-  vm.otherPlayerInRoom = '';
-  vm.visitedRooms = [{}];
-  vm.unlockedRooms = [];
+  vm.visitedRooms = GameMapFactory.initialiseVisitedRooms();
+  vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
   vm.credits = [];
   // Should this be a separate factory? I'm not 100% convinced either way
   vm.settings = {
@@ -279,22 +322,28 @@ app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemF
       return;
     }
     // Check to see if a locked area in this room has been previously unlocked
-    if(vm.unlockedRooms.length != 0){
-      angular.forEach(vm.current.directions, function(direction){
-        angular.forEach(vm.unlockedRooms, function(room){
-          if(direction.link == room){
-            // if a previously used item has unlocked a direction in this room, it should still be unlocked
+    var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions);
+    // If there are any rooms leading off from the player's current position that were once locked,
+    // but have since been unlocked, make sure they remain unlocked.
+    
+    if (unlockedDirections.length > 0){
+      // Loop through the locked rooms, compare them against the link in each available direction...
+      angular.forEach(unlockedDirections, function(unlockedDirection){
+        angular.forEach(vm.current.directions, function(direction){
+          // ...and set any that match to be unlocked.
+          if (direction.link == unlockedDirection){
             direction.blocked = false;
             vm.updateSurroundings('used');
-          } 
-        });
-      });
+          }
+        })
+      })
     }
       
     // Check to see if there's a new item here
     if (typeof vm.current.newItem === 'object'){
       // Check to make sure we don't already have this item in the inventory
       var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
+      // Check to make sure item hasn't already been used
       var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.unlockedRooms);
       if(itemAlreadyPickedUp, function(){
         // Update text displayed
@@ -336,26 +385,14 @@ app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemF
   // Move in a given direction
   vm.move = function(roomToMoveTo){
     vm.update(roomToMoveTo);
+    var hasBeenVisited = GameMapFactory.checkIfRoomHasBeenVisited({"name" : vm.current.name, "slug" : vm.current.slug});
+    if(!hasBeenVisited){
+      GameMapFactory.addToVisitedRooms({"name" : vm.current.name, "slug" : vm.current.slug});
+    }
     // Reset any additional message on the screen
-    vm.checkIfVisitedRoom();
     vm.itemMessage= '';
     vm.additionalMessage = '';
-    vm.otherPlayerInRoom = '';
   }
-  
-  // Check if room has been visited
-  vm.checkIfVisitedRoom = function(){
-      var hasBeenVisited = false;
-      angular.forEach(vm.visitedRooms, function(room){
-        if(room.name == vm.current.name){
-          hasBeenVisited = true;
-        }
-      });
-      if(!hasBeenVisited){
-        // Add current room to visited rooms if not previously visited
-        vm.visitedRooms.push({"name" : vm.current.name, "slug" : vm.current.slug});  
-      }
-    }
   
   // Show item options
   vm.showOptions = function(item){
@@ -375,8 +412,8 @@ app.controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemF
   vm.discardItem = function(){
       // Discard current item
       GameItemFactory.remove(vm.selectedItem);
-      // Keep a record of the items used so far
-      vm.unlockedRooms.push(vm.selectedItem.unlocks);
+      // Keep a record of the rooms that have been unlocked so far so we know which items have been used
+      GameMapFactory.addToUnlockedRooms(vm.selectedItem.unlocks);
       // Clear the current selected item (which no longer exists anyway)
       vm.clearSelectedItem();
       // Close inventory
