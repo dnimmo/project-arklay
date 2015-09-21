@@ -6,25 +6,25 @@
 // Load modules
 // ==================================================
 
+var browserSync = require('browser-sync').create();
+var concat = require('gulp-concat');
 var gulp 	= require('gulp');
 var html  = require('gulp-minify-html');
-var	sass 	= require('gulp-sass');
-var	uglify	= require('gulp-uglify');
-var	rename	= require('gulp-rename');
-var	lint	= require('gulp-jslint');
-var	watch	= require('gulp-watch');
-var browserSync = require('browser-sync').create();
-var scssLint = require('gulp-scss-lint');
-var babel = require('gulp-babel');
 var karma = require('karma').server;
+var	lint	= require('gulp-jslint');
+var	rename	= require('gulp-rename');
+var	sass 	= require('gulp-sass');
+var scssLint = require('gulp-scss-lint');
+var	uglify	= require('gulp-uglify');
+var	watch	= require('gulp-watch');
 
 // ==================================================
 // Required directories - Change these to suit!
 // ==================================================
 
-var rootDir = './src';
-var destDir = './build';
 var bowerComponentsDir = './bower_components';
+var destDir = './build';
+var rootDir = './src';
 
 // ==================================================
 // HTML files to be watched
@@ -43,7 +43,7 @@ var	scssFiles = rootDir + '/**/*.scss';
 // ==================================================
 
 var	 jsFiles = [
-		rootDir + '/**/*.js',
+		rootDir + '/assets/**/*.js',
 		'!'+rootDir+'/**/*.min.js',
     '!'+rootDir+'/tests'
 	];
@@ -77,12 +77,10 @@ gulp.task('default', ['test', 'move-bower-components', 'move-assets', 'process-h
 // ------------------------
 
 gulp.task('test', function (done) {
-  console.log('Running tests');
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done);
-  console.log('Finished running tests');
 });
 
 // Minify HTML files [gulp-minify-html]
@@ -122,20 +120,15 @@ gulp.task('scss-lint', function(){
   .pipe(scssLint());
 });
 
-// Minify JS files [gulp-uglify]
+// Minify JS files [process-javascript]
 // -----------------------------
 
 gulp.task('process-javascript', function(){
 	// Watch JS files, but ignore already minified ones
-	gulp.src(jsFiles)
-  .pipe(babel())
+	return gulp.src(jsFiles)
+  .pipe(concat('arklay.min.js'))
 	.pipe(uglify())
-	// Add '.min' to minified files
-	.pipe(rename({
-		suffix: '.min'
-	}))
-	.pipe(gulp.dest(destDir));
-	console.log('Finished minifying JS');
+	.pipe(gulp.dest(destDir+'/assets/scripts'));
 });
 
 // Copy necessary bower components to 'build'
