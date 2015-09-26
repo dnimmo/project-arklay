@@ -120,7 +120,7 @@ gulp.task('scss-lint', function(){
   .pipe(scssLint());
 });
 
-// Minify JS files [process-javascript]
+// Minify JS files [gulp-concat, gulp-uglify]
 // -----------------------------
 
 gulp.task('process-javascript', function(){
@@ -191,4 +191,4 @@ gulp.task('watch', function(){
 	gulp.watch(scssFiles, ['process-stylesheets', 'scss-lint']);
 	// Watch JS files
 	gulp.watch(jsFiles, ['test', 'process-javascript']/*, 'js-lint']*/);
-})
+});

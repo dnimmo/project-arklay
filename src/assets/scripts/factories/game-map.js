@@ -32,7 +32,10 @@ angular.module('projectArklay').factory('GameMapFactory', ['$http', function($ht
       return hasBeenVisited
     },
     initialiseUnlockedRooms:
-    function(){
+    function(saveData){
+      if(saveData){
+        unlockedRooms = saveData;
+      }
       return unlockedRooms;
     },
     addToUnlockedRooms:

@@ -6,13 +6,10 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
   var volume = 0.5;
   newItemSound.volume = volume;
   errorSound.volume = volume;
+  
   return {
     add:
     function(item, soundEnabled){
-      // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
-      if(item.soundWhenUsed != 'undefined'){
-        item.soundEffect = new Audio(item.soundWhenUsed);
-      }
       inventory.push(item);
       // Play chime when item is picked up, if sound is enabled
       if(soundEnabled){
@@ -45,7 +42,11 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
       return itemHasAlreadyBeenUsed;
     },
     getInventory: 
-    function(){
+    function(saveData){
+      // If loading a previous save, initialise the inventory from save data
+      if(saveData){
+        inventory = saveData;
+      }
       return inventory;
     },
     remove:
@@ -66,7 +67,7 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
           itemHasBeenUsed = true;
         }
       });
-      // If this is still false then item has not been used; play error chime
+      // If itemHasBeenUsed is still false then item has not been used; play error chime
       if(!itemHasBeenUsed && soundEnabled){
         errorSound.play();
       }

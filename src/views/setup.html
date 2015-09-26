@@ -1,5 +1,7 @@
-<label for='name'>Your name: </label>
-<br/>
-<input type='text' data-ng-model='playerName' style='background-color: {{settings.backgroundColour}}; color: {{settings.textColour}}; border-color: {{settings.textColour}}'/>
-<br/>
-<a class='button' data-ui-sref='game' data-ng-click=registerPlayer(playerName) data-ng-click=handleBackgroundMusic(false) style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>Get started</a>
+<p data-ng-show='localStorageEnabled'>This game auto-saves on whatever you're playing on. If you want to stop playing, feel free; your progress will be saved for when you return.</p>
+
+<p data-ng-hide='localStorageEnabled'>Unfortunately your browser does not support save data, so you will be unable to save your progress.</p>
+
+<a data-ng-show='saveData' data-ng-click='loadGame()' class='button' data-ui-sref='game' data-ng-click=handleBackgroundMusic(false) style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>Load game</a>
+<br />
+<a class='button' data-ng-click='newGame()' data-ui-sref='game' data-ng-click=handleBackgroundMusic(false) style='color: {{settings.textColour}}; border-color: {{settings.textColour}}'>New game</a>

@@ -1,30 +1,75 @@
-angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'GameMapFactory', 'GameItemFactory', 'CreditsFactory', function($rootScope, $scope, GameMapFactory, GameItemFactory, CreditsFactory) {
+angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'CreditsFactory', 'GameItemFactory', 'GameMapFactory', 'SaveDataFactory', 'SettingsFactory', function($rootScope, $scope, CreditsFactory, GameItemFactory, GameMapFactory, SaveDataFactory, SettingsFactory) {
   // Assign $scope to a 'view model' variable to save my poor fingers
   var vm = $scope;
   // Set-up stuff, probably needs to be more sensible
-  vm.inventoryOpen = false;
-  vm.inventory = GameItemFactory.getInventory();
-  vm.itemOptionsOpen = false;
-  vm.showDescription = false;
   vm.additionalMessage = '';
-  vm.itemMessage = '';
-  vm.visitedRooms = GameMapFactory.initialiseVisitedRooms();
-  vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
   vm.credits = [];
-  // Should this be a separate factory? I'm not 100% convinced either way
-  vm.settings = {
-    'open' : false,
-    'backgroundColourOpen' : false,
-    'menuColourOpen' : false,
-    'textColourOpen' : false,
-    'menuTextColourOpen' : false,
-    'optionsOpen' : false,
-    'soundEnabled' : true
-  };
+  vm.inventory = [];
+  vm.inventoryOpen = false;
+  vm.itemMessage = '';
+  vm.itemOptionsOpen = false;
+  vm.localStorageEnabled;
+  vm.saveData = SaveDataFactory.load();
+  vm.settings = SettingsFactory.getDefaults();
+  vm.showDescription = false;
+  vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
+  vm.visitedRooms = GameMapFactory.initialiseVisitedRooms();
+  
+  if(typeof(localStorage) !== 'undefined'){
+    vm.localStorageEnabled = true;
+  }
   
   // Set background music
   var backgroundMusic = new Audio('../assets/sounds/backgroundMusic.flac');
   backgroundMusic.playbackRate = .8;
+  
+  // Load an existing saved game   
+  vm.loadGame = function(){
+    // Set up the current room by getting the room from the save data,
+    // then having the game think you've just 'moved' into that room
+    vm.current = {};
+    vm.current.slug = vm.saveData.currentState;
+    vm.move(vm.saveData.currentState);
+    
+    // Set up the inventory and the unlocked rooms by initialising them both from save data
+    vm.inventory = GameItemFactory.getInventory(vm.saveData.inventory);
+    vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms(vm.saveData.unlockedRooms.unlocked);
+  }
+  
+  // Start a new game
+  vm.newGame = function(){
+    // Initialise the game from /rooms/start
+    GameMapFactory.init()
+      .then(function(response){
+      // Set starting info
+      vm.current = response.data;
+    });
+  }
+  
+  // If vm.current doesn't exist by this point force a hard refresh
+  if(!vm.current){
+    window.location = window.location.origin+'#';
+  }
+  
+  // Cancel selected item
+  vm.clearSelectedItem = function(){
+    vm.additionalMessage = '';
+    vm.selectedItem = '';
+    // Close the inventory
+    vm.itemOptionsOpen = false; 
+  }
+  
+  // Handle items that have been used
+  vm.discardItem = function(){
+      // Discard current item
+      GameItemFactory.remove(vm.selectedItem);
+      // Keep a record of the rooms that have been unlocked so far so we know which items have been used
+      GameMapFactory.addToUnlockedRooms(vm.selectedItem.unlocks);
+      // Clear the current selected item (which no longer exists anyway)
+      vm.clearSelectedItem();
+      // Close inventory
+      vm.toggleInventory();
+  }
   
   // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
   vm.toggleSettings = function(){
@@ -34,11 +79,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
   vm.settings.individual = function(setting){
     if(setting == 'default'){
       // Reset settings to defaults
-      vm.settings.backgroundColour = '';
-      vm.settings.textColour = '';
-      vm.settings.menuColour = '';
-      vm.settings.menuTextColour = '';
-      vm.settings.soundEnabled = true;
+      vm.settings = SettingsFactory.getDefaults();
     } else {
       vm.settings.optionsOpen = true;
       switch(setting){
@@ -113,15 +154,6 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
     }
   }
   
-  // Initialise the game from /rooms/start
-  GameMapFactory.init()
-    .then(function(response){
-      // Set starting info
-      vm.current = response.data;
-    });
-  
-  vm.playerName;
-  
   vm.toggleInventory = function(){
     vm.additionalMessage = '';
     vm.inventoryOpen = !vm.inventoryOpen;
@@ -130,52 +162,56 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
   vm.update = function(roomToMoveTo){
     // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
     GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
-    // Assign promise response to vm.current
-    vm.current = response.data;
-    if(vm.current.gameOver){
-      return;
-    }
-    // Check to see if a locked area in this room has been previously unlocked
-    var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions);
-    // If there are any rooms leading off from the player's current position that were once locked,
-    // but have since been unlocked, make sure they remain unlocked.
-    
-    if (unlockedDirections.length > 0){
-      // Loop through the locked rooms, compare them against the link in each available direction...
-      angular.forEach(unlockedDirections, function(unlockedDirection){
-        angular.forEach(vm.current.directions, function(direction){
-          // ...and set any that match to be unlocked.
-          if (direction.link == unlockedDirection){
-            direction.blocked = false;
-            vm.updateSurroundings('used');
-          }
-        })
-      })
-    }
       
-    // Check to see if there's a new item here
-    if (typeof vm.current.newItem === 'object'){
-      // Check to make sure we don't already have this item in the inventory
-      var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
-      // Check to make sure item hasn't already been used
-      var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.unlockedRooms);
-      if(itemAlreadyPickedUp, function(){
-        // Update text displayed
-        vm.updateSurroundings('picked up');
-      });
+      // Assign promise response to vm.current
+      vm.current = response.data;
       
-      // If item has never been picked up or used
-      if(!itemAlreadyPickedUp && !itemAlreadyUsed){
-        // Add the new item to the inventory
-        GameItemFactory.add(vm.current.newItem, vm.settings.soundEnabled);
-        // Update our inventory
-        vm.inventory = GameItemFactory.getInventory();
-        // Display message to show item picked up
-        vm.itemMessage = '== "' + vm.current.newItem.name + '" picked up ==';
+      // Save current progress at the end of each room move
+      SaveDataFactory.save(vm.current, vm.inventory, vm.unlockedRooms);
+      
+      if(vm.current.gameOver){
+        return;
       }
-    }
+      // Check to see if a locked area in this room has been previously unlocked
+      var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions, vm.unlockedRooms);
+      // If there are any rooms leading off from the player's current position that were once locked,
+      // but have since been unlocked, make sure they remain unlocked.
+
+      if (unlockedDirections.length > 0){
+        // Loop through the locked rooms, compare them against the link in each available direction...
+        angular.forEach(unlockedDirections, function(unlockedDirection){
+          angular.forEach(vm.current.directions, function(direction){
+            // ...and set any that match to be unlocked.
+            if (direction.link == unlockedDirection){
+              direction.blocked = false;
+              vm.updateSurroundings('used');
+            }
+          })
+        })
+      }
       
-  });
+      // Check to see if there's a new item here
+      if (typeof vm.current.newItem === 'object'){
+        // Check to make sure we don't already have this item in the inventory
+        var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
+        // Check to make sure item hasn't already been used
+        var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.unlockedRooms);
+        if(itemAlreadyPickedUp, function(){
+          // Update text displayed
+          vm.updateSurroundings('picked up');
+        });
+      
+        // If item has never been picked up or used
+        if(!itemAlreadyPickedUp && !itemAlreadyUsed){
+          // Add the new item to the inventory
+          GameItemFactory.add(vm.current.newItem, vm.settings.soundEnabled);
+          // Update our inventory
+          vm.inventory = GameItemFactory.getInventory();
+          // Display message to show item picked up
+          vm.itemMessage = '== "' + vm.current.newItem.name + '" picked up ==';
+        }
+      }
+    });
   }
   
   vm.updateSurroundings = function(usedOrPickedUp){
@@ -189,12 +225,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
     } else {
       // Nothing to see here
     }
-  }
-  
-  // Register player - currently only used in credits
-  vm.registerPlayer = function(name){
-    vm.playerName = name;
-  }
+  }  
   
   // Move in a given direction
   vm.move = function(roomToMoveTo){
@@ -214,32 +245,17 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
     vm.selectedItem = item;
   }
   
-  // Cancel selected item
-  vm.clearSelectedItem = function(){
-    vm.additionalMessage = '';
-    vm.selectedItem = '';
-    // Close the inventory
-    vm.itemOptionsOpen = false; 
-  }
-  
-  // Handle items that have been used
-  vm.discardItem = function(){
-      // Discard current item
-      GameItemFactory.remove(vm.selectedItem);
-      // Keep a record of the rooms that have been unlocked so far so we know which items have been used
-      GameMapFactory.addToUnlockedRooms(vm.selectedItem.unlocks);
-      // Clear the current selected item (which no longer exists anyway)
-      vm.clearSelectedItem();
-      // Close inventory
-      vm.toggleInventory();
-  }
-  
   vm.use = function(){
     vm.additionalMessage = '';
     // checkItemResult returns true if the item can be used, and false if it can't
     var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions, vm.settings.soundEnabled);
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
+      
+      // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
+      if(vm.selectedItem.soundWhenUsed != 'undefined'){
+        vm.selectedItem.soundEffect = new Audio(vm.selectedItem.soundWhenUsed);
+      }
       // Play audio (if there is an audio file associated with this item)
       if(vm.selectedItem.soundEffect != 'undefined' && vm.settings.soundEnabled){
         vm.selectedItem.soundEffect.play();
