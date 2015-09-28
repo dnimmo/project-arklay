@@ -29,12 +29,14 @@ module.exports = function(config) {
       'src/assets/scripts/factories/settings.js',
       'src/assets/scripts/factories/game-map.js',
       'src/assets/scripts/factories/save-data.js',
+      'src/assets/scripts/services/unlocked-rooms.js',
       'src/tests/unit/credits-factory.js',
       'src/tests/unit/game-map-factory.js',
       'src/tests/unit/game-item-factory.js',
       'src/tests/unit/settings-factory.js',
       'src/tests/unit/settings-panel-directive.js',
-      'src/tests/unit/save-data-factory.js'
+      'src/tests/unit/save-data-factory.js',
+      'src/tests/unit/unlocked-rooms-service.js'
     ],
 
 

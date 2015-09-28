@@ -5,8 +5,7 @@
       "name" : "Foyer",
       "description" : "You are in the foyer of what appears to be a mansion.",
       "surroundings" : "A vast, dimly-lit foyer, with a grand staircase and a couple of doors.",
-      "directions" : [
-        {
+      "directions" : [{
           "rel" : "upstairs",
           "link" : "/rooms/upstairs-foyer",
           "image" : "assets/images/defs.svg#upstairs"
@@ -18,8 +17,7 @@
           "rel" : "east",
           "link" : "/rooms/statue-room",
           "image" : "assets/images/defs.svg#arrow"
-        }
-      ]
+        }]
     },
     {
       "slug": "dining-hall",
@@ -366,7 +364,7 @@
           "image" : "assets/images/defs.svg#arrow"
         }],
       "newItem": {
-        "name" : "Moose Head",
+        "name" : "Moose head",
         "image" : "assets/images/defs.svg#moosehead",
         "description" : "The moose's cold, dead eyes stare into your soul.",
         "messageWhenUsed" : "You place the moose head onto the empty plaque.",

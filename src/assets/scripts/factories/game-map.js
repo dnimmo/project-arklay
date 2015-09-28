@@ -1,4 +1,4 @@
-angular.module('projectArklay').factory('GameMapFactory', ['$http', function($http) {
+angular.module('projectArklay').factory('GameMapFactory', ['$http', 'UnlockedRoomsService', function($http, UnlockedRoomsService) {
   var unlockedRooms = [];
   var visitedRooms = [];
  
@@ -38,20 +38,33 @@ angular.module('projectArklay').factory('GameMapFactory', ['$http', function($ht
       }
       return unlockedRooms;
     },
-    addToUnlockedRooms:
-    function(room){
-      unlockedRooms.push(room);
-    },
     checkIfSurroundingsAreUnlocked:
-    function(surroundings){
+    function(surroundings, itemsUsed){
       var unlockedSurroundings = [];
-      if(unlockedRooms.length != 0){
+      if(itemsUsed.length != 0){
+        
         angular.forEach(surroundings, function(direction){
-          angular.forEach(unlockedRooms, function(room){
-            if(direction.link == room){
+          // Loop through the surroundings
+          var unlockRequirementsMet = 0;
+          
+          angular.forEach(itemsUsed, function(item){
+            // Loop through the items that have been used
+            if(direction.unlockedWith && direction.unlockedWith.length > 1){
+              // If you need multiple items for this room
+              
+              angular.forEach(direction.unlockedWith, function(unlockRequirement){
+                // Loop through all the unlock requirements for this direction
+                if(unlockRequirement == item){
+                  unlockRequirementsMet += 1;
+                }
+                if(unlockRequirementsMet == direction.unlockedWith.length){
+                  // If you only need one item for this room, then it's unlocked already
+                  unlockedSurroundings.push(direction.link);
+                }
+              }); 
+            } else if(direction.unlockedWith && item == direction.unlockedWith){
               unlockedSurroundings.push(direction.link);
-              // if a previously used item has unlocked a direction in this room, it should still be unlocked
-            } 
+            }
           });
         });
       }

@@ -1,5 +1,6 @@
-angular.module('projectArklay').factory('GameItemFactory', [function() {
+angular.module('projectArklay').factory('GameItemFactory', ['UnlockedRoomsService', function(UnlockedRoomsService) {
   var inventory = [];
+  var itemsUsed = [];
   // Register sound effects
   var newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
   var errorSound = new Audio('../assets/sounds/error.mp3');
@@ -30,12 +31,12 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
     },
     checkIfItemHasAlreadyBeenUsed:
     // If an item's already been used, you don't want the player to be able to pick it up when they go back to where it was originally
-    function(item, unlockedRooms){
+    function(item, usedItems){
       var itemHasAlreadyBeenUsed = false;
-        
-      angular.forEach(unlockedRooms, function(room){
-        if(item.unlocks == room){
+      angular.forEach(usedItems, function(usedItem){
+        if(item.name == usedItem){
           itemHasAlreadyBeenUsed = true;
+          return itemHasAlreadyBeenUsed;
          }
       });
       // Return true or false so we know if this item has been used previously
@@ -49,6 +50,14 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
       }
       return inventory;
     },
+    getItemsUsed:
+    function(saveData){
+      // If loading a previous save, initialise items used from save data
+      if(saveData){
+        itemsUsed = saveData;
+      }
+      return itemsUsed;
+    },
     remove:
     function(item){
       // Remove the item that's passed in by checking its index in the inventory and then splicing the inventory on that index
@@ -57,19 +66,14 @@ angular.module('projectArklay').factory('GameItemFactory', [function() {
       return inventory;
     },
     use:
-    function(unlocks, currentRoomSurroundings, soundEnabled){
+    function(item, currentRoom, soundEnabled){
       var itemHasBeenUsed = false;
-        // For each direction available in the current room, check to see if the link to the room matches the link in selectedItem.unlocks
-      angular.forEach(currentRoomSurroundings, function(direction){
-        // If the item being used unlocks a direction in the current room, set itemHasBeenUsed to true and unblock the relevant direction
-        if(direction.link == unlocks){
-          direction.blocked = false;
-          itemHasBeenUsed = true;
-        }
-      });
-      // If itemHasBeenUsed is still false then item has not been used; play error chime
-      if(!itemHasBeenUsed && soundEnabled){
-        errorSound.play();
+      var unlockRequirementsCount;
+      var unlockRequirementsMet = 0;
+      // For each direction available in the current room, check to see if the link to the room matches the link in selectedItem.unlocks
+      if(item.canBeUsedIn == currentRoom.slug){
+        itemHasBeenUsed = true;
+        itemsUsed.push(item.name);
       }
       // Return true or false so we know if we need to discard the current item
       return itemHasBeenUsed;

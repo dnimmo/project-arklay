@@ -9,15 +9,17 @@ describe('Save Data Factory', function(){
   
   it('should be able to save data', function(){
     // SaveDataFactory.save takes the current view-model, the inventory and the unlocked rooms.
-    SaveDataFactory.save({slug : "current"}, "inventory", "unlocked");
+    SaveDataFactory.save({slug : "current"}, "inventory", "unlocked", "itemsUsed");
     // Load the values we've just saved directly from local storage
     var testCurrent = localStorage.getItem('currentState');
     var testInventory = localStorage.getItem('inventory');
     var unlocked = localStorage.getItem('unlockedRooms');
+    var usedItems = localStorage.getItem('itemsUsed');
     // SaveDataFactory.save prepends '/rooms/'
     expect(testCurrent).toEqual('/rooms/current');
     expect(testInventory).toEqual('"inventory"');
     expect(unlocked).toEqual('{"unlocked":"unlocked"}');
+    expect(usedItems).toEqual('"itemsUsed"');
   });
   
   it('should be able to load existing data', function(){
@@ -25,7 +27,8 @@ describe('Save Data Factory', function(){
     localStorage.setItem('currentState', '"test current state"');
     localStorage.setItem('inventory', '"test inventory"');
     localStorage.setItem('unlockedRooms', '"test unlocked rooms"');
+    localStorage.setItem('usedItems', '"test used items"')
     var test = SaveDataFactory.load();
-    expect(test).toEqual({currentState: '"test current state"', inventory: 'test inventory', unlockedRooms: 'test unlocked rooms'});
+    expect(test).toEqual({currentState: '"test current state"', inventory: 'test inventory', unlockedRooms: 'test unlocked rooms', itemsUsed: 'itemsUsed'});
   });
 });

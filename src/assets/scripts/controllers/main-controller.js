@@ -1,4 +1,4 @@
-angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'CreditsFactory', 'GameItemFactory', 'GameMapFactory', 'SaveDataFactory', 'SettingsFactory', function($rootScope, $scope, CreditsFactory, GameItemFactory, GameMapFactory, SaveDataFactory, SettingsFactory) {
+angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'CreditsFactory', 'GameItemFactory', 'GameMapFactory', 'SaveDataFactory', 'SettingsFactory', 'UnlockedRoomsService', function($rootScope, $scope, CreditsFactory, GameItemFactory, GameMapFactory, SaveDataFactory, SettingsFactory, UnlockedRoomsService) {
   // Assign $scope to a 'view model' variable to save my poor fingers
   var vm = $scope;
   // Set-up stuff, probably needs to be more sensible
@@ -8,11 +8,12 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
   vm.inventoryOpen = false;
   vm.itemMessage = '';
   vm.itemOptionsOpen = false;
+  vm.itemsUsed = [];
   vm.localStorageEnabled;
   vm.saveData = SaveDataFactory.load();
   vm.settings = SettingsFactory.getDefaults();
   vm.showDescription = false;
-  vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
+  vm.unlockedRooms = UnlockedRoomsService();
   vm.visitedRooms = GameMapFactory.initialiseVisitedRooms();
   
   if(typeof(localStorage) !== 'undefined'){
@@ -33,7 +34,11 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
     
     // Set up the inventory and the unlocked rooms by initialising them both from save data
     vm.inventory = GameItemFactory.getInventory(vm.saveData.inventory);
-    vm.unlockedRooms = GameMapFactory.initialiseUnlockedRooms(vm.saveData.unlockedRooms.unlocked);
+    vm.itemsUsed = GameItemFactory.getItemsUsed(vm.saveData.itemsUsed);
+    angular.forEach(vm.saveData.unlockedRooms.unlocked, function(room){
+      UnlockedRoomsService(room);
+    });
+    vm.unlockedRooms = UnlockedRoomsService();
   }
   
   // Start a new game
@@ -63,8 +68,6 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
   vm.discardItem = function(){
       // Discard current item
       GameItemFactory.remove(vm.selectedItem);
-      // Keep a record of the rooms that have been unlocked so far so we know which items have been used
-      GameMapFactory.addToUnlockedRooms(vm.selectedItem.unlocks);
       // Clear the current selected item (which no longer exists anyway)
       vm.clearSelectedItem();
       // Close inventory
@@ -167,16 +170,15 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
       vm.current = response.data;
       
       // Save current progress at the end of each room move
-      SaveDataFactory.save(vm.current, vm.inventory, vm.unlockedRooms);
+      SaveDataFactory.save(vm.current, vm.inventory, vm.unlockedRooms, vm.itemsUsed);
       
       if(vm.current.gameOver){
         return;
       }
       // Check to see if a locked area in this room has been previously unlocked
-      var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions, vm.unlockedRooms);
+      var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions, vm.itemsUsed);
       // If there are any rooms leading off from the player's current position that were once locked,
       // but have since been unlocked, make sure they remain unlocked.
-
       if (unlockedDirections.length > 0){
         // Loop through the locked rooms, compare them against the link in each available direction...
         angular.forEach(unlockedDirections, function(unlockedDirection){
@@ -195,7 +197,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
         // Check to make sure we don't already have this item in the inventory
         var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
         // Check to make sure item hasn't already been used
-        var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.unlockedRooms);
+        var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.itemsUsed);
         if(itemAlreadyPickedUp, function(){
           // Update text displayed
           vm.updateSurroundings('picked up');
@@ -248,10 +250,10 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
   vm.use = function(){
     vm.additionalMessage = '';
     // checkItemResult returns true if the item can be used, and false if it can't
-    var checkItemResult = GameItemFactory.use(vm.selectedItem.unlocks, vm.current.directions, vm.settings.soundEnabled);
+    var checkItemResult = GameItemFactory.use(vm.selectedItem, vm.current, vm.settings.soundEnabled);
+    
     // Unlock any rooms associated with this item with the result from GameItemFactory.use
     if(checkItemResult){
-      
       // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
       if(vm.selectedItem.soundWhenUsed != 'undefined'){
         vm.selectedItem.soundEffect = new Audio(vm.selectedItem.soundWhenUsed);
@@ -264,8 +266,12 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
       vm.itemMessage = '== "' + vm.selectedItem.name + '" used ==';
       // Update text displayed if necessary
       vm.updateSurroundings('used');
+      // Add to used items
+      vm.itemsUsed = GameItemFactory.getItemsUsed();
       // Discard item
       vm.discardItem();
+      // Update the current room
+      vm.update('/rooms/' + vm.current.slug);
     } else {
       // Item can't be used in this room
       vm.additionalMessage = "== You can't do that here =="; 

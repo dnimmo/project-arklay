@@ -1,15 +1,17 @@
 describe('Game Map Factory', function(){
   var $httpBackend;
   var GameMapFactory;
+  var UnlockedRoomsService;
   var mockResponse;
   var mockRoom;
   var stubbedRoom = { 'slug' : 'start', 'name' : 'Foyer' };
 
   beforeEach(module('projectArklay'))
 
-  beforeEach(inject(function(_$httpBackend_, _GameMapFactory_){
+  beforeEach(inject(function(_$httpBackend_, _GameMapFactory_, _UnlockedRoomsService_){
     $httpBackend = _$httpBackend_;
     GameMapFactory = _GameMapFactory_;
+    UnlockedRoomsService = _UnlockedRoomsService_;
   }))
 
   it('should make a GET request for the starting room', function(){
@@ -60,24 +62,5 @@ describe('Game Map Factory', function(){
     GameMapFactory.addToVisitedRooms(stubbedRoom);
     result = GameMapFactory.checkIfRoomHasBeenVisited(stubbedRoom);
     expect(result).toEqual(true);
-  })
-  
-  it('should be able to initialise an array of unlocked rooms', function(){
-    var unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
-    expect(unlockedRooms).toEqual([]);
-  })
-  
-  it('should be able to add rooms to the array of unlocked rooms', function(){
-    var unlockedRooms = GameMapFactory.initialiseUnlockedRooms();
-    GameMapFactory.addToUnlockedRooms(stubbedRoom);
-    expect(unlockedRooms).toContain(stubbedRoom);
-  })
-  
-  it('should be able to check if surrounding rooms are unlocked', function(){
-    var result;
-    var testSurroundings = [{'rel' : 'north', 'link' : 'start', 'blocked' : true}];
-    GameMapFactory.addToUnlockedRooms(stubbedRoom.slug);
-    result = GameMapFactory.checkIfSurroundingsAreUnlocked(testSurroundings);
-    expect(result).toEqual(['start']);
   })
 })

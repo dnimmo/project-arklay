@@ -2,6 +2,8 @@ describe('Game Item Factory', function(){
   var GameItemFactory;
   var inventory;
   var testItem;
+  var testItems;
+  var testRoom
   // window.Audio is mocked here as a function that doesn't do anything, because PhantomJS doesn't support HTML5's Audio API, so without mocking this here, the tests will fall over because Audio won't be defined.
   window.Audio = function(){};
 
@@ -12,13 +14,22 @@ describe('Game Item Factory', function(){
     GameItemFactory = _GameItemFactory_;
     // Make sure the inventory is empty for every test.
     inventory = '';
-    testItem = {name : 'test-item', unlocks : 'test-room'};
+    testItem = {name : 'test-item', unlocks : 'test-room', canBeUsedIn : 'test-room'};
+    testItems = ['test item 1', 'test item 2', 'test item 3'];
+    testRoom = {slug : 'test-room'};
   }))
 
-  it('should be able to initialise the player\'s inventory', function(){
-    // getInventory returns the player's inventory. Inventory is initialised in GameItemFactory as an array, so calling getInventory without adding anything to the inventory first should return an empty array.
+  it('should be able to initialise the player\'s inventory for a new game', function(){
+    // getInventory returns the player's inventory. 
+    // Inventory is initialised in GameItemFactory as an array, so calling getInventory without adding anything to the inventory first (as happens when a new game is started) should return an empty array.
     inventory = GameItemFactory.getInventory();
     expect(inventory).toEqual([]);
+  })
+  
+  it('should be able to initialise the player\'s inventory with saved data', function(){
+    // If you pass an argument in, the inventory will be initialised with the data passed in (as happens when a game is loaded)
+    inventory = GameItemFactory.getInventory(testItems);
+    expect(inventory).toEqual(testItems);
   })
 
   it('should be able to add an item to the player\'s inventory', function(){
@@ -53,10 +64,8 @@ describe('Game Item Factory', function(){
     inventory = GameItemFactory.getInventory();
     // Add an item to the inventory so that we can use it in the test. The value of 'unlocks' is the room that is unlocked by this item. The 'false' is passed because GameItemFactory.add takes a second parameter to say whether sound is enabled or not. 
     GameItemFactory.add(testItem, false);
-    // Set up the room that our test is in, with 'test-room' as a blocked direction 
-    var testRoom = {name : 'current-test-room', directions : [{rel : 'North', link : 'test-room', blocked : true}]}
-    // GameItemFactory.use takes the value of 'unlocks' from the current item, the directions available from the current location, and a true/false flag to say whether sound is enabled or not
-    var testResult = GameItemFactory.use(inventory[0].unlocks, testRoom.directions, false);
+    // GameItemFactory.use takes the value of 'canBeUsedIn' from the current item, the slug of the current location, and a true/false flag to say whether sound is enabled or not
+    var testResult = GameItemFactory.use(inventory[0], testRoom, false);
     // GameItemFactory.use returns true if the item has been successfully used
     expect(testResult).toEqual(true); 
   })
@@ -78,12 +87,12 @@ describe('Game Item Factory', function(){
     // Initialise inventory
     inventory = GameItemFactory.getInventory();
     // GameItemFactory.checkIfItemHasAlreadyBeenUsed checks the value of item.unlocks against an array of rooms that have been unlocked, and returns true if it finds a match
-    var unlockedRooms = ['test-room'];
-    var testResult = GameItemFactory.checkIfItemHasAlreadyBeenUsed(testItem, unlockedRooms);
+    var usedItems = ['test-item'];
+    var testResult = GameItemFactory.checkIfItemHasAlreadyBeenUsed(testItem, usedItems);
     expect(testResult).toEqual(true);
   })
 
-  it('should not allow an item to be used if it doesn\'t unlock any rooms surrounding the current room', function(){
+  it('should not allow an item to be used if it can not be used in the current room', function(){
     // Initialise inventory
     inventory = GameItemFactory.getInventory();
     // Add an item to the inventory so that we can attempt to use it in the test. 
@@ -91,11 +100,11 @@ describe('Game Item Factory', function(){
     //The 'false' is passed because GameItemFactory.add takes a second parameter to say whether sound is enabled or not. 
     GameItemFactory.add(testItem, false);
     // Set up the room that our test is in, with 'test-room' as a blocked direction 
-    var testRoom = {name : 'current-test-room', directions : [{rel : 'North', link : 'test-room-2', blocked : true}]}
+    var testRoom2 = {slug : 'not-test-room'};
     // GameItemFactory.use takes the value of 'unlocks' from the current item, 
     // the directions available from the current location, 
     // and a true/false flag to say whether sound is enabled or not
-    var testResult = GameItemFactory.use(testItem.unlocks, testRoom.directions, false);
+    var testResult = GameItemFactory.use(testItem, testRoom2, false);
     // GameItemFactory.use returns false if the item has not been successfully used
     expect(testResult).toEqual(false);
   })
