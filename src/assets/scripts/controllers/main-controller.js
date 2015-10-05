@@ -1,4 +1,5 @@
 angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'CreditsFactory', 'GameItemFactory', 'GameMapFactory', 'SaveDataFactory', 'SettingsFactory', 'UnlockedRoomsService', function($rootScope, $scope, CreditsFactory, GameItemFactory, GameMapFactory, SaveDataFactory, SettingsFactory, UnlockedRoomsService) {
+
   // Assign $scope to a 'view model' variable to save my poor fingers
   var vm = $scope;
   // Set-up stuff, probably needs to be more sensible
@@ -39,6 +40,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
       UnlockedRoomsService(room);
     });
     vm.unlockedRooms = UnlockedRoomsService();
+    GameMapFactory.preFetchSurroundings(vm.current.directions);
   }
   
   // Start a new game
@@ -48,6 +50,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
       .then(function(response){
       // Set starting info
       vm.current = response.data;
+      GameMapFactory.preFetchSurroundings(vm.current.directions);
     });
   }
   
@@ -168,7 +171,8 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
       
       // Assign promise response to vm.current
       vm.current = response.data;
-      
+      // Request and cache surrounding rooms
+      GameMapFactory.preFetchSurroundings(vm.current.directions);
       // Save current progress at the end of each room move
       SaveDataFactory.save(vm.current, vm.inventory, vm.unlockedRooms, vm.itemsUsed);
       
@@ -229,15 +233,18 @@ angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 
     }
   }  
   
-  // Move in a given direction
+  // Update the game's state
   vm.move = function(roomToMoveTo){
+    // Register the room the player is in now,
+    // update the list of visited rooms,
+    // and reset any on-screen messages
+    
     vm.update(roomToMoveTo);
     var hasBeenVisited = GameMapFactory.checkIfRoomHasBeenVisited({"name" : vm.current.name, "slug" : vm.current.slug});
     if(!hasBeenVisited){
       GameMapFactory.addToVisitedRooms({"name" : vm.current.name, "slug" : vm.current.slug});
     }
-    // Reset any additional message on the screen
-    vm.itemMessage= '';
+    vm.itemMessage = '';
     vm.additionalMessage = '';
   }
   
