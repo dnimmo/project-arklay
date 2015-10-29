@@ -1,16 +1,15 @@
 <!-- Make into a directive -->
-<p data-ng-if='!current.showReturnedMessage'>{{current.description}}</p>
-<p data-ng-if='current.showReturnedMessage'>{{current.returnedMessage}}</p>
-<p>{{current.surroundings}}</p>
+<p data-ng-if='!current.data.showReturnedMessage'>{{current.data.description}}</p>
+<p data-ng-if='current.data.showReturnedMessage'>{{current.data.returnedMessage}}</p>
+<p>{{current.data.surroundings}}</p>
 
 <ul class="direction-options" style='border-color: {{settings.textColour}}'>
-  <li data-ng-repeat='direction in current.directions' class='{{direction.rel}}' data-ng-if='!direction.blocked && direction.rel != "Roll credits" ' data-ng-click='move(direction.link)' style='border-color: {{settings.backgroundColour}}'>
+  <li data-ng-repeat='direction in current.data.directions' class='{{direction.rel}}' data-ng-if='!direction.blocked && direction.rel != "Roll credits" ' data-ng-click='map.getNewRoom(direction.link)'>
     {{direction.rel}}
   </li>
 </ul>
 
-<p class='button' data-ng-if='current.directions[0].rel=="Roll credits"' data-ui-sref='credits' style='color: {{settings.textColour}}; border-color: {{settings.textColour}}' data-ng-click='playCreditsSound()'>Roll Credits!</p>
+<p class='button' data-ng-if='current.data.directions[0].rel=="Roll credits"' data-ui-sref='credits' data-ng-click='playCreditsSound()'>Roll Credits!</p>
 
 <br />
-<p>{{otherPlayerInRoom}}</p>
-<p>{{itemMessage}}</p>
+<p>{{current.data.message}}</p>

@@ -19,40 +19,37 @@
     <link rel='stylesheet' 
           href='assets/style/main.css'/>    
   </head>
-  <body data-ng-controller='MainCtrl' 
-        style='background-color: {{settings.backgroundColour}}; color: {{settings.textColour}}'>
+  <body data-ng-controller='MainCtrl'>
         
     <main data-ui-view>
     </main>
-    <!-- Settings panel located in ../directive-templates/settings-panel.html -->
-    <!--<settings-panel></settings-panel>-->
     <!-- Inventory start -->
-    <div class='inventory-toggle' data-ng-click='toggleInventory()'  data-ng-show='inventory.length != 0' >
-        <svg class='inventory-icon' alt='Inventory' style='background-color: {{settings.backgroundColour}}'>
+    <div class='inventory-toggle' data-ng-click='inventory.toggleOpen()'  data-ng-show='inventory.usableItemsCount != 0' >
+        <svg class='inventory-icon' alt='Inventory'>
             <use xlink:href='/assets/images/defs.svg#inventory'></use>
         </svg>
-      <span class='inventory-count' data-ng-show="!inventoryOpen" style='color: {{settings.backgroundColour}}'>
-        {{inventory.length}}
+      <span class='inventory-count' data-ng-show="!inventory.open">
+        {{inventory.usableItemsCount}}
       </span>
     </div>
-    <section class='inventory' data-ng-show='inventoryOpen' style='background-color: {{settings.menuColour}}; color: {{settings.menuTextColour}}'>
+    <section class='inventory' data-ng-show='inventory.open'>
       <!--Put into separate partial-->
       <div class="inventory-contents">
-        <ul data-ng-if='!itemOptionsOpen'>
-          <li class="button inv" data-ng-repeat='item in inventory' data-ng-click='showOptions(item)'>
+        <ul data-ng-if='!inventory.itemOptionsOpen'>
+          <li class="button inv" data-ng-repeat='item in inventory.items' data-ng-click='inventory.selectItem(item)' data-ng-if='!item.hasBeenUsed'>
             <svg class='item'>
               <use xlink:href='{{item.image}}'></use>
             </svg>
-            <p style='color: {{settings.menuTextColour}}'>{{item.name}}</p>
+            <p>{{item.name}}</p>
           </li>
         </ul>
-        <p class="button" data-ng-if='!itemOptionsOpen' data-ng-click='toggleInventory()' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Close Inventory</p>
-        <p style='color: {{settings.menuTextColour}}'>{{selectedItem.description}}</p>
-        <ul class='itemOptions' data-ng-if='itemOptionsOpen'>
-          <li class='button' data-ng-click='use("{{selectedItem}}")' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Use</li>
-          <li class='button' data-ng-click='clearSelectedItem()' style='color: {{settings.menuTextColour}}; border-color: {{settings.menuTextColour}}'>Cancel</li>
+        <p class="button" data-ng-if='!inventory.itemOptionsOpen' data-ng-click='inventory.toggleOpen()'>Close Inventory</p>
+        <p>{{inventory.selectedItem.description}}</p>
+        <ul class='itemOptions' data-ng-if='inventory.itemOptionsOpen'>
+          <li class='button' data-ng-click='inventory.selectedItem.checkIfUsableInCurrentRoom(current, inventory)'>Use</li>
+          <li class='button' data-ng-click='inventory.clearSelectedItem()'>Cancel</li>
         </ul>
-        <p class="additional-info" style='color: {{settings.menuTextColour}}'>{{additionalMessage}}</p>
+        <p class="additional-info">{{inventory.message}}</p>
       </div>
     </section>
     <!-- Inventory end -->

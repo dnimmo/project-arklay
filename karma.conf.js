@@ -22,21 +22,12 @@ module.exports = function(config) {
       'src/assets/scripts/app.js',
       'src/assets/scripts/config/routing.js',
       'src/assets/scripts/controllers/main-controller.js',
-      'src/assets/scripts/directives/settings-panel.js',
       'src/assets/scripts/factories/credits.js',
-      'src/assets/scripts/factories/game-items.js',
-      'src/assets/scripts/factories/game-map.js',
-      'src/assets/scripts/factories/settings.js',
       'src/assets/scripts/factories/game-map.js',
       'src/assets/scripts/factories/save-data.js',
-      'src/assets/scripts/services/unlocked-rooms.js',
       'src/tests/unit/credits-factory.js',
       'src/tests/unit/game-map-factory.js',
-      'src/tests/unit/game-item-factory.js',
-      'src/tests/unit/settings-factory.js',
-      'src/tests/unit/settings-panel-directive.js',
-      'src/tests/unit/save-data-factory.js',
-      'src/tests/unit/unlocked-rooms-service.js'
+      'src/tests/unit/save-data-factory.js'
     ],
 
 

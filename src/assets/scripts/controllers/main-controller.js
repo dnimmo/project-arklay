@@ -1,322 +1,339 @@
-angular.module('projectArklay').controller('MainCtrl', ['$rootScope', '$scope', 'CreditsFactory', 'GameItemFactory', 'GameMapFactory', 'SaveDataFactory', 'SettingsFactory', 'UnlockedRoomsService', function($rootScope, $scope, CreditsFactory, GameItemFactory, GameMapFactory, SaveDataFactory, SettingsFactory, UnlockedRoomsService) {
-
-  // Assign $scope to a 'view model' variable to save my poor fingers
-  var vm = $scope;
-  // Set-up stuff, probably needs to be more sensible
-  vm.additionalMessage = '';
-  vm.credits = [];
-  vm.inventory = [];
-  vm.inventoryOpen = false;
-  vm.itemMessage = '';
-  vm.itemOptionsOpen = false;
-  vm.itemsUsed = [];
-  vm.localStorageEnabled;
-  vm.saveData = SaveDataFactory.load();
-  vm.settings = SettingsFactory.getDefaults();
-  vm.showDescription = false;
-  vm.unlockedRooms = UnlockedRoomsService();
-  vm.visitedRooms = GameMapFactory.initialiseVisitedRooms();
+angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'CreditsFactory', 'SaveDataFactory', function($http, $scope, CreditsFactory, SaveDataFactory) {
   
+  // ========================================================== //
+  // ===================== Classes ============================ //
+  // ========================================================== //
+  
+  class Map {
+    constructor(rooms = []) {
+      this.rooms = rooms;
+    }
+    
+    addRoom(newRoom){
+      let roomIsInMap = false;
+      angular.forEach(this.rooms, (room) =>{
+        if(room.data.slug == newRoom.slug){
+          roomIsInMap = true;
+        }              
+      });
+      if(!roomIsInMap){
+        newRoom = new Room(newRoom);
+        this.rooms.push(newRoom);
+      }
+    }
+    
+    getNewRoom(newRoomSlug){
+      vm.current.visit();
+      vm.current.clearMessage();
+      angular.forEach(this.rooms, (room) =>{
+        if(newRoomSlug == '/rooms/'+room.data.slug){
+          vm.current = room;
+          this.prepareSurroundingRooms();
+          vm.current.checkForDescriptionUpdates();
+          vm.current.checkForItems();
+          SaveDataFactory.save(vm.current, vm.inventory, vm.map);
+          return;
+        }
+      });
+    }
+    
+    getStartingRoom(){
+      return $http.get('/rooms/start', {cache:true});
+    }
+    
+    loadMap(){
+      angular.forEach(vm.saveData.map.rooms, (room) =>{
+        this.addRoom(room.data);
+      })
+    }
+    
+    prepareSurroundingRooms(){
+      // Get rooms to add to the map
+      angular.forEach(vm.current.data.directions, (direction) => {
+        $http.get(direction.link, {cache: true}).then((response) =>{
+          this.addRoom(response.data);
+        });
+      });
+    }
+  }
+  
+  class Room {
+    // "data" contains the room object which can be found in src/assets/resources/map.json
+    constructor(data){
+      this.data = data;
+      this.visited = false;
+      this.message = '';
+    }
+    
+    checkForItems(){
+      if(this.data.newItem){
+        let newItem = new Item(this.data.newItem.name, this.data.newItem.image, this.data.newItem.description, this.data.newItem.messageWhenUsed, this.data.newItem.canBeUsedIn, this.data.newItem.unlocks, this.data.newItem.soundWhenUsed, this.data.newItem.messageWhenNotUsed);
+        vm.inventory.add(newItem);
+      }
+    }
+    
+    checkNeighbouringLocks(){
+      // Checks to see if any neighbouring rooms have been unlocked based on the items that have been used
+      angular.forEach(this.data.directions, (direction) => {
+        if(direction.blocked){
+          let unlockRequirementsMet = 0;
+          // Check used items in inventory to see if direction has been unlocked
+          // Doors can require more than one item to be unlocked, hence the additional loop
+          angular.forEach(vm.inventory.itemsUsed, (itemName) => {
+            if(itemName.name == direction.unlockedWith){
+              if(direction.unlockedWith.length == 1){
+                this.unlockNeighbour(direction);
+                return;  
+              } else {
+                unlockRequirementsMet += 1;
+                if(unlockRequirementsMet == direction.unlockedWith.length){
+                  this.unlockNeighbour(direction);
+                  return;
+                }      
+              }  
+            }
+          });
+        }
+      });
+    }
+    
+    checkForDescriptionUpdates(){
+      if(this.visited && this.data.canChange && this.data.surroundingsWhenItemPickedUp){
+        this.updateDescriptionForItemPickedUp();
+      }
+    }
+    
+    clearMessage(){
+      this.message = '';
+    }
+    
+    displayMessage(message){
+      this.message = '== '+message+' ==';
+    }
+    
+    loadRoom(){
+      this.data = vm.saveData.currentRoom.data;
+    }
+    
+    unlockNeighbour(direction){
+      console.log('unlocking', direction);
+      direction.blocked = false;
+      console.log('unlocked', direction);
+    }
+    
+    // Room descriptions change when an item is picked up or used
+    updateDescriptionForItemPickedUp(){
+      this.data.surroundings = this.data.surroundingsWhenItemPickedUp;
+    }
+    
+    updateDescriptionForItemUsed(){
+      this.data.surroundings = this.data.surroundingsWhenItemUsed;
+    }
+    
+    visit(){
+      this.visited = true;
+    }
+  }
+  
+  class Inventory {
+    constructor(items = []){
+      this.items = items;
+      this.itemsUsed = [];
+      this.newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
+      this.open = false;
+      this.usableItemsCount = 0;
+      this.selectedItem = {};
+      this.itemOptionsOpen = false;
+      this.message = '';
+    }
+    
+    add(item){
+      let newItem = new Item(item.name, item.image, item.description, item.messageWhenUsed, item.canBeUsedIn, item.unlocks, item.soundWhenUsed, item.messageWhenNotUsed, item.hasBeenUsed);
+      this.items.push(newItem);
+      this.usableItemsCount += 1;
+      // If vm.current doesn't exist at this point, save data has just been loaded, so we don't want to display messages or play any sounds
+      if(vm.current){
+        this.newItemSound.play();
+        vm.current.displayMessage('"'+ newItem.name + '" picked up');  
+        // Remove the item from the current room
+        vm.current.data.newItem = false; 
+      }
+    }
+    
+    addToItemsUsed(item){
+      this.itemsUsed.push(item);
+    }
+    
+    clearMessage(){
+      this.message = '';
+    }
+    
+    clearSelectedItem(){
+      this.toggleItemOptionsOpen();
+      this.selectedItem = {};
+    }
+    
+    displayMessage(message){
+      this.message = '== '+message+' ==';
+    }
+    
+    loadInventory(){
+      angular.forEach(vm.saveData.inventory.items, (loadedItem) =>{
+        this.add(loadedItem); 
+      });
+      angular.forEach(vm.saveData.inventory.itemsUsed, (itemUsed) =>{
+        this.processItemUsed(itemUsed);
+      });
+      this.updateUsableItemsCount();
+    }
+    
+    processItemUsed(item, message){
+      this.clearSelectedItem();
+      this.addToItemsUsed(item);
+      this.updateUsableItemsCount();
+      this.itemOptionsOpen = false;
+      this.open = false;
+      // If vm.current doesn't exist here, data has just been loaded: don't amend current room details
+      if(vm.current){
+        vm.current.updateDescriptionForItemUsed();
+        vm.current.displayMessage(message); 
+      }
+    }
+    
+    selectItem(item){
+      this.selectedItem = item;
+      this.toggleItemOptionsOpen();
+    }
+    
+    toggleItemOptionsOpen(){
+      // Open or close the the options panel for a single item
+      this.itemOptionsOpen = !this.itemOptionsOpen;
+      this.clearMessage();
+    }
+    
+    toggleOpen(){
+      // Open or close the inventory panel
+      this.open = !this.open;
+    }
+    
+    updateUsableItemsCount(){
+      this.usableItemsCount = this.items.length - this.itemsUsed.length;
+    }
+  }
+  
+  class Item {
+    constructor(name, image, description, messageWhenUsed, canBeUsedIn, unlocks, soundWhenUsed, messageWhenNotUsed, hasBeenUsed = false){
+      this.name = name;
+      this.image = image;
+      this.description = description;
+      this.messageWhenUsed = messageWhenUsed;
+      this.canBeUsedIn = canBeUsedIn;
+      this.unlocks = unlocks;
+      this.soundWhenUsed = soundWhenUsed;
+      this.messageWhenNotUsed = messageWhenNotUsed;
+      this.hasBeenUsed = hasBeenUsed;
+      this.errorSound = new Audio('../assets/sounds/error.mp3');
+    }
+    
+    checkIfUsableInCurrentRoom(){
+      // Hand off to either use() or denyUse() depending on whether the item is usable or not
+      if(this.canBeUsedIn == vm.current.data.slug){
+        this.use();
+        vm.current.checkNeighbouringLocks();
+      } else {
+        this.denyUse();
+      }
+    }
+    
+    denyUse(){
+      // Notify the player that they can't use the item in the current room
+      this.errorSound.play();
+      vm.inventory.displayMessage(this.messageWhenNotUsed);
+    }
+    
+    loadItemUsed(){
+      this.hasBeenUsed = true;
+      vm.inventory.processItemUsed(this, '');
+    }
+    
+    playSoundEffect(){
+      let soundEffect = new Audio(this.soundWhenUsed);
+      soundEffect.play();
+    }
+    
+    use(){
+      this.playSoundEffect();
+      this.hasBeenUsed = true;
+      vm.inventory.processItemUsed(this, this.messageWhenUsed);
+    }
+  }
+  
+  // ========================================================== //
+  // ================== View Model ============================ //
+  // ========================================================== //
+
+  const vm = $scope;
+  vm.credits = [];
+  vm.inventory = new Inventory();
+  vm.itemOptionsOpen = false;
+  vm.localStorageEnabled;
+  vm.map = new Map();
+  vm.saveData = SaveDataFactory.load();
+  vm.showDescription = false;
+
   if(typeof(localStorage) !== 'undefined'){
     vm.localStorageEnabled = true;
   }
   
   // Set background music
-  var backgroundMusic = new Audio('../assets/sounds/backgroundMusic.flac');
+  const backgroundMusic = new Audio('../assets/sounds/backgroundMusic.mp3');
   backgroundMusic.playbackRate = .8;
   
-  // Load an existing saved game   
-  vm.loadGame = function(){
-    // Set up the current room by getting the room from the save data,
-    // then having the game think you've just 'moved' into that room
-    vm.current = {};
-    vm.current.slug = vm.saveData.currentState;
-    vm.move(vm.saveData.currentState);
-    
-    // Set up the inventory and the unlocked rooms by initialising them both from save data
-    vm.inventory = GameItemFactory.getInventory(vm.saveData.inventory);
-    vm.itemsUsed = GameItemFactory.getItemsUsed(vm.saveData.itemsUsed);
-    angular.forEach(vm.saveData.unlockedRooms.unlocked, function(room){
-      UnlockedRoomsService(room);
-    });
-    vm.unlockedRooms = UnlockedRoomsService();
-    GameMapFactory.preFetchSurroundings(vm.current.directions);
+  // Load an existing saved game
+  vm.loadGame = () => {
+    vm.map.loadMap();
+    // Load the inventory before the current room, to make it easier to tell if a game has just been loaded or not
+    vm.inventory.loadInventory();
+    vm.current = new Room(vm.saveData.currentRoom.data);
+    vm.map.prepareSurroundingRooms();
   }
   
   // Start a new game
-  vm.newGame = function(){
+  vm.newGame = () => {
     // Initialise the game from /rooms/start
-    GameMapFactory.init()
-      .then(function(response){
-      // Set starting info
-      vm.current = response.data;
-      GameMapFactory.preFetchSurroundings(vm.current.directions);
+    // This creates the first room, and then creates all of the surrounding rooms so that they're available for the player to move in to
+    vm.map.getStartingRoom().then((response) =>{
+      vm.current = new Room(response.data);
+      vm.map.prepareSurroundingRooms();
     });
   }
   
-  // If vm.current doesn't exist by this point force a hard refresh
+  // If vm.current doesn't exist by this point force a hard refresh - something's gone wrong.
   if(!vm.current){
     window.location = window.location.origin+'#';
   }
-  
-  // Cancel selected item
-  vm.clearSelectedItem = function(){
-    vm.additionalMessage = '';
-    vm.selectedItem = '';
-    // Close the inventory
-    vm.itemOptionsOpen = false; 
-  }
-  
-  // Handle items that have been used
-  vm.discardItem = function(){
-      // Discard current item
-      GameItemFactory.remove(vm.selectedItem);
-      // Clear the current selected item (which no longer exists anyway)
-      vm.clearSelectedItem();
-      // Close inventory
-      vm.toggleInventory();
-  }
-  
-  // Toggle the settings menu - should probably be moved to be part of a function that takes in what you want to toggle, as it repeats code from the "toggleInventory" function at present. Easily done, sort it out future me. :) 
-  vm.toggleSettings = function(){
-    vm.settings.open = !vm.settings.open;
-  }
-  
-  vm.settings.individual = function(setting){
-    if(setting == 'default'){
-      // Reset settings to defaults
-      vm.settings = SettingsFactory.getDefaults();
-    } else {
-      vm.settings.optionsOpen = true;
-      switch(setting){
-        case 'backgroundColour':
-          vm.settings.backgroundColourOpen = true;
-          // Store the value on opening the menu in case the user cancels
-          vm.settings.tempBackgroundColour = vm.settings.backgroundColour;
-          break;
-        case 'textColour':
-          vm.settings.textColourOpen = true;
-          // Store the value on opening the menu in case the user cancels
-          vm.settings.tempTextColour = vm.settings.textColour;
-          break;
-        case 'menuColour':
-          vm.settings.menuColourOpen = true;
-          // Store the value on opening the menu in case the user cancels
-          vm.settings.tempMenuColour = vm.settings.menuColour;
-          break;
-        case 'menuTextColour':
-          vm.settings.menuTextColourOpen = true;
-          // Store the value on opening the menu in case the user cancels
-          vm.settings.tempMenuTextColour = vm.settings.menuTextColour;
-          break;
-        case 'sound':
-          vm.settings.soundOpen = true;
-          // Store the value on opening the menu in case the user cancels
-          vm.settings.tempSoundOption = vm.settings.soundEnabled;
-          break; 
-      }
-    }
-  };
-  
-  // Handle whether settings are saved or reset. Saved is a boolean, if it's true it's kept as-is, if it's false it's reset to default
-  vm.settings.close = function(setting, toChange){
-    vm.settings.optionsOpen = false;
-    switch(setting){
-      case 'backgroundColour':
-          vm.settings.backgroundColourOpen = false;
-          if(!toChange){
-            // Revert to previously stored colour
-            vm.settings.backgroundColour = vm.settings.tempBackgroundColour;
-          }
-        break;
-      case 'textColour':
-          vm.settings.textColourOpen = false;
-          if(!toChange){
-            // Revert to previously stored colour
-            vm.settings.textColour = vm.settings.tempTextColour;
-          }
-        break;
-      case 'menuColour':
-          vm.settings.menuColourOpen = false;
-          if(!toChange){
-            // Revert to previously stored colour
-            vm.settings.menuColour = vm.settings.tempMenuColour;
-          }
-        break;
-      case 'menuTextColour':
-          vm.settings.menuTextColourOpen = false;
-          if(!toChange){
-            // Revert to previously stored colour
-            vm.settings.menuTextColour = vm.settings.tempMenuTextColour;
-          }
-        break;
-      case 'sound':
-          vm.settings.soundOpen = false;
-          if(!toChange){
-            // Revert to previously stored sound setting
-            vm.settings.soundEnabled = vm.settings.tempSoundOption;
-          }
-        break;
-    }
-  }
-  
-  vm.toggleInventory = function(){
-    vm.additionalMessage = '';
-    vm.inventoryOpen = !vm.inventoryOpen;
-  }
-  
-  vm.update = function(roomToMoveTo){
-    // GameMapFactory.checkLocation returns a promise which then returns the data for the current room
-    GameMapFactory.checkLocation(roomToMoveTo).then(function(response){
-      
-      // Assign promise response to vm.current
-      vm.current = response.data;
-      // Request and cache surrounding rooms
-      GameMapFactory.preFetchSurroundings(vm.current.directions);
-      // Save current progress at the end of each room move
-      SaveDataFactory.save(vm.current, vm.inventory, vm.unlockedRooms, vm.itemsUsed);
-      
-      if(vm.current.gameOver){
-        return;
-      }
-      // Check to see if a locked area in this room has been previously unlocked
-      var unlockedDirections = GameMapFactory.checkIfSurroundingsAreUnlocked(vm.current.directions, vm.itemsUsed);
-      // If there are any rooms leading off from the player's current position that were once locked,
-      // but have since been unlocked, make sure they remain unlocked.
-      if (unlockedDirections.length > 0){
-        // Loop through the locked rooms, compare them against the link in each available direction...
-        angular.forEach(unlockedDirections, function(unlockedDirection){
-          angular.forEach(vm.current.directions, function(direction){
-            // ...and set any that match to be unlocked.
-            if (direction.link == unlockedDirection){
-              direction.blocked = false;
-              vm.updateSurroundings('used');
-            }
-          })
-        })
-      }
-      
-      // Check to see if there's a new item here
-      if (typeof vm.current.newItem === 'object'){
-        // Check to make sure we don't already have this item in the inventory
-        var itemAlreadyPickedUp = GameItemFactory.checkIfItemAlreadyHeld(vm.current.newItem);
-        // Check to make sure item hasn't already been used
-        var itemAlreadyUsed = GameItemFactory.checkIfItemHasAlreadyBeenUsed(vm.current.newItem, vm.itemsUsed);
-        if(itemAlreadyPickedUp, function(){
-          // Update text displayed
-          vm.updateSurroundings('picked up');
-        });
-      
-        // If item has never been picked up or used
-        if(!itemAlreadyPickedUp && !itemAlreadyUsed){
-          // Add the new item to the inventory
-          GameItemFactory.add(vm.current.newItem, vm.settings.soundEnabled);
-          // Update our inventory
-          vm.inventory = GameItemFactory.getInventory();
-          // Display message to show item picked up
-          vm.itemMessage = '== "' + vm.current.newItem.name + '" picked up ==';
-        }
-      }
-    });
-  }
-  
-  vm.updateSurroundings = function(usedOrPickedUp){
-    // Update surroundings based on whether an item has been used or picked up
-    if(vm.current.canChange){
-      if(usedOrPickedUp == 'picked up'){
-        vm.current.surroundings = vm.current.surroundingsWhenItemPickedUp;  
-       } else if (usedOrPickedUp == 'used'){
-         vm.current.surroundings = vm.current.surroundingsWhenItemUsed; 
-       } 
-    } else {
-      // Nothing to see here
-    }
-  }  
-  
-  // Update the game's state
-  vm.move = function(roomToMoveTo){
-    // Register the room the player is in now,
-    // update the list of visited rooms,
-    // and reset any on-screen messages
-    
-    vm.update(roomToMoveTo);
-    var hasBeenVisited = GameMapFactory.checkIfRoomHasBeenVisited({"name" : vm.current.name, "slug" : vm.current.slug});
-    if(!hasBeenVisited){
-      GameMapFactory.addToVisitedRooms({"name" : vm.current.name, "slug" : vm.current.slug});
-    }
-    vm.itemMessage = '';
-    vm.additionalMessage = '';
-  }
-  
-  // Show item options
-  vm.showOptions = function(item){
-    vm.itemOptionsOpen = true;
-    vm.selectedItem = item;
-  }
-  
-  vm.use = function(){
-    vm.additionalMessage = '';
-    // checkItemResult returns true if the item can be used, and false if it can't
-    var checkItemResult = GameItemFactory.use(vm.selectedItem, vm.current, vm.settings.soundEnabled);
-    
-    // Unlock any rooms associated with this item with the result from GameItemFactory.use
-    if(checkItemResult){
-      // If there's a sound effect associated with this item, add the 'Audio' functionality to the item to allow it to play
-      if(vm.selectedItem.soundWhenUsed != 'undefined'){
-        vm.selectedItem.soundEffect = new Audio(vm.selectedItem.soundWhenUsed);
-      }
-      // Play audio (if there is an audio file associated with this item)
-      if(vm.selectedItem.soundEffect != 'undefined' && vm.settings.soundEnabled){
-        vm.selectedItem.soundEffect.play();
-      }
-      // Display message to say that item has been used
-      vm.itemMessage = '== "' + vm.selectedItem.name + '" used ==';
-      // Update text displayed if necessary
-      vm.updateSurroundings('used');
-      // Add to used items
-      vm.itemsUsed = GameItemFactory.getItemsUsed();
-      // Discard item
-      vm.discardItem();
-      // Update the current room
-      vm.update('/rooms/' + vm.current.slug);
-    } else {
-      // Item can't be used in this room
-      vm.additionalMessage = "== You can't do that here =="; 
-    }
-  }
-  
+
   vm.getCredits = CreditsFactory.getCredits().then(function(response){
     vm.credits = response.data.credits;
   });
   
-  vm.handleBackgroundMusic = function(toggle){
-    // You can call this function with a parameter to toggle whether the sound is enabled or not - this is for the settings menu. The reason this is optional is to allow the game to start with music playing / not playing without having to pass a parameter in
-    if(toggle){
-      vm.settings.soundEnabled = !vm.settings.soundEnabled;
-    }
-    if(vm.settings.soundEnabled){
-      backgroundMusic.loop = true;
-      backgroundMusic.volume = 0.6;
-      backgroundMusic.play();
-    } else {
-      // If sound has been disabled
-      //backgroundMusic.pause();
-    }
+  vm.handleBackgroundMusic = () => {
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.6;
+    backgroundMusic.play();
   }
   
-  vm.playCreditsSound = function(){
-    if(vm.settings.soundEnabled){    
-      var creditsMusic = new Audio('../assets/sounds/credits.mp3');
-      var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
-      creditsSound.playbackRate = 1;
-      backgroundMusic.volume = 0;
-      creditsMusic.play();
-      creditsSound.play(); 
-    }
+  vm.playCreditsSound = () => {    
+    var creditsMusic = new Audio('../assets/sounds/credits.mp3');
+    var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
+    creditsSound.playbackRate = 1;
+    backgroundMusic.volume = 0;
+    creditsMusic.play();
+    creditsSound.play(); 
   }
   
   // Allow music to start on page load - does not work in Android Chrome as it does not allow auto-play
-  vm.$watch(vm.settings.soundEnabled, function(){
-    vm.handleBackgroundMusic(false);
+  vm.$watch(backgroundMusic, function(){
+    vm.handleBackgroundMusic();
   });
 }]);

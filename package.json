@@ -26,7 +26,10 @@
     "mongojs": "^1.0.2",
     "forever": "^0.14.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-typescript-compiler": "^1.0.1",
+    "typescript": "^1.6.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

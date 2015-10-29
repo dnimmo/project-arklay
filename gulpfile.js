@@ -6,6 +6,7 @@
 // Load modules
 // ==================================================
 
+var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var gulp 	= require('gulp');
@@ -38,13 +39,13 @@ var htmlFiles = rootDir + '/**/*.html';
 
 var	scssFiles = rootDir + '/**/*.scss';
 
-// ==================================================
-// JS files to be watched - ignore any minified files
-// ==================================================
+// ==========================================================
+// Javascript files to be watched - ignore any test files
+// ==========================================================
 
-var	 jsFiles = [
+var	jsFiles = [
 		rootDir + '/assets/**/*.js',
-		'!'+rootDir+'/**/*.min.js',
+    rootDir + '/assets/**/*.min.js',
     '!'+rootDir+'/tests'
 	];
 
@@ -71,7 +72,7 @@ var assets = [
 // Default task runs all of the available tasks, but you can run any of them individually by running 'gulp [taskname]'
 // -------------------------------------------------------------------------------------------------------------------
 
-gulp.task('default', ['test', 'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'scss-lint', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
+gulp.task('default', [/*'test', */'move-bower-components', 'move-assets', 'process-html', 'process-stylesheets', 'scss-lint', 'process-javascript', /*'js-lint', */ 'browser-sync', 'watch']);
 
 // Run tests from src/tests
 // ------------------------
@@ -126,6 +127,7 @@ gulp.task('scss-lint', function(){
 gulp.task('process-javascript', function(){
 	// Watch JS files, but ignore already minified ones
 	return gulp.src(jsFiles)
+  .pipe(babel())
   .pipe(concat('arklay.min.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest(destDir+'/assets/scripts'));
@@ -189,6 +191,6 @@ gulp.task('watch', function(){
   gulp.watch(htmlFiles, ['process-html']);
 	// Watch SCSS files
 	gulp.watch(scssFiles, ['process-stylesheets', 'scss-lint']);
-	// Watch JS files
+	// Watch TS files
 	gulp.watch(jsFiles, ['test', 'process-javascript']/*, 'js-lint']*/);
 });

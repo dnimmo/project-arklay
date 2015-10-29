@@ -149,13 +149,14 @@
         "image" : "assets/images/defs.svg#arrow"
       }],
       "newItem": {
-        "name": "Key code",
+        "name": "Paper",
         "image": "assets/images/defs.svg#password",
         "description": "A piece of paper with 2407 written on it",
-        "messageWhenUsed": "You have used the key kode",
+        "messageWhenUsed": "You type the code into the terminal",
         "canBeUsedIn" : "study",
         "unlocks" : "/rooms/laboratory",
-        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
+        "soundWhenUsed" : "../assets/sounds/keyboard.mp3",
+        "messageWhenNotUsed" : "What do these numbers mean?"
       }
     },{
       "slug": "statue-room",
@@ -222,7 +223,8 @@
         "messageWhenUsed": "You prise off the wooden planks",
         "canBeUsedIn" : "upstairs-foyer",
         "unlocks" : "/rooms/upper-east-hallway-one",
-        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3"
+        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3",
+        "messageWhenNotUsed" : "Nothing to use this on in here"
       }
     },{
       "slug" : "upstairs-foyer",
@@ -322,10 +324,11 @@
         "name": "Book",
         "image": "assets/images/defs.svg#book",
         "description": "Tales of the Occult, Vol. 2",
-        "messageWhenUsed": "The missing book sits neatly between volumes 1 and 3.",
+        "messageWhenUsed": "The missing book sits neatly between volumes 1 and 3",
         "canBeUsedIn" : "library",
         "unlocks" : "/rooms/secret-room",
-        "soundWhenUsed" : "../assets/sounds/scrape.mp3"
+        "soundWhenUsed" : "../assets/sounds/scrape.mp3",
+        "messageWhenNotUsed" : "I wonder where this came from?"
       }
     },{
       "slug" : "walk-in-wardrobe",
@@ -368,11 +371,12 @@
       "newItem": {
         "name" : "Moose Head",
         "image" : "assets/images/defs.svg#moosehead",
-        "description" : "The moose's cold, dead eyes stare into your soul.",
-        "messageWhenUsed" : "You place the moose head onto the empty plaque.",
+        "description" : "The moose's cold, dead eyes stare into your soul",
+        "messageWhenUsed" : "You place the moose head onto the empty plaque",
         "canBeUsedIn" : "guest-bedroom",
         "unlocks" : "/rooms/study",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock2.mp3"
+        "soundWhenUsed" : "../assets/sounds/doorUnlock2.mp3",
+        "messageWhenNotUsed" : "Why did I bring this with me?"
       }
     },{
       "slug" : "upper-west-hallway",
@@ -410,11 +414,12 @@
       "newItem": {
         "name": "Key",
         "image": "assets/images/defs.svg#key",
-        "description": "A small key.",
-        "messageWhenUsed": "You have unlocked the door to the pool.",
+        "description": "A small key",
+        "messageWhenUsed": "You have unlocked the door to the pool",
         "canBeUsedIn" : "lower-east-hall",
         "unlocks" : "/rooms/swimming-pool",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"        
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
+        "messageWhenNotUsed" : "It doesn't look like this fits any of these doors"
       }
     },{
       "slug" : "study",
@@ -428,7 +433,7 @@
           "link" : "/rooms/laboratory",
           "image" : "assets/images/defs.svg#arrow",
           "blocked" : true,
-          "unlockedWith" : ["Key code"]
+          "unlockedWith" : ["Paper"]
         },{
           "rel" : "south",
           "link" : "/rooms/guest-bedroom",
