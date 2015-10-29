@@ -7,7 +7,7 @@ var app = express();
 var server = require('http').createServer(app);
 var compression = require('compression');
 // Serve on port 8080 in dev but port 80 in live! Make this programatic at some point because it's annoying now. :P
-var port = 8080;
+var port = 80;
 
 // Load the map and credits
 var data = JSON.parse(fs.readFileSync('src/assets/resources/map.json', 'utf8'));
