@@ -116,9 +116,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     }
     
     unlockNeighbour(direction){
-      console.log('unlocking', direction);
       direction.blocked = false;
-      console.log('unlocked', direction);
     }
     
     // Room descriptions change when an item is picked up or used
