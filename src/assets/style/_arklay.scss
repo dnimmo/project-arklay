@@ -23,6 +23,7 @@ body {
 }
 
 main {
+  @include animation(fadeIn .5s);
   margin-top: 8rem;
   overflow: hidden;
   padding-left: 2rem;
