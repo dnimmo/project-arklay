@@ -1,5 +1,6 @@
 .inventory-icon {
   @extend %icons;
+  @include animation(fadeIn .5s);
   right: 1rem;
   
   @include bp(m) {
@@ -12,6 +13,7 @@
 }
 
 .inventory-count {
+  @include animation(fadeIn .5s);
   border-radius: .5rem;
   color: $colour-palette-1;
   cursor: pointer;
@@ -38,6 +40,7 @@
 
 .inventory {
   @extend %menus;
+  @include animation(slideIn);
   border-left: .1rem solid $colour-palette-2;
   right: 0;
   width: 90%;

@@ -67,6 +67,10 @@ h2 {
   font-weight: bold;
 }
 
+.extra-message {
+  @include animation(fadeIn .5s);
+}
+
 label {
   margin: 1rem 0;
 }
