@@ -40,7 +40,6 @@
 
 .inventory {
   @extend %menus;
-  @include animation(slideIn);
   border-left: .1rem solid $colour-palette-2;
   right: 0;
   width: 90%;
@@ -54,6 +53,7 @@
   }
   
   .inventory-contents {
+    @include animation(fadeIn .5s);
     padding: 2rem 2rem 0;
   }
   

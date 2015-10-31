@@ -22,6 +22,7 @@
 }
 
 %menus {
+  @include animation(slideIn .2s);
   background-color: $colour-palette-3;
   min-height: 100vh;
   position: fixed;

@@ -69,6 +69,10 @@ h2 {
 
 .extra-message {
   @include animation(fadeIn .5s);
+  
+  &.ng-hide {
+    @include animation(fadeOut .5s);
+  }
 }
 
 label {
