@@ -32,7 +32,7 @@
         {{inventory.usableItemsCount}}
       </span>
     </div>
-    <section class='inventory' data-ng-show='inventory.open'>
+    <section class='inventory' animate-hide data-ng-show='inventory.open'>
       <!--Put into separate partial-->
       <div class="inventory-contents">
         <ul data-ng-if='!inventory.itemOptionsOpen'>
@@ -49,7 +49,7 @@
           <li class='button' data-ng-click='inventory.selectedItem.checkIfUsableInCurrentRoom(current, inventory)'>Use</li>
           <li class='button' data-ng-click='inventory.clearSelectedItem()'>Cancel</li>
         </ul>
-        <p class="additional-info">{{inventory.message}}</p>
+        <p class="additional-info extra-message" data-ng-show='inventory.message && inventory.message != ""'>{{inventory.message}}</p>
       </div>
     </section>
     <!-- Inventory end -->

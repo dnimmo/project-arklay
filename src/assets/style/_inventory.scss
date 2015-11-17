@@ -2,6 +2,7 @@
   @extend %icons;
   @include animation(fadeIn .5s);
   right: 1rem;
+  transition: $transition;
   
   @include bp(m) {
     right: .5rem;
@@ -9,6 +10,10 @@
   
   @include bp(l) {
     margin-right: 1rem;
+  }
+  
+  &:hover {
+    transform: scale(1.2);
   }
 }
 
@@ -21,6 +26,7 @@
   font-size: 1.6rem;
   font-weight: bold;
   padding: .2rem .8rem 0;
+  pointer-events: none;
   position: fixed;
   right: 2.1rem;
   top: 2.8rem;
@@ -90,7 +96,9 @@
     &:hover {
       background-color: $colour-palette-2;
       border-radius: .1rem;
+      box-shadow: 1rem 1rem 1rem $colour-palette-1;
       color: $colour-palette-4;
+      transform: scale(1.1);
       
       svg {
         background-color: $colour-palette-4;

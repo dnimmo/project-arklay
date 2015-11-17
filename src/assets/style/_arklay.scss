@@ -58,8 +58,10 @@ h2 {
   
   &:hover {
     background-color: $colour-palette-2;
+    box-shadow: 1rem 1rem 1rem $colour-palette-1;
     color: $colour-palette-1;
     cursor: pointer;
+    transform: scale(1.1);
   }
 }
 
@@ -69,10 +71,6 @@ h2 {
 
 .extra-message {
   @include animation(fadeIn .5s);
-  
-  &.ng-hide {
-    @include animation(fadeOut .5s);
-  }
 }
 
 label {
@@ -107,6 +105,7 @@ input {
     
     &:hover {
       font-weight: bolder;
+      transform: scale(1.3);
     }
   }
   

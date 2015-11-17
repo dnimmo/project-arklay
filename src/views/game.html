@@ -1,5 +1,4 @@
 <p data-ng-if='!current.data.showReturnedMessage'>{{current.data.description}}</p>
-<p data-ng-if='current.data.showReturnedMessage'>{{current.data.returnedMessage}}</p>
 <p>{{current.data.surroundings}}</p>
 
 <ul class="direction-options" style='border-color: {{settings.textColour}}'>
@@ -11,4 +10,5 @@
 <p class='button' data-ng-if='current.data.directions[0].rel=="Roll credits"' data-ui-sref='credits' data-ng-click='playCreditsSound()'>Roll Credits!</p>
 
 <br />
-<p class='extra-message' data-ng-show='current.message && current.message != ""'>{{current.message}}</p>
+  <p class='extra-message' data-ng-if='current.message && current.message != ""'>{{current.message}}</p>
+</div>

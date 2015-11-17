@@ -415,7 +415,7 @@
         "name": "Key",
         "image": "assets/images/defs.svg#key",
         "description": "A small key",
-        "messageWhenUsed": "You have unlocked the door to the pool",
+        "messageWhenUsed": "You have unlocked the door to the North",
         "canBeUsedIn" : "lower-east-hall",
         "unlocks" : "/rooms/swimming-pool",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
