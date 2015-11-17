@@ -7,7 +7,6 @@ var app = express();
 var server = require('http').createServer(app);
 var compression = require('compression');
 var port;
-// Serve on port 8080 in dev but port 80 in live! Make this programatic at some point because it's annoying now. :P
 if(process.env.NODE_ENV == 'development') {
   port = 8080;
 } else {
