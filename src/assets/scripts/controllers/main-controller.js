@@ -48,8 +48,10 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     }
     
     prepareSurroundingRooms(){
+      vm.current.availableDirections = [];
       // Get rooms to add to the map
       angular.forEach(vm.current.data.directions, (direction) => {
+        vm.current.availableDirections.push(direction);
         $http.get(direction.link, {cache: true}).then((response) =>{
           this.addRoom(response.data);
         });
@@ -67,7 +69,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     
     checkForItems(){
       if(this.data.newItem){
-        let newItem = new Item(this.data.newItem.name, this.data.newItem.image, this.data.newItem.description, this.data.newItem.messageWhenUsed, this.data.newItem.canBeUsedIn, this.data.newItem.unlocks, this.data.newItem.soundWhenUsed, this.data.newItem.messageWhenNotUsed);
+        const newItem = new Item(this.data.newItem.name, this.data.newItem.image, this.data.newItem.description, this.data.newItem.messageWhenUsed, this.data.newItem.canBeUsedIn, this.data.newItem.unlocks, this.data.newItem.soundWhenUsed, this.data.newItem.messageWhenNotUsed);
         vm.inventory.add(newItem);
       }
     }
@@ -134,21 +136,19 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
   }
   
   class Inventory {
-    constructor(items = []){
-      this.items = items;
+    constructor(usableItems = []){
       this.itemsUsed = [];
       this.newItemSound = new Audio('../assets/sounds/newItemChime.mp3');
       this.open = false;
-      this.usableItemsCount = 0;
+      this.usableItems = [];
       this.selectedItem = {};
       this.itemOptionsOpen = false;
       this.message = '';
     }
     
     add(item){
-      let newItem = new Item(item.name, item.image, item.description, item.messageWhenUsed, item.canBeUsedIn, item.unlocks, item.soundWhenUsed, item.messageWhenNotUsed, item.hasBeenUsed);
-      this.items.push(newItem);
-      this.usableItemsCount += 1;
+      const newItem = new Item(item.name, item.image, item.description, item.messageWhenUsed, item.canBeUsedIn, item.unlocks, item.soundWhenUsed, item.messageWhenNotUsed, item.hasBeenUsed);
+      this.usableItems.push(newItem);
       // If vm.current doesn't exist at this point, save data has just been loaded, so we don't want to display messages or play any sounds
       if(vm.current){
         this.newItemSound.play();
@@ -182,13 +182,16 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
       angular.forEach(vm.saveData.inventory.itemsUsed, (itemUsed) =>{
         this.processItemUsed(itemUsed);
       });
-      this.updateUsableItemsCount();
+    }
+    
+    updateSelectedItem(item){
+      this.selectedItem = item;
     }
     
     processItemUsed(item, message){
       this.clearSelectedItem();
       this.addToItemsUsed(item);
-      this.updateUsableItemsCount();
+      this.updateUsableItems(item);
       this.itemOptionsOpen = false;
       this.open = false;
       // If vm.current doesn't exist here, data has just been loaded: don't amend current room details
@@ -211,11 +214,11 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     
     toggleOpen(){
       // Open or close the inventory panel
-      this.open = !this.open;
+      this.open = !this.open;  
     }
     
-    updateUsableItemsCount(){
-      this.usableItemsCount = this.items.length - this.itemsUsed.length;
+    updateUsableItems(item){
+      this.usableItems.splice(this.usableItems.indexOf(item), 1);
     }
   }
   
@@ -224,6 +227,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
       this.name = name;
       this.image = image;
       this.description = description;
+      this.highlighted = false;
       this.messageWhenUsed = messageWhenUsed;
       this.canBeUsedIn = canBeUsedIn;
       this.unlocks = unlocks;
@@ -255,7 +259,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     }
     
     playSoundEffect(){
-      let soundEffect = new Audio(this.soundWhenUsed);
+      const soundEffect = new Audio(this.soundWhenUsed);
       soundEffect.play();
     }
     
@@ -278,6 +282,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
   vm.map = new Map();
   vm.saveData = SaveDataFactory.load();
   vm.showDescription = false;
+  let selectedItemNumber = 0;
 
   if(typeof(localStorage) !== 'undefined'){
     vm.localStorageEnabled = true;
@@ -319,19 +324,141 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.6;
     backgroundMusic.play();
-  }
+  }(); // Invoke this immediately - unfortunately Android won't allow it to be invoked without a button press, so it's also called when the game starts
   
-  vm.playCreditsSound = () => {    
-    var creditsMusic = new Audio('../assets/sounds/credits.mp3');
-    var creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
+  vm.handleKeyboard = (event) => {
+    // @TODO: Tidy all this up
+    if(vm.current){
+      if(vm.inventory.usableItems.length !== 0 && event.keyCode === 73) {
+        // Open/Close inventory when the user presses 'i'
+        vm.inventory.toggleOpen();
+        vm.inventory.updateSelectedItem(vm.inventory.usableItems[selectedItemNumber]);
+      } 
+        
+      if(vm.inventory.open && !vm.inventory.itemOptionsOpen) {
+        vm.inventory.clearMessage();
+        // Inventory controls
+        switch(event.keyCode) {
+          case 27:
+            // 'esc' key
+            vm.inventory.clearSelectedItem();
+            vm.inventory.toggleOpen();
+            vm.inventory.toggleItemOptionsOpen();
+            break;
+          case 13:
+            // 'enter' key
+            vm.inventory.usableItems[selectedItemNumber].checkIfUsableInCurrentRoom();
+            break;
+          case 37:
+            // 'left arrow' key
+            if(selectedItemNumber === 0) {
+              selectedItemNumber = vm.inventory.usableItems.length-1;
+            } else {
+              selectedItemNumber -= 1;
+            }
+            vm.inventory.updateSelectedItem(vm.inventory.usableItems[selectedItemNumber]);
+            break;
+          case 39:
+            // 'right arrow' key
+            if(selectedItemNumber === vm.inventory.usableItems.length-1) {
+              selectedItemNumber = 0;
+            } else {
+              selectedItemNumber += 1;
+            }
+            vm.inventory.updateSelectedItem(vm.inventory.usableItems[selectedItemNumber]);
+            break;
+        }
+      } else if (vm.inventory.itemOptionsOpen) {
+        switch (event.keyCode) {
+          case 27:
+            // 'esc' key
+            vm.inventory.itemOptionsOpen = false;
+            break;
+          case 13:
+            // 'enter' key
+            vm.inventory.selectedItem.checkIfUsableInCurrentRoom();
+            break;  
+        }
+      } else {
+        // Handle movement
+        const north = {}, 
+              east = {}, 
+              west = {}, 
+              south = {},
+              credits = {};
+        angular.forEach(vm.current.availableDirections, function(direction) {
+          switch(direction.rel) {
+            case 'north':
+              if (!direction.blocked) north.available = true;
+              north.link = direction.link;
+              break;
+            case 'upstairs':
+              if (!direction.blocked) north.available = true;
+              north.link = direction.link;
+              break;
+            case 'east':
+              if (!direction.blocked) east.available = true;
+              east.link = direction.link;
+              break;
+            case 'west':
+              if (!direction.blocked) west.available = true;
+              west.link = direction.link;
+              break;
+            case 'south':
+              if (!direction.blocked) south.available = true;
+              south.link = direction.link;
+              break;
+            case 'downstairs':
+              if (!direction.blocked) south.available = true;
+              south.link = direction.link;
+              break;
+            case 'Roll credits':
+              credits.available = true;
+              credits.link = direction.link;
+          }
+        });
+        switch(event.keyCode) {
+          case 38:
+            // 'Up' arrow key
+            if(north.available) {
+              vm.map.getNewRoom(north.link);
+            }
+            break;
+          case 39:
+            // 'Right' arrow key
+            if(east.available) {
+              vm.map.getNewRoom(east.link);
+            }
+            break;
+          case 37:
+            // 'Left' arrow key
+            if(west.available) {
+              vm.map.getNewRoom(west.link);
+            }
+            break;
+          case 40:
+            // 'Down' arrow key
+            if(south.available) {
+              vm.map.getNewRoom(south.link);
+            }
+            break;
+          case 13:
+            // 'Enter' key
+            if(credits.available) {
+              window.location.href='/#/credits';
+              vm.playCreditsSound();
+            }
+        }
+      }
+    }
+  };
+  
+  vm.playCreditsSound = () => {
+    const creditsMusic = new Audio('../assets/sounds/credits.mp3');
+    const creditsSound = new Audio('../assets/sounds/radioChatter.mp3');
     creditsSound.playbackRate = 1;
     backgroundMusic.volume = 0;
     creditsMusic.play();
     creditsSound.play(); 
   }
-  
-  // Allow music to start on page load - does not work in Android Chrome as it does not allow auto-play
-  vm.$watch(backgroundMusic, function(){
-    vm.handleBackgroundMusic();
-  });
 }]);
