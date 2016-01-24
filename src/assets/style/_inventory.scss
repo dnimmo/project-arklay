@@ -93,7 +93,8 @@
       transition: $transition;
     }
     
-    &:hover {
+    &:hover,
+    &.selected {
       background-color: $colour-palette-2;
       border-radius: .1rem;
       color: $colour-palette-4;
