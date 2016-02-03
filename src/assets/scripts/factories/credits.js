@@ -3,7 +3,7 @@ angular.module('projectArklay').factory('CreditsFactory', ['$http', function($ht
   return{
     getCredits: 
       function(){
-        return $http.get('/credits');
+        return $http.get('/credits')
       }
   }
-}]);
+}])

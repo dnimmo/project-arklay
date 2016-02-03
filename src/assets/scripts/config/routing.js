@@ -1,7 +1,7 @@
 angular.module('projectArklay').config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   
   // Default state
-  $urlRouterProvider.otherwise("/start");
+  $urlRouterProvider.otherwise("/start")
   
   // State Provider may not be necessary
   $stateProvider 
@@ -25,4 +25,4 @@ angular.module('projectArklay').config(['$stateProvider', '$urlRouterProvider', 
     templateUrl: 'views/credits.html'
     })
   }
-]);
+])

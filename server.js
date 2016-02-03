@@ -6,12 +6,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var compression = require('compression');
-var port;
-if(process.env.NODE_ENV == 'development') {
-  port = 8080;
-} else {
-  port = 80;
-}
+var port = process.env.PORT || 80;
 
 // Load the map and credits
 var data = JSON.parse(fs.readFileSync('src/assets/resources/map.json', 'utf8'));
@@ -24,9 +19,9 @@ app.use(compression());
 app.use(express.static(__dirname + "/build"));
 app.get('/rooms/:slug', function(req, res){
   // Get the slug of the room we're moving to
-  for (var i = 0; i < data.rooms.length; i++){        
-    // Return the correct room
-    if(data.rooms[i].slug== req.params.slug){
+  for (var i = 0; i < data.rooms.length; i+=1){        
+    // Return the correct room  
+    if(data.rooms[i].slug == req.params.slug){
       res.json(data.rooms[i]);
       return;
     }
