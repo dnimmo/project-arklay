@@ -15,7 +15,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
         if(room.data.slug == newRoom.slug){
           roomIsInMap = true
         }              
-      });
+      })
       if(!roomIsInMap){
         newRoom = new Room(newRoom)
         this.rooms.push(newRoom)
@@ -34,7 +34,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
           SaveDataFactory.save(vm.current, vm.inventory, vm.map)
           return
         }
-      });
+      })
     }
     
     getStartingRoom(){
@@ -152,7 +152,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
       // If vm.current doesn't exist at this point, save data has just been loaded, so we don't want to display messages or play any sounds
       if(vm.current){
         this.newItemSound.play()
-        vm.current.displayMessage('"'+ newItem.name + '" picked up'); 
+        vm.current.displayMessage('"'+ newItem.name + '" picked up')
         // Remove the item from the current room
         vm.current.data.newItem = false
       }
