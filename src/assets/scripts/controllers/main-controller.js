@@ -176,7 +176,7 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     }
     
     loadInventory(){
-      angular.forEach(vm.saveData.inventory.items, (loadedItem) =>{
+      angular.forEach(vm.saveData.inventory.usableItems, (loadedItem) =>{
         this.add(loadedItem)
       })
       angular.forEach(vm.saveData.inventory.itemsUsed, (itemUsed) =>{
