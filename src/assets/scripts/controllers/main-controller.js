@@ -69,7 +69,16 @@ angular.module('projectArklay').controller('MainCtrl', ['$http', '$scope', 'Cred
     
     checkForItems(){
       if(this.data.newItem){
-        const newItem = new Item(this.data.newItem.name, this.data.newItem.image, this.data.newItem.description, this.data.newItem.messageWhenUsed, this.data.newItem.canBeUsedIn, this.data.newItem.unlocks, this.data.newItem.soundWhenUsed, this.data.newItem.messageWhenNotUsed)
+        const newItem = new Item(
+          this.data.newItem.name, 
+          this.data.newItem.image, 
+          this.data.newItem.description, 
+          this.data.newItem.messageWhenUsed, 
+          this.data.newItem.canBeUsedIn, 
+          this.data.newItem.unlocks, 
+          this.data.newItem.soundWhenUsed, 
+          this.data.newItem.messageWhenNotUsed
+        )
         vm.inventory.add(newItem)
       }
     }
