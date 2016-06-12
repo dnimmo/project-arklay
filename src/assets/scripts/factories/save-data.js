@@ -2,7 +2,7 @@ angular.module('projectArklay').factory('SaveDataFactory', function(){
   // Handle save data through local storage
   return{
     save:
-    function(currentRoom, inventory, map){
+    (currentRoom, inventory, map) => {
       if(typeof(localStorage) !== 'undefined'){
         localStorage.setItem('currentRoom', JSON.stringify(currentRoom))
         localStorage.setItem('inventory', JSON.stringify(inventory))
@@ -14,7 +14,7 @@ angular.module('projectArklay').factory('SaveDataFactory', function(){
       }
     },
     load:
-    function(){
+    () => {
       if(typeof(localStorage) !== 'undefined'){
         let saveData = {}
         let currentRoom = localStorage.getItem('currentRoom')

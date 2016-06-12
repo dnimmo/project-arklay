@@ -22,7 +22,7 @@ app.get('/rooms/:slug', function(request, response){
   // Get the slug of the room we're moving to
   for (var i = 0; i < data.rooms.length; i+=1){        
     // Return the correct room  
-    if(data.rooms[i].slug == request.params.slug){
+    if(data.rooms[i].slug === request.params.slug){
       response.json(data.rooms[i])
       return
     }
