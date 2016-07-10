@@ -28,7 +28,8 @@
   "devDependencies": {},
   "scripts": {
     "build": "gulp",
-    "start-dev": "export PORT=8080 && node server"
+    "start-dev": "export PORT=8080 && node server",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
