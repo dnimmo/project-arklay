@@ -6,8 +6,8 @@ const compression = require('compression')
 const port = 8080
 
 // Load the map and credits
-const map = JSON.parse(fs.readFileSync('src/assets/resources/map.json', 'utf8')).rooms
-const credits = JSON.parse(fs.readFileSync('src/assets/resources/credits.json', 'utf8'))
+const map = JSON.parse(fs.readFileSync('./server/game-map/map.json', 'utf8')).rooms
+const credits = JSON.parse(fs.readFileSync('./server/credits/credits.json', 'utf8'))
 
 const mapService = require('./game-map/service')(map)
 
