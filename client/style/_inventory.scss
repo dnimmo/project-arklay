@@ -1,0 +1,113 @@
+.inventory-icon {
+  @extend %icons;
+  @include animation(fadeIn .5s);
+  right: 1rem;
+  transition: $transition;
+  
+  @include bp(m) {
+    right: .5rem;
+  }
+  
+  @include bp(l) {
+    margin-right: 1rem;
+  }
+  
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.inventory-count {
+  @include animation(fadeIn .5s);
+  border-radius: .5rem;
+  color: $colour-palette-1;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: .2rem .8rem 0;
+  pointer-events: none;
+  position: fixed;
+  right: 2.1rem;
+  top: 2.8rem;
+  
+  @include bp(m) {
+    font-size: 1.8rem;
+    right: 2.1rem;
+    top: 3.3rem;
+  }
+  
+  @include bp(l) {
+    font-size: 2.5rem;
+    right: 3.7rem;
+    top: 5.3rem;
+  }
+}
+
+.inventory {
+  @extend %menus;
+  border-left: .1rem solid $colour-palette-2;
+  right: 0;
+  width: 90%;
+  
+  @include bp(m) {
+    width: 45%;
+    
+    p {
+      color: $colour-palette-2;
+    }
+  }
+  
+  .inventory-contents {
+    @include animation(fadeIn .5s);
+    padding: 2rem 2rem 0;
+  }
+  
+  .item-options {
+    border-bottom: 0;
+  }
+  
+  .inventory-toggle {
+    color: $colour-palette-2;
+    cursor: pointer;
+    display: block;
+    font-size: 2.2rem;
+    margin: 0;
+    transition: $transition;
+  }
+  
+  li {
+    
+    &.inv {
+      border: 0;
+    }
+    
+    .item {
+      height: 7rem;
+      transition: $transition;
+      width: 7rem;
+      
+    }
+    
+    p {
+      transition: $transition;
+    }
+    
+    &:hover,
+    &.selected {
+      background-color: $colour-palette-2;
+      border-radius: .1rem;
+      color: $colour-palette-4;
+      transform: scale(1.1);
+      
+      svg {
+        background-color: $colour-palette-4;
+        border-radius: 50rem;
+      }
+      
+      p {
+        color: $colour-palette-4;
+      }
+    }
+  }
+}

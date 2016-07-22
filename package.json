@@ -2,33 +2,10 @@
   "name": "project-arklay",
   "version": "1.0.0",
   "description": "A short demo for an upcoming web-based text adventure game",
-  "main": "gulpfile.js",
-  "dependencies": {
-    "gulp": "^3.9.0",
-    "gulp-jslint": "^0.2.2",
-    "gulp-minify-html": "^1.0.4",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.3",
-    "gulp-uglify": "^1.2.0",
-    "gulp-watch": "^4.2.4",
-    "browser-sync": "^2.7.13",
-    "jasmine-core": "^2.3.4",
-    "express": "^4.13.0",
-    "karma": "^0.12.37",
-    "karma-chrome-launcher": "^0.2.0",
-    "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "^0.2.0",
-    "angular": "^1.4.1",
-    "phantomjs": "^1.9.17",
-    "jasmine": "^2.3.1",
-    "json-server": "^0.7.20",
-    "mongojs": "^1.0.2",
-    "forever": "^0.14.2"
-  },
-  "devDependencies": {},
+  "main": "./server/server.js",
   "scripts": {
-    "build": "gulp",
-    "start-dev": "export PORT=8080 && node server"
+    "serve": "node server/server",
+    "test": "tape test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/dnimmo/project-arklay/issues"
   },
-  "homepage": "http://project-arklay.com"
+  "homepage": "http://project-arklay.com",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  },
+  "dependencies": {
+    "compression": "^1.6.2",
+    "express": "^4.14.0"
+  }
 }

@@ -1,0 +1,25 @@
+{
+  "credits" : 
+  [
+    {
+      "thing" : "Design / Build",
+      "credit" : "David Nimmo"
+    },
+    {
+      "thing" : "Map / Story",
+      "credit" : "Jamie Mercer and David Nimmo"
+    },
+    {
+      "thing" : "Artwork",
+      "credit" : "Jamie Mercer"
+    },
+    {
+      "thing" : "Background Audio",
+      "credit" : "Justin Blackwell"
+    },
+    {
+      "thing" : "Testing",
+      "credit" : "Grant Hutchison"
+    }
+  ]
+}

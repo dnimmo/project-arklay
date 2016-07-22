@@ -1,0 +1,849 @@
+{
+  "rooms": [
+    {
+      "slug" : "start",
+      "name" : "Foyer",
+      "description" : "You are in the foyer of what appears to be a mansion.",
+      "surroundings" : "A vast, dimly-lit foyer, with a grand staircase and a couple of doors.",
+      "directions" : [
+        {
+          "rel" : "upstairs",
+          "link" : "/rooms/upstairs-foyer"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/dining-hall"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/hallway-one"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-foyer",
+      "name" : "Upstairs Foyer",
+      "description" : "Upstairs Foyer",
+      "surroundings" : "Hallway One to the North, foyer downstairs",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-one"
+        }, {
+          "rel" : "downstairs",
+          "link" : "/rooms/start"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-hallway-one",
+      "name" : "Upstairs Hallway One",
+      "description" : "Upstairs Hallway One",
+      "surroundings" : "Study to the West, third bedroom to the East, foyer (upstairs) to the South",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-study"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-third-bedroom"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-foyer"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-study",
+      "name" : "Study",
+      "description" : "Study",
+      "surroundings" : "Upstairs hallway two to the North, secret room three to the West (needs keycode), upstairs hallway one to the East",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-two"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-secret-room-three",
+          "blocked" : true,
+          "unlockedWith" : ["keycode"]
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-hallway-one"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-secret-room-three",
+      "name" : "Secret Room Three",
+      "description" : "Secret Room Three",
+      "surroundings" : "Study to the East. Lion Crest found in this room",
+      "directions" : [
+        {
+          "rel" : "east",
+          "link" : "/rooms/upstairs-study"
+        }
+      ],
+      "newItem": {
+        "name": "Lion Crest",
+        "image": "assets/images/defs.svg#key",
+        "description": "A crest, with a lion's head on the front",
+        "messageWhenUsed": "You place the crest into the door",
+        "canBeUsedIn" : "upstairs-stairway-three",
+        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug" : "upstairs-stairway-three",
+      "name" : "Upstairs Stairway three",
+      "description" : "Stairway three (upstairs)",
+      "surroundings" : "Master bedroom to the North (needs three crests), upstairs hallway two to the East, stairway three (downstairs) downstairs",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-master-bedroom",
+          "blocked" : true,
+          "unlockedWith" : ["Lion Crest", "Eagle Crest", "Wolf Crest"]
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-hallway-two"
+        },{
+          "rel" : "downstairs",
+          "link" : "/rooms/stairway-three"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-master-bedroom",
+      "name" : "Master Bedroom",
+      "description" : "Master Bedroom",
+      "surroundings" : "En-suite to the West, upstairs stairway three to the South",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-master-en-suite"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-stairway-three"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-master-en-suite",
+      "name" : "Master Bedroom En-Suite",
+      "description" : "Master Bedroom En-Suite",
+      "surroundings" : "Master Bedroom to the East, Wine Bottle picked up in this room",
+      "directions" : [
+        {
+          "rel" : "east",
+          "link" : "/rooms/upstairs-master-bedroom"
+        }
+      ],
+      "newItem": {
+        "name": "Wine bottle",
+        "image": "assets/images/defs.svg#key",
+        "description": "An expensive-looking bottle of wine",
+        "messageWhenUsed": "You have used the wine bottle",
+        "canBeUsedIn" : "basement-wine-cellar",
+        "unlocks" : "/rooms/basement-lab-entrance",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug" : "upstairs-stairway-two",
+      "name" : "Upstairs stairway two",
+      "description" : "Stairway two (upstairs)",
+      "surroundings" : "Upstairs hallway two to the North, stairway two (downstairs) downstairs",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-two"
+        },{
+          "rel" : "downstairs",
+          "link" : "/rooms/stairway-two"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-hallway-two",
+      "name" : "Upstairs Hallway Two",
+      "description" : "Upstairs Hallway Two",
+      "surroundings" : "Trophy room to the North, upstairs stairway three to the West, art gallery to the East, Study to the South",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-trophy-room"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-stairway-three"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-art-gallery"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-study"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-art-gallery",
+      "name" : "Art Gallery",
+      "description" : "Art Gallery",
+      "surroundings" : "Upstairs hallway two to the West, upstairs hallway three to the East",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-hallway-two"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-hallway-three"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-hallway-three",
+      "name" : "Hallway three (upstairs)",
+      "description" : "Hallway three (upstairs)",
+      "surroundings" : "Aquarium to the North, Art gallery to the West, upstairs hallway four to the East, library to the South",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-aquarium",
+          "blocked" : true,
+          "unlockedWith" : ["Crowbar"]
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-art-gallery"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-hallway-four"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-library"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-aquarium",
+      "name" : "Aquarium (upstairs)",
+      "description" : "Aquarium",
+      "surroundings" : "Upstairs hallway three to the South. Pick up utility key in this room",
+      "directions" : [
+        {
+          "rel" : "south",
+          "link" : "/rooms/upstairs-hallway-three"
+        }
+      ],
+      "newItem": {
+        "name": "Utility Key",
+        "image": "assets/images/defs.svg#key",
+        "description": "A small key, with a tag that reads 'Utility'",
+        "messageWhenUsed": "You unlock the door to the utility room",
+        "canBeUsedIn" : "hallway-two",
+        "unlocks" : "/rooms/utility-room",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug" : "upstairs-library",
+      "name" : "Upstairs Library",
+      "description" : "Library",
+      "surroundings" : "Upstairs hallway three to the North",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-three"
+        }
+      ],
+      "newItem": {
+        "name": "Sheet Music",
+        "image": "assets/images/defs.svg#key",
+        "description": "Sheet music for Beethoven's Piano Sonata No. 14",
+        "messageWhenUsed": "You place the crest into the door",
+        "canBeUsedIn" : "upstairs-stairway-three",
+        "unlocks" : "/rooms/secret-room-one",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug" : "upstairs-hallway-four",
+      "name" : "Upstairs hallway four",
+      "description" : "Hallway Four (upstairs)",
+      "surroundings" : "Upstairs stairway two to the North, upstairs hallway three to the West, second bedroom to the South",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-stairway-two"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-hallway-three"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-second-bedroom"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-second-bedroom",
+      "name" : "Second bedroom",
+      "description" : "Second bedroom",
+      "surroundings" : "Upstairs hallway four to the North, upstairs second bedroom to the South",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-four"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/upstairs-second-bathroom"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-second-bathroom",
+      "name" : "Second bathroom",
+      "description" : "Second bathroom",
+      "surroundings" : "Second bedroom to the North, third bedroom to the West",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-second-bedroom"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-third-bedroom"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-third-bedroom",
+      "name" : "Third bedroom",
+      "description" : "Third bedroom",
+      "surroundings" : "Upstairs hallway one to the West, second bathroom to the East",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-hallway-one"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-second-bathroom"
+        }
+      ]
+    },
+    {
+      "slug" : "upstairs-trophy-room",
+      "name" : "Trophy Room",
+      "description" : "Trophy Room",
+      "surroundings" : "Upstairs hallway two to the South",
+      "directions" : [
+        {
+          "rel" : "south",
+          "link" : "/rooms/upstairs-hallway-two"
+        }
+      ]
+    },
+    {
+      "slug": "dining-hall",
+      "name": "Dining Hall",
+      "description": "A large dining hall.",
+      "surroundings": "A grandfather clock is steadily ticking, its sound echoing through the room.",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/hallway-two"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/start"
+        }
+      ]
+    },
+    {
+      "slug": "hallway-two",
+      "name": "Hallway Two",
+      "description": "Hallway Two",
+      "surroundings": "Kitchen to the North, hallway-four to the West, Utility room to the East, Dining hall to the South",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/kitchen"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/hallway-four"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/utility-room",
+          "blocked" : true,
+          "unlockedWith" : ["Utility Key"]
+        },{
+          "rel" : "south",
+          "link" : "/rooms/dining-hall"
+        }
+      ]
+    },
+    {
+      "slug" : "utility-room",
+      "name" : "Utility Room",
+      "description" : "Utility Room",
+      "surroundings" : "Hallway two to the West, basement stairway downstairs",
+      "directions" : [{
+        "rel" : "west",
+        "link" : "/rooms/hallway-two"
+      },{
+        "rel" : "downstairs",
+        "link" : "/rooms/basement-stairway"
+      }]
+    },
+    {
+      "slug": "kitchen",
+      "name": "Kitchen",
+      "description": "Kitchen",
+      "surroundings": "Waste disposal to the North, freezer to the East, hallway two to the South",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/waste-disposal"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/freezer"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/hallway-two"
+        }
+      ]
+    },
+    {
+      "slug": "freezer",
+      "name": "Freezer",
+      "description": "Freezer",
+      "surroundings": "Kitchen to the West. Moose Head Picked up in this room",
+      "directions" : [{
+          "rel" : "west",
+          "link" : "/rooms/kitchen"
+        }
+      ],
+      "newItem" : {
+        "name" : "Moose Head",
+        "image": "assets/images/defs.svg#moosehead",
+        "description": "A moose's head. Its cold, dead eyes stare at you, looking lost and lonely",
+        "messageWhenUsed": "Ah, that's better",
+        "canBeUsedIn" : "trophy-room",
+        "unlocks" : "nothing",
+        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
+      }
+    },
+    {
+      "slug": "waste-disposal",
+      "name": "Waste Disposal",
+      "description": "Waste Disposal",
+      "surroundings": "Basement waste disposal at 'jump in' (requires handle), Kitchen to South",
+      "directions" : [{
+          "rel" : "jump in",
+          "link" : "/rooms/basement-waste-disposal",
+          "blocked" : true,
+          "unlockedWith" : ["Handle"]
+        },{
+          "rel" : "south",
+          "link" : "/rooms/kitchen"
+        }
+      ]
+    },
+    {
+      "slug": "hallway-four",
+      "name": "Hallway Four",
+      "description": "Hallway Four",
+      "surroundings": "Stairway three to the North, Music room to the West, hallway two to the East",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/stairway-three"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/music-room"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/hallway-two"
+        }
+      ]
+    },
+    {
+      "slug": "stairway-three",
+      "name": "Stairway Three",
+      "description": "Stairway Three",
+      "surroundings": "Upstairs stairway three to upstairs, hallway four to South",
+      "directions" : [{
+          "rel" : "upstairs",
+          "link" : "/rooms/upstairs-stairway-three"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/hallway-four"
+        }
+      ]
+    },
+    {
+      "slug": "music-room",
+      "name": "Music Room",
+      "description": "Music Room",
+      "surroundings": "Hallway five to North, hallway four to East, secret room one to South",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/hallway-five"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/hallway-four"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/secret-room-one",
+          "blocked" : true,
+          "unlockedWith" : ["Sheet Music"]
+        }
+      ]
+    },
+    {
+      "slug": "hallway-five",
+      "name": "Hallway Five",
+      "description": "Hallway Five",
+      "surroundings": "Gym to North, Music room to South",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/gym"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/music-room"
+        }
+      ]
+    },
+    {
+      "slug": "gym",
+      "name": "Gym",
+      "description": "Gym",
+      "surroundings": "Swimming pool to East, Hallway five to South. Keycode picked up in this room",
+      "directions" : [{
+          "rel" : "east",
+          "link" : "/rooms/swimming-pool"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/hallway-five"
+        }
+      ],
+      "newItem": {
+        "name": "Keycode",
+        "image": "assets/images/defs.svg#password",
+        "description": "A piece of paper with 2407 written on it",
+        "messageWhenUsed": "You enter the keycode into the terminal",
+        "canBeUsedIn" : "upstairs-study",
+        "unlocks" : "/rooms/upstairs-secret-room-three",
+        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
+      }
+    },
+    {
+      "slug": "swimming-pool",
+      "name": "Swimming Pool",
+      "description": "Swimming Pool",
+      "surroundings": "Gym to West, Showers to East",
+      "directions" : [{
+          "rel" : "west",
+          "link" : "/rooms/gym"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/showers"
+        }
+      ]
+    },
+    {
+      "slug": "showers",
+      "name": "Showers",
+      "description": "Showers",
+      "surroundings": "Swimming pool to West",
+      "directions" : [{
+          "rel" : "west",
+          "link" : "/rooms/swimming-pool"
+        }
+      ]
+    },
+    {
+      "slug": "secret-room-one",
+      "name": "Secret Room One",
+      "description": "Secret Room One",
+      "surroundings": "Music Room to North. Eagle crest picked up in this room",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/music-room"
+        }
+      ],
+      "newItem": {
+        "name": "Eagle Crest",
+        "image": "assets/images/defs.svg#key",
+        "description": "A crest, with an eagle's head on the front",
+        "messageWhenUsed": "You place the crest into the door",
+        "canBeUsedIn" : "upstairs-stairway-three",
+        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug": "hallway-one",
+      "name": "Hallway",
+      "description": "Hallway One",
+      "surroundings": "Statue room to North, foyer to West",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/statue-room"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/start"
+        }
+      ]
+    },
+    {
+      "slug": "statue-room",
+      "name": "Statue Room",
+      "description": "Statue Room",
+      "surroundings": "Secret room two to North (needs statue head), hallway three to East and hallway one to South",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/secret-room-two",
+          "blocked" : true,
+          "unlockedWith" : ["Statue Head"]
+        },{
+          "rel" : "east",
+          "link" : "/rooms/hallway-three"
+        }, {
+          "rel" : "south",
+          "link" : "/rooms/hallway-one"
+        }
+      ]
+    },
+    {
+      "slug": "secret-room-two",
+      "name": "Secret Room Two",
+      "description": "Secret Room Two",
+      "surroundings": "Statue Room to South. Wolf crest picked up in this room",
+      "directions" : [{
+          "rel" : "south",
+          "link" : "/rooms/statue-room"
+        }
+      ],
+      "newItem": {
+        "name": "Wolf Crest",
+        "image": "assets/images/defs.svg#key",
+        "description": "A crest, with a wolf's head on the front",
+        "messageWhenUsed": "You place the crest into the door",
+        "canBeUsedIn" : "upstairs-stairway-three",
+        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug": "hallway-three",
+      "name": "Hallway",
+      "description": "Hallway Three",
+      "surroundings": "Servants' quarters to North, statue room to West, stairway two to East, garage to South",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/servants-quarters",
+          "blocked" : true,
+          "unlockedWith" : ["Small Key"]
+        },{
+          "rel" : "west",
+          "link" : "/rooms/statue-room"
+        },
+        {
+          "rel" : "east",
+          "link" : "/rooms/stairway-two"
+        },
+        {
+          "rel" : "south",
+          "link" : "/rooms/garage"
+        }
+      ]
+    },
+    {
+      "slug": "garage",
+      "name": "Garage",
+      "description": "Garage",
+      "surroundings": "Hallway three to North. Crowbar picked up in this room",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/hallway-three"
+        }
+      ],
+      "newItem": {
+        "name": "Crowbar",
+        "image": "assets/images/defs.svg#crowbar",
+        "description": "A heavy crowbar.",
+        "messageWhenUsed": "You place the head carefully back onto the statue",
+        "canBeUsedIn" : "upstairs-hallway-three",
+        "unlocks" : "/rooms/secret-room-two",
+        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3"
+      }
+    },
+    {
+      "slug": "servants-quarters",
+      "name": "Servants' Quarters",
+      "description": "Servants' Quarters",
+      "surroundings": "Servants bathroom to West, hallway three to South",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/servants-bathroom"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/hallway-three"
+        }
+      ],
+      "newItem": {
+        "name": "Statue Head",
+        "image": "assets/images/defs.svg#key",
+        "description": "The head of a small statue.",
+        "messageWhenUsed": "You place the head carefully back onto the statue",
+        "canBeUsedIn" : "statue-room",
+        "unlocks" : "/rooms/secret-room-two",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug": "servants-bathroom",
+      "name": "Servants' Bathroom",
+      "description": "Servants' Bathroom",
+      "surroundings": "Servants' quarters to East",
+      "directions" : [{
+          "rel" : "east",
+          "link" : "/rooms/servants-quarters"
+        }
+      ]
+    },
+    {
+      "slug": "stairway-two",
+      "name": "Stairway Two",
+      "description": "Stairway Two",
+      "surroundings": "upstairs stairway to is upstairs, hallway three to West",
+      "directions" : [{
+          "rel" : "upstairs",
+          "link" : "/rooms/upstairs-stairway-two"
+        },
+        {
+          "rel" : "west",
+          "link" : "/rooms/hallway-three"
+        }
+      ]
+    },
+    {
+      "slug": "servants-bathroom",
+      "name": "Servants' Bathroom",
+      "description": "Servants' Bathroom",
+      "surroundings": "Servants' quarters to East",
+      "directions" : [{
+          "rel" : "east",
+          "link" : "/rooms/servants-quarters"
+        }
+      ]
+    },
+    {
+      "slug": "basement-stairway",
+      "name": "Basement Stairway",
+      "description": "Basement Stairway",
+      "surroundings": "utility room upstairs. Basement storage West, storage two is East, wine cellar is South",
+      "directions" : [{
+          "rel" : "upstairs",
+          "link" : "/rooms/utility-room"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/basement-storage"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/basement-storage-two"
+        },{
+          "rel" : "south",
+          "link" : "/rooms/basement-wine-cellar"
+        }
+      ]
+    },
+    {
+      "slug": "basement-storage",
+      "name": "Basement Storage",
+      "description": "Basement Storage",
+      "surroundings": "Item room North, stairway East",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/basement-item-room"
+        },{
+          "rel" : "east",
+          "link" : "/rooms/basement-stairway"
+        }
+      ]
+    },
+    {
+      "slug": "basement-storage-two",
+      "name": "Basement Storage two",
+      "description": "Basement Storage two",
+      "surroundings": "Stairway is West. Handle picked up in this room",
+      "directions" : [{
+          "rel" : "west",
+          "link" : "/rooms/basement-stairway"
+        }
+      ],
+      "newItem": {
+        "name": "Handle",
+        "image": "assets/images/defs.svg#key",
+        "description": "A metal handle. It looks like it's for some sort of trap door.",
+        "messageWhenUsed": "You have attached the handle",
+        "canBeUsedIn" : "waste-disposal",
+        "unlocks" : "/rooms/basement-waste-disposal",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug": "basement-item-room",
+      "name": "Item Room",
+      "description": "Item Room",
+      "surroundings": "Basement storage is South. Servants' quarters key picked up here.",
+      "directions" : [{
+          "rel" : "south",
+          "link" : "/rooms/basement-storage"
+        }
+      ],
+      "newItem": {
+        "name": "Small Key",
+        "image": "assets/images/defs.svg#key",
+        "description": "A small key, with a tag that says 'S.Q.'",
+        "messageWhenUsed": "You place the crest into the door",
+        "canBeUsedIn" : "upstairs-stairway-three",
+        "unlocks" : "/rooms/upstairs-servants-quarters",
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+      }
+    },
+    {
+      "slug": "basement-waste-disposal",
+      "name": "Waste disposal",
+      "description": "Waste disposal",
+      "surroundings": "Item room is East",
+      "directions" : [{
+          "rel" : "east",
+          "link" : "/rooms/basement-item-room"
+        }
+      ]
+    },
+    {
+      "slug": "basement-wine-cellar",
+      "name": "Wine Cellar",
+      "description": "Wine Cellar",
+      "surroundings": "Stairway is North, lab entrance is West (requires wine bottle)",
+      "directions" : [{
+          "rel" : "north",
+          "link" : "/rooms/basement-stairway"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/basement-lab-entrance",
+          "blocked" : true,
+          "unlockedWith" : ["Wine bottle"]
+        }
+      ]
+    },
+    {
+      "slug": "basement-lab-entrance",
+      "name": "Lab Entrance",
+      "description": "Lab Entrance",
+      "surroundings": "wine cellar is east",
+      "directions" : [{
+          "rel" : "Roll credits",
+          "link" : "/rooms/credits"
+        }
+      ]
+    }
+  ]
+}
