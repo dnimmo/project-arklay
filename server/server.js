@@ -16,17 +16,14 @@ app.use(compression())
 
 // Serve files
 app.use(express.static(__dirname + '/build'))
-app.get('/rooms/:slug', function(request, response){
-  // Get the slug of the requested room
-  return response.json(mapService.getRoom(request.params.slug))
-})
 
-// Serve the credits
-app.get('/credits', function(request, response){
-  response.json(credits)
-})
+// Serve requested room on /rooms/requested-room-slug
+app.get('/rooms/:slug', (request, response) => response.json(mapService.getRoom(request.params.slug)))
 
-server.listen(port, function(){
+// Serve the credits on /credits
+app.get('/credits', (request, response) => response.json(credits))
+
+server.listen(port, () => {
 	console.log('Server listening at port %d', port)
   console.log('ctrl+c to stop server')
 })
