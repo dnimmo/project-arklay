@@ -24,6 +24,6 @@ app.get('/rooms/:slug', (request, response) => response.json(mapService.getRoom(
 app.get('/credits', (request, response) => response.json(credits))
 
 server.listen(port, () => {
-	console.log('Server listening at port %d', port)
+  console.log('Server listening at port %d', port)
   console.log('ctrl+c to stop server')
 })
