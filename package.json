@@ -4,7 +4,9 @@
   "description": "A short demo for an upcoming web-based text adventure game",
   "main": "./server/server.js",
   "scripts": {
-    "serve": "node server/server",
+    "build": "npm run check-standards",
+    "check-standards": "standard",
+    "start": "node server/server",
     "test": "tape test/**/*.js"
   },
   "repository": {
@@ -18,10 +20,18 @@
   },
   "homepage": "http://project-arklay.com",
   "devDependencies": {
+    "sinon": "^1.17.4",
+    "supertest": "^1.2.0",
     "tape": "^4.6.0"
   },
   "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.14.0"
+  },
+  "standard": {
+    "ignore": [
+      "/node_modules",
+      "/client/src-old"
+    ]
   }
 }
