@@ -1,19 +1,17 @@
-const API = (app) => {
-  const fs = require('fs')
-  // Load the map and credits files, along with the map service
-  const map = JSON.parse(fs.readFileSync('./server/game-map/map.json', 'utf8')).rooms
-  const credits = JSON.parse(fs.readFileSync('./server/credits/credits.json', 'utf8'))
-  const mapService = require('../game-map/service')(map)
+const express = require('express')
 
-  const apiFunctions = () => {
-    // Serve requested room on /rooms/requested-room-slug
-    app.get('/rooms/:slug', (request, response) => response.json(mapService.getRoom(request.params.slug)))
+module.exports = (app, mapFile, creditsFile) => {
+  const { getRoom } = require('../game-map/service')(mapFile)
+  const rooms = express()
+  const credits = express()
 
-    // Serve the credits on /credits
-    app.get('/credits', (request, response) => response.json(credits))
-  }
+  // Mount the sub apps
+  app.use('/rooms', rooms)
+  app.use('/credits', credits)
 
-  return apiFunctions
+  // Serve requested room on /rooms/requested-room-slug
+  rooms.get('/:slug', (request, response) => response.json(getRoom(request.params.slug)))
+
+  // Serve the credits on /credits
+  credits.get('/', (request, response) => response.json(creditsFile))
 }
-
-module.exports = API
