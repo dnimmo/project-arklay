@@ -1,17 +1,25 @@
 const express = require('express')
 const compression = require('compression')
 const { readFileSync } = require('fs')
+const {
+  creditsFileLocation,
+  logLocation,
+  logFileName,
+  mapFileLocation,
+  portNumber
+} = require('../config/app-config')
+const { log } = require('./logging-service/logging-service')(logLocation, logFileName)
 
 // Load the map and credits files
-const map = JSON.parse(readFileSync('./server/game-map/map.json', 'utf8')).rooms
-const credits = JSON.parse(readFileSync('./server/credits/credits.json', 'utf8'))
+const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
+const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
 // Instantiate main app and sub apps
 const app = express()
 
 // Serve files
 const server = require('http').createServer(app)
-const port = 8080
+const port = portNumber
 
 //  GZIP assets
 app.use(compression())
@@ -23,6 +31,7 @@ require('./api/api')(app, map, credits)
 // app.use(express.static(__dirname, path.join('/build')))
 
 server.listen(port, () => {
+  log('Server started')
   console.log('Server listening at port %d', port)
   console.log('ctrl+c to stop server')
 })
