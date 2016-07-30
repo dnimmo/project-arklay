@@ -17,7 +17,7 @@ stat(fullFileLocation, (error, stat) => {
 })
 
 // Fairly silly function required to ensure that the file has actually been written before the assertion is run
-const checkFileExists = (location) => {
+const checkFileExists = location => {
   const result = statSync(location, (error, stat) => {
     if (error !== null && error.code === 'ENOENT') {
       return false
