@@ -1,6 +1,6 @@
 const test = require('tape')
 const { stat, statSync, unlinkSync, readFileSync } = require('fs')
-const logLocation = 'test/unit/resources/mock-logs'
+const logLocation = 'test/unit/resources/test-logs'
 const logFileName = 'mock.log'
 const { getDate, generateTimestamp } = require('../../../common/common-utils')()
 // Load the service we're testing

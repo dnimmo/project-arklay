@@ -1,7 +1,7 @@
 const express = require('express')
 
-module.exports = (app, mapFile, creditsFile) => {
-  const { getRoom } = require('../game-map/service')(mapFile)
+module.exports = (app, mapFile, creditsFile, logLocation, logFileName) => {
+  const { getRoom } = require('../game-map/game-map-service')(mapFile, logLocation, logFileName)
   const rooms = express()
   const credits = express()
 

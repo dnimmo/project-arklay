@@ -5,7 +5,7 @@ const app = express()
 const { readFileSync } = require('fs')
 const mapFile = JSON.parse(readFileSync('test/unit/resources/mock-map.json', 'utf8')).rooms
 const credits = 'mock credits'
-require('../../../server/api/api')(app, mapFile, credits)
+require('../../../server/api/api')(app, mapFile, credits, 'test/unit/resources/test-logs', 'test-log')
 
 test('API: ', t => {
   test('Calls the map service when a room is requested', t => {

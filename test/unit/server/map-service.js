@@ -1,7 +1,7 @@
 const test = require('tape')
 const { readFileSync } = require('fs')
 const map = JSON.parse(readFileSync('test/unit/resources/mock-map.json', 'utf8')).rooms
-const { getRoom } = require('../../../server/game-map/service')(map)
+const { getRoom } = require('../../../server/game-map/game-map-service')(map, 'test/unit/resources/test-logs', 'test-room.log')
 
 test('Map Service:', t => {
   test('returns requested room', t => {

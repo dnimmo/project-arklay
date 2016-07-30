@@ -4,11 +4,12 @@ const { readFileSync } = require('fs')
 const {
   creditsFileLocation,
   logLocation,
-  logFileName,
   mapFileLocation,
-  portNumber
+  portNumber,
+  roomLogFile,
+  serverLogFile
 } = require('../config/app-config')
-const { log } = require('./logging-service/logging-service')(logLocation, logFileName)
+const { log } = require('./logging-service/logging-service')(logLocation, serverLogFile)
 
 // Load the map and credits files
 const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
@@ -25,7 +26,7 @@ const port = portNumber
 app.use(compression())
 
 // Load endpoints
-require('./api/api')(app, map, credits)
+require('./api/api')(app, map, credits, logLocation, roomLogFile)
 
 // Serve from /build
 // app.use(express.static(__dirname, path.join('/build')))
