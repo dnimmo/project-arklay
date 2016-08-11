@@ -33,22 +33,10 @@ const commonUtils = () => {
 
   const valuesMatch = (a, b) => a.toString() === b.toString()
 
-  const isItemInArray = (item, array) => {
-    var isInArray = false
-    // Returns whether the record passed in already exists in the array passed in
-    array.map(thisItem => {
-      if (item === thisItem) {
-        isInArray = true
-      }
-    })
-    return isInArray
-  }
-
   return {
     generateTimestamp: generateTimestamp,
     getDate: getDate,
-    valuesMatch: valuesMatch,
-    isItemInArray: isItemInArray
+    valuesMatch: valuesMatch
   }
 }
 

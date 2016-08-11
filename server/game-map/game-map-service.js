@@ -10,8 +10,11 @@ const mapService = (gameMap, logLocation, logFileName) => {
     return requestedRoom
   }
 
+  const canItemBeUsed = (roomsItemCanBeUsedIn, roomSlug) => canBeUsed = roomsItemCanBeUsedIn.includes(roomSlug)
+
   return {
-    getRoom: getRoom
+    getRoom: getRoom,
+    canItemBeUsed: canItemBeUsed
   }
 }
 
