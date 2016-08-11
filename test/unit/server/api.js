@@ -11,7 +11,7 @@ test('API: ', t => {
   test('Calls the map service when a room is requested', t => {
     const testRoomID = 'start'
     request(app)
-      .get('/rooms/' + testRoomID)
+      .get(`/rooms/${testRoomID}`)
       .end((error, response) => {
         if (error) {
           console.log(error)

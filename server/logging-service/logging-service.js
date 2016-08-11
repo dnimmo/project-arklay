@@ -10,9 +10,9 @@ const logService = (logLocation, logFileName) => {
   })
 
   const log = (...messages) => {
-    const fullFileLocation = logLocation + '/' + getDate() + '_' + logFileName
-    const messagesToLog = messages.map(message => '\n' + message + '\n')
-    appendFile(fullFileLocation, generateTimestamp() + messagesToLog)
+    const fullFileLocation = `${logLocation}/${getDate()}_${logFileName}`
+    const messagesToLog = messages.map(message => `\n${message}\n`)
+    appendFile(fullFileLocation, `${generateTimestamp()}${messagesToLog}`)
   }
 
   return {

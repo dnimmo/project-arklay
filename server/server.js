@@ -1,5 +1,6 @@
 const express = require('express')
 const compression = require('compression')
+const path = require('path')
 const { readFileSync } = require('fs')
 const {
   creditsFileLocation,
@@ -22,17 +23,17 @@ const app = express()
 const server = require('http').createServer(app)
 const port = portNumber
 
-//  GZIP assets
+// GZIP assets
 app.use(compression())
 
 // Load endpoints
 require('./api/api')(app, map, credits, logLocation, roomLogFile)
 
-// Serve from /build
-app.use(express.static(__dirname, path.join('/client')))
+// Serve client-side files
+// app.use(express.static(__dirname, path.join('/client')))
 
 server.listen(port, () => {
   log('Server started')
-  console.log('Server listening at port %d', port)
+  console.log(`Server listening at port ${port}`)
   console.log('ctrl+c to stop server')
 })
