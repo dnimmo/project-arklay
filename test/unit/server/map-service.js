@@ -1,7 +1,7 @@
 const test = require('tape')
 const { readFileSync } = require('fs')
 const map = JSON.parse(readFileSync('test/unit/resources/mock-map.json', 'utf8')).rooms
-const { getRoom, canItemBeUsed } = require('../../../server/game-map/game-map-service')(map, 'test/unit/resources/test-logs', 'test-room.log')
+const { getRoom, canItemBeUsed, examineRoom } = require('../../../server/game-map/game-map-service')(map, 'test/unit/resources/test-logs', 'test-room.log')
 
 test('Map Service:', t => {
   test('returns requested room', t => {
@@ -24,6 +24,28 @@ test('Map Service:', t => {
     const result = canItemBeUsed(testItemUseInfo, testRoomSlug)
 
     t.equal(result, true)
+    t.end()
+  })
+
+  test('can return extra information about a given room', t => {
+    const mockCurrentRoom = {
+      examineInfo: 'Some extra info about the room'
+    }
+    const { description } = examineRoom(mockCurrentRoom)
+
+    t.equal(description, mockCurrentRoom.examineInfo)
+    t.end()
+  })
+
+  test('can return an item when the room is examined, if one is present', t => {
+    const mockTestItem = {name: 'test-item'}
+    const mockCurrentRoom = {
+      examineInfo: 'Some extra info',
+      newItem: mockTestItem
+    }
+    const { item } = examineRoom(mockCurrentRoom)
+
+    t.equal(item, mockTestItem)
     t.end()
   })
 
