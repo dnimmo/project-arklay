@@ -29,7 +29,7 @@ app.use(compression())
 require('./api/api')(app, map, credits, logLocation, roomLogFile)
 
 // Serve from /build
-// app.use(express.static(__dirname, path.join('/build')))
+app.use(express.static(__dirname, path.join('/client')))
 
 server.listen(port, () => {
   log('Server started')
