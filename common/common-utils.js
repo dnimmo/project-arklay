@@ -16,7 +16,7 @@ const commonUtils = () => {
     month = (prefix(month)) + month
     var year = date.getFullYear()
 
-    return hour + ':' + minutes + ':' + seconds + ' ' + day + '/' + month + '/' + year
+    return `${hour}:${minutes}:${seconds} ${day}/${month}/${year}`
   }
 
   const getDate = () => {
@@ -28,7 +28,7 @@ const commonUtils = () => {
     month = (prefix(month)) + month
     var year = date.getFullYear()
 
-    return year + '_' + month + '_' + day
+    return `${year}_${month}_${day}`
   }
 
   const valuesMatch = (a, b) => a.toString() === b.toString()
