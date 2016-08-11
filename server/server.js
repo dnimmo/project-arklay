@@ -15,7 +15,7 @@ const { log } = require('./logging-service/logging-service')(logLocation, server
 const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
 const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
-// Instantiate main app and sub apps
+// Instantiate main app
 const app = express()
 
 // Serve files
