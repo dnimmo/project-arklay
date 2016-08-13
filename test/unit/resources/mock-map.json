@@ -1,8 +1,13 @@
 {
   "rooms": [
     {
-      "slug" : "start",
-      "name" : "Foyer"
+      "slug": "start",
+      "name": "Foyer"
+    },
+    {
+      "slug": "test-room",
+      "examineInfo": "Some extra info you get when examining the room",
+      "newItem": "test-item"
     }
   ]
 }

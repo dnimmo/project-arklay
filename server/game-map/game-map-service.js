@@ -1,4 +1,4 @@
-const mapService = (gameMap, logLocation, logFileName) => {
+module.exports = (gameMap, logLocation, logFileName) => {
   const { log } = require('../logging-service/logging-service')(logLocation, logFileName)
 
   const getRoom = slug => {
@@ -12,12 +12,21 @@ const mapService = (gameMap, logLocation, logFileName) => {
 
   const canItemBeUsed = (roomsItemCanBeUsedIn, roomSlug) => canBeUsed = roomsItemCanBeUsedIn.includes(roomSlug)
 
-  const examineRoom = currentRoom => {
-    const roomDetails = {
-      description: currentRoom.examineInfo,
-      item: currentRoom.newItem ? currentRoom.newItem : false
+  const getRoomExtraInfo = currentRoomSlug => {
+    const currentRoom = getRoom(currentRoomSlug)
+    return currentRoom.examineInfo
+  }
+
+  const getItem = currentRoomSlug => {
+    const currentRoom = getRoom(currentRoomSlug)
+    return currentRoom.newItem ? currentRoom.newItem : false
+  }
+
+  const examineRoom = currentRoomSlug => {
+    return {
+      description: getRoomExtraInfo(currentRoomSlug),
+      item: getItem(currentRoomSlug)
     }
-    return roomDetails
   }
 
   return {
@@ -26,5 +35,3 @@ const mapService = (gameMap, logLocation, logFileName) => {
     canItemBeUsed: canItemBeUsed
   }
 }
-
-module.exports = mapService
