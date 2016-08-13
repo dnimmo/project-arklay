@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "name": "test-item",
+      "canBeUsedIn": "test-room",
+      "canBeCombinedWith": "test-item-2",
+      "creates": "test-item-3"
+    },
+    {
+      "name": "test-item-2",
+      "canBeCombinedWith": "test-item",
+      "creates": "test-item-3"
+    },
+    {
+      "name": "test-item-3"
+    }
+  ]
+}
