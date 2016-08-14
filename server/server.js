@@ -6,6 +6,7 @@ const {
   creditsFileLocation,
   logLocation,
   mapFileLocation,
+  itemFileLocation,
   portNumber,
   roomLogFile,
   serverLogFile
@@ -14,6 +15,7 @@ const { log } = require('./logging-service/logging-service')(logLocation, server
 
 // Load the map and credits files
 const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
+const items = JSON.parse(readFileSync(itemFileLocation))
 const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
 // Instantiate main app
@@ -27,7 +29,7 @@ const port = portNumber
 app.use(compression())
 
 // Load endpoints
-require('./api/api')(app, map, credits, logLocation, roomLogFile)
+require('./api/api')(app, map, items, credits, logLocation, roomLogFile)
 
 // Serve client-side files
 // app.use(express.static(__dirname, path.join('/client')))
