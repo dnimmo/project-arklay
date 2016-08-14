@@ -9,7 +9,7 @@ module.exports = itemService => {
     if (!item1 || !item1.canBeCombinedWith) return false
 
     const item2 = getItemDetails(item2name)
-    if (! item2 || !item2.canBeCombinedWith) return false
+    if (!item2 || !item2.canBeCombinedWith) return false
 
     if (!item1.canBeCombinedWith === item2name || !item2.canBeCombinedWith === item1name) {
       return false
