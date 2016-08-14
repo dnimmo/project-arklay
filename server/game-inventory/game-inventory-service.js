@@ -5,7 +5,7 @@ module.exports = itemService => {
   const updateInventory = (inventory, itemsToAdd, itemsToRemove) => inventory.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item))
 
   const addItem = (inventory, item) => {
-    let alreadyHeld = inventory.includes(item)
+    const alreadyHeld = inventory.includes(item)
     return alreadyHeld ? inventory : updateInventory(inventory, [item], [])
   }
 
