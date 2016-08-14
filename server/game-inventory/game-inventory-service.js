@@ -4,7 +4,10 @@ module.exports = itemService => {
   // Update inventory by: taking existing inventory, concatenating it and the 'itemsToAdd' array, and then filtering out any items that appear in the 'itemsToRemove' array
   const updateInventory = (inventory, itemsToAdd, itemsToRemove) => inventory.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item))
 
-  const addItem = (inventory, item) => updateInventory(inventory, [item], [])
+  const addItem = (inventory, item) => {
+    let alreadyHeld = inventory.includes(item)
+    return alreadyHeld ? inventory : updateInventory(inventory, [item], [])
+  }
 
   const removeItem = (inventory, item) => updateInventory(inventory, [], [item])
 

@@ -14,6 +14,13 @@ test('should be able to add an item to the inventory', t => {
   t.end()
 })
 
+test('should not be able to add a duplicate item to the inventory', t => {
+  const result = addItem(['test-item'], 'test-item')
+
+  t.deepEqual(result, ['test-item'])
+  t.end()
+})
+
 test('should be able to remove an item from the inventory', t => {
   const result = removeItem(['test-item'], 'test-item')
 
