@@ -4,7 +4,7 @@ const items = JSON.parse(readFileSync('test/unit/resources/mock-items.json')).it
 const { getItemDetails } = require('../../../server/game-items/game-item-service')(items)
 
 // Set up test method to always prepend the service name so that test failures are easier to look into
-const test = (description, func) => tape.call(null, `Item service: ${description}`, func)
+const test = (description, func) => tape(`Item service: ${description}`, func)
 
 test('should be able to return details for a requested item', t => {
   const testItem = 'test-item'

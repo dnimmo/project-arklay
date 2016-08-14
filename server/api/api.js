@@ -3,7 +3,7 @@ const express = require('express')
 module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName) => {
   const { getRoom } = require('../game-map/game-map-service')(mapFile, logLocation, logFileName)
   const { combineItems } = require('../game-items/game-item-service')(itemsFile)
-  
+
   const rooms = express()
   const items = express()
   const credits = express()

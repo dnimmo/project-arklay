@@ -10,7 +10,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
     return requestedRoom
   }
 
-  const canItemBeUsed = (roomsItemCanBeUsedIn, roomSlug) => canBeUsed = roomsItemCanBeUsedIn.includes(roomSlug)
+  const canItemBeUsed = (roomsItemCanBeUsedIn, roomSlug) => roomsItemCanBeUsedIn.includes(roomSlug)
 
   const getRoomExtraInfo = currentRoomSlug => {
     const currentRoom = getRoom(currentRoomSlug)

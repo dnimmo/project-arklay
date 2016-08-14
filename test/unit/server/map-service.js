@@ -10,7 +10,7 @@ const {
   } = require('../../../server/game-map/game-map-service')(map, 'test/unit/resources/test-logs', 'test-room.log')
 
 // Set up test method to always prepend the service name so that test failures are easier to look into
-const test = (description, func) => tape.call(null, `Map Service: ${description}`, func)
+const test = (description, func) => tape(`Map Service: ${description}`, func)
 
 test('returns requested room', t => {
   const testRoom = getRoom('start')

@@ -9,7 +9,7 @@ const credits = 'mock credits'
 require('../../../server/api/api')(app, mapFile, itemFile, credits, 'test/unit/resources/test-logs', 'test-log')
 
 // Set up test method to always prepend the service name so that test failures are easier to look into
-const test = (description, func) => tape.call(null, `API: ${description}`, func)
+const test = (description, func) => tape(`API: ${description}`, func)
 
 test('Calls the map service when a room is requested', t => {
   const testRoomID = 'start'

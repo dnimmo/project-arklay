@@ -32,7 +32,7 @@ app.use(compression())
 require('./api/api')(app, map, items, credits, logLocation, roomLogFile)
 
 // Serve client-side files
-// app.use(express.static(__dirname, path.join('/client')))
+app.use(express.static(__dirname, path.join('/client')))
 
 server.listen(port, () => {
   log('Server started')

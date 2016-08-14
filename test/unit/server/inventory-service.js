@@ -5,7 +5,7 @@ const itemService = require('../../../server/game-items/game-item-service')(item
 const { combineItems, addItem, removeItem } = require('../../../server/game-inventory/game-inventory-service')(itemService)
 
 // Set up test method to always prepend the service name so that test failures are easier to look into
-const test = (description, func) => tape.call(null, `Inventory service: ${description}`, func)
+const test = (description, func) => tape(`Inventory service: ${description}`, func)
 
 test('should be able to add an item to the inventory', t => {
   const result = addItem([], 'test-item')
