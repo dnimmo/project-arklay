@@ -30,7 +30,7 @@ test('should be able to return an updated inventory when two items are combined'
   t.end()
 })
 
-test('will return false if items can not be combined', t => {
+test('should return false if items can not be combined', t => {
   const result = combineItems('a', 'b')
 
   t.equal(result, false)
