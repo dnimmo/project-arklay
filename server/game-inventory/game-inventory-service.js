@@ -24,7 +24,6 @@ module.exports = itemService => {
 
   return {
     combineItems: combineItems,
-    updateInventory: updateInventory,
     addItem: addItem,
     removeItem: removeItem
   }
