@@ -8,7 +8,7 @@ const test = (description, func) => tape(`Item service: ${description}`, func)
 
 test('should be able to return details for a requested item', t => {
   const testItem = 'test-item'
-  const { name } = getItemDetails(testItem)
+  const { name } = getItemDetails(testItem, ['name'])
 
   t.equal(name, testItem)
   t.end()

@@ -23,8 +23,8 @@ module.exports = itemService => {
   const removeItem = (inventory, item) => updateInventory(inventory, [], [item])
 
   const combineItems = (inventory, item1name, item2name) => {
-    const item1 = getItemDetails(item1name)
-    const item2 = getItemDetails(item2name)
+    const item1 = getItemDetails(item1name, ['canBeCombinedWith', 'creates'])
+    const item2 = getItemDetails(item2name, ['canBeCombinedWith'])
     if (!item1 || !item1.canBeCombinedWith || !item2 || !item2.canBeCombinedWith || !item1.canBeCombinedWith === item2name || !item2.canBeCombinedWith === item1name) {
       return false
     }
