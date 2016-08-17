@@ -55,7 +55,7 @@ test('should not be able to add a duplicate item to the inventory', t => {
 })
 
 test('should not be able to add an item that has already been used to the inventory', t => {
-  const inventory = { items: [], itemsUsed: ['test-item']}
+  const inventory = { items: [], itemsUsed: ['test-item'] }
   const result = addItem(inventory, 'test-item')
 
   t.deepEqual(result, inventory)
@@ -75,7 +75,7 @@ test('should be able to return an updated inventory when two items are combined'
   const inventory = { items: ['test-item', 'test-item-2'], itemsUsed: []}
   const testItem1 = 'test-item'
   const testItem2 = 'test-item-2'
-  const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2']}
+  const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2'] }
   const result = combineItems(inventory, testItem1, testItem2)
 
   t.deepEqual(result, expectedResult)
