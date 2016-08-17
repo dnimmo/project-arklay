@@ -11,13 +11,13 @@ module.exports = (gameMap, logLocation, logFileName) => {
   }
 
   const getRoomExtraInfo = currentRoomSlug => {
-    const currentRoom = getRoom(currentRoomSlug)
-    return currentRoom.examineInfo
+    const { examineInfo } = getRoom(currentRoomSlug)
+    return examineInfo
   }
 
   const getItem = currentRoomSlug => {
-    const currentRoom = getRoom(currentRoomSlug)
-    return currentRoom.newItem ? currentRoom.newItem : false
+    const { newItem } = getRoom(currentRoomSlug)
+    return newItem ? newItem : false
   }
 
   const examineRoom = currentRoomSlug => {
