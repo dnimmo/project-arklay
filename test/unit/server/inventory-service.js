@@ -39,7 +39,7 @@ test('should be able to initialise used items array with items passed in', t => 
 })
 
 test('should be able to add an item to the inventory', t => {
-  const inventory = { items: [], itemsUsed: []}
+  const inventory = { items: [], itemsUsed: [] }
   const expectedResult = { items: ['test-item'], itemsUsed: [] }
   const result = addItem(inventory, 'test-item')
 
@@ -73,7 +73,7 @@ test('should be able to remove an item from the inventory', t => {
 })
 
 test('should be able to return an updated inventory when two items are combined', t => {
-  const inventory = { items: ['test-item', 'test-item-2'], itemsUsed: []}
+  const inventory = { items: ['test-item', 'test-item-2'], itemsUsed: [] }
   const testItem1 = 'test-item'
   const testItem2 = 'test-item-2'
   const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2'] }
@@ -84,7 +84,7 @@ test('should be able to return an updated inventory when two items are combined'
 })
 
 test('should return false if items can not be combined', t => {
-  const inventory = { items: ['test-item', 'test-item-3'], itemsUsed: []}
+  const inventory = { items: ['test-item', 'test-item-3'], itemsUsed: [] }
   const result = combineItems(inventory, 'test-item', 'test-item-3')
 
   t.equal(result, false)

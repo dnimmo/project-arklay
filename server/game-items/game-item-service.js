@@ -4,9 +4,9 @@ module.exports = items => {
   }
 
   const getItemDetails = (itemName, detailsRequested) => detailsRequested.reduce((details, current) => {
-      details[current] = getItemProperty(itemName, current)
-      return details
-    }, {})
+    details[current] = getItemProperty(itemName, current)
+    return details
+  }, {})
 
   const canItemBeUsed = (itemName, roomSlug) => {
     const canBeUsedIn = getItemProperty(itemName, 'canBeUsedIn')

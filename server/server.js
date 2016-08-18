@@ -1,6 +1,6 @@
 const express = require('express')
 const compression = require('compression')
-const path = require('path')
+// const path = require('path')
 const { readFileSync } = require('fs')
 const {
   creditsFileLocation,

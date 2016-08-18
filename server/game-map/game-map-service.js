@@ -8,7 +8,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
 
   function getItem (currentRoomSlug) {
     const { newItem } = getRoom(currentRoomSlug)
-    return newItem ? newItem : false
+    return newItem || false
   }
 
   const getRoom = slug => {

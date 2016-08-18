@@ -1,7 +1,7 @@
 module.exports = itemService => {
   const { getItemDetails } = itemService
 
-  function updateInventory({ items, itemsUsed }, itemsToAdd, itemsToRemove) {
+  function updateInventory ({ items, itemsUsed }, itemsToAdd, itemsToRemove) {
     let updatedItems = items.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item))
     console.log('updatedItems', updatedItems)
     const updatedItemsUsed = itemsUsed.concat(itemsToRemove)
@@ -15,8 +15,8 @@ module.exports = itemService => {
   const initialiseInventory = (items, itemsUsed) => {
     // Can be initialied with item data (for loading game)
     return {
-      items: items ? items : [],
-      itemsUsed: itemsUsed ? itemsUsed : []
+      items: items || [],
+      itemsUsed: itemsUsed || []
     }
   }
 
@@ -31,7 +31,7 @@ module.exports = itemService => {
     if (!item1 || !item1.canBeCombinedWith || !item2 || !item2.canBeCombinedWith || !item1.canBeCombinedWith === item2name || !item2.canBeCombinedWith === item1name) {
       return false
     }
-    
+
     return updateInventory(inventory, [item1.creates], [item1name, item2name])
   }
 
