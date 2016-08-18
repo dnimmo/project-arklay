@@ -42,6 +42,9 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   // Requires ?roomSlug
   items.get('/:itemName/can-item-be-used', (request, response) => response.json(canItemBeUsed(request.params.itemName, request.query.roomSlug)))
 
+  // Returns the initial inventory object
+  inventory.get('/initialise', (request, response) => response.json(initialiseInventory()))
+
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))
 }

@@ -50,7 +50,23 @@ test('Returns whether an item can be used in a given room or not', t => {
         console.log(error)
       }
       const result = JSON.parse(response.text)
+
       t.equal(result, true)
+      t.end()
+    })
+})
+
+test('Returns an initialised inventory', t => {
+  const expectedResult = { items: [], itemsUsed: [] }
+  request(app)
+    .get('/inventory/initialise')
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+
+      t.deepEqual(result, expectedResult)
       t.end()
     })
 })
