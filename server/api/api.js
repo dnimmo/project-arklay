@@ -45,6 +45,12 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   // Returns the initial inventory object
   inventory.get('/initialise', (request, response) => response.json(initialiseInventory()))
 
+  // Return an inventory object initialised with data
+  // Requires { items: [arrayOfItems], itemsUsed: [arrayOfItems] }
+  inventory.post('/initialise', (request, response) => {
+    response.json(initialiseInventory(request.body.items, request.body.itemsUsed))
+  })
+
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))
 }

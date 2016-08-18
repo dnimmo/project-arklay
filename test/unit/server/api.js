@@ -71,6 +71,22 @@ test('Returns an initialised inventory', t => {
     })
 })
 
+test('Returns an initialised inventory with items', t => {
+  const expectedResult = { items: ['test-item'], itemsUsed: ['test-item-2'] }
+  request(app)
+    .post('/inventory/initialise')
+    .send(expectedResult)
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+
+      t.deepEqual(result, expectedResult)
+      t.end()
+    })
+})
+
 test('Returns credits on /credits', t => {
   // 'mock credits' is defined at the top of this file, and passed in to the API functions
   request(app)
