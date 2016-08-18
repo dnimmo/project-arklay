@@ -103,6 +103,22 @@ test('Can add an item with /add/item-name', t => {
     })
 })
 
+test('Can combine items on /combine/item-1/item-2', t => {
+  const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2']}
+  request(app)
+    .post('/inventory/combine/test-item/test-item-2')
+    .send({ inventory: { items: ['test-item', 'test-item-2'], itemsUsed: [] } })
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+
+      t.deepEqual(result, expectedResult)
+      t.end()
+    })
+})
+
 test('Returns credits on /credits', t => {
   // 'mock credits' is defined at the top of this file, and passed in to the API functions
   request(app)

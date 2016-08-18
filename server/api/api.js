@@ -47,15 +47,17 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
 
   // Return an inventory object initialised with data
   // Requires { items: [arrayOfItems], itemsUsed: [arrayOfItems] }
-  inventory.post('/initialise', (request, response) => {
-    response.json(initialiseInventory(request.body.items, request.body.itemsUsed))
-  })
+  inventory.post('/initialise', (request, response) =>
+    response.json(initialiseInventory(request.body.items, request.body.itemsUsed)))
 
   // Returns original inventory plus the added item
   // Requires inventory object
-  inventory.patch('/add/:itemName', (request, response) => {
-    response.json(addItem(request.body.inventory, request.params.itemName))
-  })
+  inventory.patch('/add/:itemName', (request, response) =>
+    response.json(addItem(request.body.inventory, request.params.itemName)))
+
+  // Returns new inventory if items can be combined
+  // Requires inventory object
+  inventory.post('/combine/:item1/:item2', (request, response) => response.json(combineItems(request.body.inventory, request.params.item1, request.params.item2)))
 
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))

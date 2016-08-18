@@ -2,10 +2,13 @@ module.exports = itemService => {
   const { getItemDetails } = itemService
 
   function updateInventory({ items, itemsUsed }, itemsToAdd, itemsToRemove) {
+    let updatedItems = items.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item))
+    console.log('updatedItems', updatedItems)
+    const updatedItemsUsed = itemsUsed.concat(itemsToRemove)
     // Update inventory by: taking existing inventory, concatenating it and the 'itemsToAdd' array, and then filtering out any items that appear in the 'itemsToRemove' array
     return {
-      items: items.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item)),
-      itemsUsed: itemsUsed.concat(itemsToRemove)
+      items: updatedItems,
+      itemsUsed: updatedItemsUsed
     }
   }
 
@@ -28,7 +31,7 @@ module.exports = itemService => {
     if (!item1 || !item1.canBeCombinedWith || !item2 || !item2.canBeCombinedWith || !item1.canBeCombinedWith === item2name || !item2.canBeCombinedWith === item1name) {
       return false
     }
-
+    
     return updateInventory(inventory, [item1.creates], [item1name, item2name])
   }
 
