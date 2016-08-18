@@ -55,6 +55,8 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   inventory.patch('/add/:itemName', (request, response) =>
     response.json(addItem(request.body.inventory, request.params.itemName)))
 
+  inventory.patch('/remove/:itemName', (request, response) => response.json(removeItem(request.body.inventory, request.params.itemName)))
+
   // Returns new inventory if items can be combined
   // Requires inventory object
   inventory.post('/combine/:item1/:item2', (request, response) => response.json(combineItems(request.body.inventory, request.params.item1, request.params.item2)))

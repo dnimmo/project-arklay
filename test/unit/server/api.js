@@ -103,6 +103,22 @@ test('Can add an item with /add/item-name', t => {
     })
 })
 
+test('Can remove items on /remove/item-name', t => {
+  const expectedResult = { items: [], itemsUsed: ['test-item']}
+  request(app)
+    .patch('/inventory/remove/test-item')
+    .send({ inventory: { items: ['test-item'], itemsUsed: [] } })
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+
+      t.deepEqual(result, expectedResult)
+      t.end()
+    })
+})
+
 test('Can combine items on /combine/item-1/item-2', t => {
   const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2']}
   request(app)
