@@ -51,6 +51,12 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
     response.json(initialiseInventory(request.body.items, request.body.itemsUsed))
   })
 
+  // Returns original inventory plus the added item
+  // Requires inventory object
+  inventory.patch('/add/:itemName', (request, response) => {
+    response.json(addItem(request.body.inventory, request.params.itemName))
+  })
+
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))
 }
