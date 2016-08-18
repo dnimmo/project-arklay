@@ -15,7 +15,7 @@ const { log } = require('./logging-service/logging-service')(logLocation, server
 
 // Load the map and credits files
 const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
-const items = JSON.parse(readFileSync(itemFileLocation))
+const items = JSON.parse(readFileSync(itemFileLocation)).items
 const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
 // Instantiate main app
@@ -32,7 +32,7 @@ app.use(compression())
 require('./api/api')(app, map, items, credits, logLocation, roomLogFile)
 
 // Serve client-side files
-app.use(express.static(__dirname, path.join('/client')))
+// app.use(express.static(__dirname, path.join('/client')))
 
 server.listen(port, () => {
   log('Server started')

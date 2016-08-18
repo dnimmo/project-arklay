@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const { readFileSync } = require('fs')
 const mapFile = JSON.parse(readFileSync('test/unit/resources/mock-map.json', 'utf8')).rooms
-const itemFile = JSON.parse(readFileSync('test/unit/resources/mock-items.json'))
+const itemFile = JSON.parse(readFileSync('test/unit/resources/mock-items.json')).items
 const credits = 'mock credits'
 require('../../../server/api/api')(app, mapFile, itemFile, credits, 'test/unit/resources/test-logs', 'test-log')
 
@@ -21,6 +21,21 @@ test('Calls the map service when a room is requested', t => {
       }
       const result = JSON.parse(response.text)
       t.equal(result.name, 'Foyer')
+      t.end()
+    })
+})
+
+test('Returns item info when requested', t => {
+  const testItemName = 'test-item'
+  request(app)
+    .post(`/items/${testItemName}`)
+    .send({ properties: ['name'] })
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const { name } = JSON.parse(response.text)
+      t.equal(name, 'test-item')
       t.end()
     })
 })
