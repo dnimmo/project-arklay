@@ -40,6 +40,21 @@ test('Returns item info when requested', t => {
     })
 })
 
+test('Returns whether an item can be used in a given room or not', t => {
+  const testItemName = 'test-item'
+  const testRoomSlug = 'test-room'
+  request(app)
+    .get(`/items/${testItemName}/can-item-be-used?roomSlug=${testRoomSlug}`)
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+      t.equal(result, true)
+      t.end()
+    })
+})
+
 test('Returns credits on /credits', t => {
   // 'mock credits' is defined at the top of this file, and passed in to the API functions
   request(app)

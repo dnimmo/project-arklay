@@ -35,7 +35,12 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   rooms.get('/:slug', (request, response) => response.json(getRoom(request.params.slug)))
 
   // Serve requested item details on /items/:item-name
+  // Requires { properties: [arrayOfRequestedProperties]}
   items.post('/:itemName', (request, response) =>  response.json(getItemDetails(request.params.itemName, request.body.properties)))
+
+  // Returns boolean for whether item can be used in current room
+  // Requires ?roomSlug
+  items.get('/:itemName/can-item-be-used', (request, response) => response.json(canItemBeUsed(request.params.itemName, request.query.roomSlug)))
 
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))
