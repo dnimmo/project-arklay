@@ -16,7 +16,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
     // If itemsUsed has been passed in, check to see if any directions are locked, and if they are, check to see if an item has been used already that would have unlocked them
 
     const updatedDirections = tempDirections.map(direction => {
-      if(direction['blocked']) {
+      if (direction['blocked']) {
         direction['blocked'] = !isDirectionUnlocked(direction.unlockedWith, itemsUsed)
       }
       return direction
