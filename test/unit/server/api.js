@@ -14,7 +14,8 @@ const test = (description, func) => tape(`API: ${description}`, func)
 test('Calls the map service when a room is requested', t => {
   const testRoomID = 'start'
   request(app)
-    .get(`/rooms/${testRoomID}`)
+    .post(`/rooms/${testRoomID}`)
+    .send({itemsUsed: []})
     .end((error, response) => {
       if (error) {
         console.log(error)

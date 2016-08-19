@@ -2,12 +2,34 @@
   "rooms": [
     {
       "slug": "start",
-      "name": "Foyer"
+      "name": "Foyer",
+      "directions" : [
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-secret-room-three",
+          "blocked" : true,
+          "unlockedWith" : ["test-item"]
+        }
+      ]
     },
     {
       "slug": "test-room",
       "examineInfo": "Some extra info you get when examining the room",
-      "newItem": "test-item"
+      "newItem": "test-item",
+      "directions" : [
+        {
+          "rel" : "north",
+          "link" : "/rooms/upstairs-hallway-two"
+        },{
+          "rel" : "west",
+          "link" : "/rooms/upstairs-secret-room-three",
+          "blocked" : true,
+          "unlockedWith" : ["test-item"]
+        },{
+          "rel" : "east",
+          "link" : "/rooms/upstairs-hallway-one"
+        }
+      ]
     }
   ]
 }

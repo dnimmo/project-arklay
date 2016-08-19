@@ -10,9 +10,16 @@ const {
 const test = (description, func) => tape(`Map Service: ${description}`, func)
 
 test('returns requested room', t => {
-  const testRoom = getRoom('start')
+  const testRoom = getRoom('start', [])
 
   t.equal(testRoom.name, 'Foyer')
+  t.end()
+})
+
+test('returns room with directions unlocked if correct item has already been used', t => {
+  const testRoom = getRoom('start', ['test-item'])
+
+  t.equal(testRoom.directions[0]['blocked'], false)
   t.end()
 })
 
