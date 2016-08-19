@@ -13,7 +13,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
 
   function getDirectionInfo (directions, itemsUsed) {
     const tempDirections = directions.slice()
-    // If itemsUsed has been passed in, check to see if any directions are locked, and if they are, check to see if an item has been used already that would have unlocked them
+    // Check to see if any directions are locked, and if they are, check to see if all of the necessary items to unlock them have already been used
 
     const updatedDirections = tempDirections.map(direction => {
       if (direction['blocked']) {
@@ -35,6 +35,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
       log(`Attempted to retrieve non-existent room: ${slug}`)
       return false
     }
+    // If any items have been used, check to see if directions in the requested room are already unlocked
     if (itemsUsed && itemsUsed.length > 0 && requestedRoom['directions']) {
       requestedRoom['directions'] = getDirectionInfo(requestedRoom['directions'], itemsUsed)
     }
