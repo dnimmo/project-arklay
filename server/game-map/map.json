@@ -2,9 +2,21 @@
   "rooms": [
     {
       "slug" : "start",
+      "name" : "Start",
+      "description" : "It's dark, and cold. You're soaked through. You struggle to remember where you are, let alone how you ended up here. What were you doing again?",
+      "surroundings" : "There's a large door in front of you.",
+      "directions" : [
+        {
+          "rel" : "enter",
+          "link" : "/rooms/entrance"
+        }
+      ]
+    },
+    {
+      "slug" : "entrance",
       "name" : "Foyer",
-      "description" : "You are in the foyer of what appears to be a mansion.",
-      "surroundings" : "A vast, dimly-lit foyer, with a grand staircase and a couple of doors.",
+      "description" : "You are in the dim foyer of what appears to be a mansion.",
+      "surroundings" : "There is a grand staircase here, as well as a couple of doors.",
       "directions" : [
         {
           "rel" : "upstairs",
@@ -21,23 +33,23 @@
     {
       "slug" : "upstairs-foyer",
       "name" : "Upstairs Foyer",
-      "description" : "Upstairs Foyer",
-      "surroundings" : "Hallway One to the North, foyer downstairs",
+      "description" : "You're at the top of a staircase.",
+      "surroundings" : "The foyer looks huge from up here. You can't imagine anyone actually living here.",
       "directions" : [
         {
           "rel" : "north",
           "link" : "/rooms/upstairs-hallway-one"
         }, {
           "rel" : "downstairs",
-          "link" : "/rooms/start"
+          "link" : "/rooms/entrance"
         }
       ]
     },
     {
       "slug" : "upstairs-hallway-one",
       "name" : "Upstairs Hallway One",
-      "description" : "Upstairs Hallway One",
-      "surroundings" : "Study to the West, third bedroom to the East, foyer (upstairs) to the South",
+      "description" : "A hallway stretches out ahead. It's too dark to make out what the artwork lining the walls is depicting.",
+      "surroundings" : "You can see three doors from here, though not especially well.",
       "directions" : [
         {
           "rel" : "west",
@@ -54,8 +66,10 @@
     {
       "slug" : "upstairs-study",
       "name" : "Study",
-      "description" : "Study",
-      "surroundings" : "Upstairs hallway two to the North, secret room three to the West (needs keycode), upstairs hallway one to the East",
+      "canChange" : true,
+      "description" : "A study. There are huge bookcases, that seem to be filled mostly with scientific journals, although there appear to be a few religious texts in here too.",
+      "surroundings" : "An old computer terminal is on in the corner. Has someone been here recently?",
+      "surroundingsWhenItemUsed" : "A bookshelf has moved to one side, revealing a door to the West",
       "directions" : [
         {
           "rel" : "north",
@@ -64,7 +78,7 @@
           "rel" : "west",
           "link" : "/rooms/upstairs-secret-room-three",
           "blocked" : true,
-          "unlockedWith" : ["keycode"]
+          "unlockedWith" : ["Keycode"]
         },{
           "rel" : "east",
           "link" : "/rooms/upstairs-hallway-one"
@@ -74,8 +88,10 @@
     {
       "slug" : "upstairs-secret-room-three",
       "name" : "Secret Room Three",
-      "description" : "Secret Room Three",
-      "surroundings" : "Study to the East. Lion Crest found in this room",
+      "canChange" : true,
+      "description" : "A small room with a podium in the center.",
+      "surroundings" : "A crest depicting a Lion sits neatly on the podium. It looks important.",
+      "surroundingsWhenItemPickedUp" : "The room is completely empty. The podium stands bare.",
       "directions" : [
         {
           "rel" : "east",
@@ -87,6 +103,7 @@
         "image": "assets/images/defs.svg#key",
         "description": "A crest, with a lion's head on the front",
         "messageWhenUsed": "You place the crest into the door",
+        "messageWhenNotUsed" : "Cool lion, but what could this be for?",
         "canBeUsedIn" : "upstairs-stairway-three",
         "unlocks" : "/rooms/upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
@@ -95,8 +112,9 @@
     {
       "slug" : "upstairs-stairway-three",
       "name" : "Upstairs Stairway three",
-      "description" : "Stairway three (upstairs)",
-      "surroundings" : "Master bedroom to the North (needs three crests), upstairs hallway two to the East, stairway three (downstairs) downstairs",
+      "description" : "The top of a stairway. To the North is a fancy door with three indentations, and there is a much plainer door to the East.",
+      "surroundings" : "What could be behind the door?",
+      "surroundingsWhenItemUsed" : "Looks like it needs three crests to open.",
       "directions" : [
         {
           "rel" : "north",
@@ -115,8 +133,8 @@
     {
       "slug" : "upstairs-master-bedroom",
       "name" : "Master Bedroom",
-      "description" : "Master Bedroom",
-      "surroundings" : "En-suite to the West, upstairs stairway three to the South",
+      "description" : "A fantastically ostentatious master bedroom, with a roaring fireplace and a huge four-poster bed",
+      "surroundings" : "There are two doors here.",
       "directions" : [
         {
           "rel" : "west",
@@ -130,8 +148,10 @@
     {
       "slug" : "upstairs-master-en-suite",
       "name" : "Master Bedroom En-Suite",
+      "canChange" : true,
       "description" : "Master Bedroom En-Suite",
-      "surroundings" : "Master Bedroom to the East, Wine Bottle picked up in this room",
+      "surroundings" : "A large en-suite. There's a very expensive, but sadly empty, bottle of wine sitting by the sink. You decide you should take it with you anyway.",
+      "surroundingsWhenItemPickedUp" : "A large en-suite. Empty wine glasses stand on the floor by the bath.",
       "directions" : [
         {
           "rel" : "east",
@@ -142,7 +162,8 @@
         "name": "Wine bottle",
         "image": "assets/images/defs.svg#key",
         "description": "An expensive-looking bottle of wine",
-        "messageWhenUsed": "You have used the wine bottle",
+        "messageWhenUsed": "You place the wine bottle back in the rack",
+        "messageWhenNotUsed" : "It's a shame this is empty. Some wine would be good right now.",
         "canBeUsedIn" : "basement-wine-cellar",
         "unlocks" : "/rooms/basement-lab-entrance",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
@@ -151,8 +172,8 @@
     {
       "slug" : "upstairs-stairway-two",
       "name" : "Upstairs stairway two",
-      "description" : "Stairway two (upstairs)",
-      "surroundings" : "Upstairs hallway two to the North, stairway two (downstairs) downstairs",
+      "description" : "The top of a small staircase. It's eerily quiet here.",
+      "surroundings" : "There's a single door to the North.",
       "directions" : [
         {
           "rel" : "north",
@@ -166,8 +187,8 @@
     {
       "slug" : "upstairs-hallway-two",
       "name" : "Upstairs Hallway Two",
-      "description" : "Upstairs Hallway Two",
-      "surroundings" : "Trophy room to the North, upstairs stairway three to the West, art gallery to the East, Study to the South",
+      "description" : "A hallway. How big is this place?",
+      "surroundings" : "There are rooms in every direction here. No wonder everything's thick with dust.",
       "directions" : [
         {
           "rel" : "north",
@@ -187,8 +208,8 @@
     {
       "slug" : "upstairs-art-gallery",
       "name" : "Art Gallery",
-      "description" : "Art Gallery",
-      "surroundings" : "Upstairs hallway two to the West, upstairs hallway three to the East",
+      "description" : "An art gallery.",
+      "surroundings" : "This entire building is full of paintings, but the ones in this room are crazy. They all seem to depict demons and people being tortured. Guess they wanted to stick with a theme.",
       "directions" : [
         {
           "rel" : "west",
@@ -202,8 +223,10 @@
     {
       "slug" : "upstairs-hallway-three",
       "name" : "Hallway three (upstairs)",
-      "description" : "Hallway three (upstairs)",
-      "surroundings" : "Aquarium to the North, Art gallery to the West, upstairs hallway four to the East, library to the South",
+      "description" : "A cavernous hallway",
+      "canChange" : true,
+      "surroundings" : "There are doors in every direction, but the door to the North is boarded shut.",
+      "surroundingsWhenItemUsed" : "There are doors in every direction.",
       "directions" : [
         {
           "rel" : "north",
@@ -225,8 +248,10 @@
     {
       "slug" : "upstairs-aquarium",
       "name" : "Aquarium (upstairs)",
-      "description" : "Aquarium",
-      "surroundings" : "Upstairs hallway three to the South. Pick up utility key in this room",
+      "canChange" : true,
+      "description" : "A softly-lit aquarium.",
+      "surroundings" : "There are a number of exotic fish here. Unfortunately, they look like they've all been dead for a while. But there is a small key in the bottom of one of the tanks.",
+      "surroundingsWhenItemPickedUp" : "The air in here is crisp, and salty. How long have the fish been dead though? What happened in this house?",
       "directions" : [
         {
           "rel" : "south",
@@ -238,6 +263,7 @@
         "image": "assets/images/defs.svg#key",
         "description": "A small key, with a tag that reads 'Utility'",
         "messageWhenUsed": "You unlock the door to the utility room",
+        "messageWhenNotUsed" : "This key doesn't seem to fit any locks here",
         "canBeUsedIn" : "hallway-two",
         "unlocks" : "/rooms/utility-room",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
@@ -246,8 +272,10 @@
     {
       "slug" : "upstairs-library",
       "name" : "Upstairs Library",
-      "description" : "Library",
-      "surroundings" : "Upstairs hallway three to the North",
+      "canChange" : true,
+      "description" : "A library.",
+      "surroundings" : "There are many, many books in here. There isn't time to look through them all. However, some sheet music appears to be sticking out from one of the shelves.",
+      "surroundingsWhenItemPickedUp" : "There are many, many books in here. There isn't time to look through them all.",
       "directions" : [
         {
           "rel" : "north",
@@ -255,11 +283,12 @@
         }
       ],
       "newItem": {
-        "name": "Sheet Music",
-        "image": "assets/images/defs.svg#key",
-        "description": "Sheet music for Beethoven's Piano Sonata No. 14",
-        "messageWhenUsed": "You place the crest into the door",
-        "canBeUsedIn" : "upstairs-stairway-three",
+        "name" : "Sheet Music",
+        "image" : "assets/images/defs.svg#key",
+        "description" : "Sheet music for Beethoven's Piano Sonata No. 14",
+        "messageWhenUsed" : "You play the piano",
+        "messageWhenNotUsed" : "An excellent piece of music. Though I'm not sure why I decided to steal it.",
+        "canBeUsedIn" : "music-room",
         "unlocks" : "/rooms/secret-room-one",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
@@ -267,8 +296,8 @@
     {
       "slug" : "upstairs-hallway-four",
       "name" : "Upstairs hallway four",
-      "description" : "Hallway Four (upstairs)",
-      "surroundings" : "Upstairs stairway two to the North, upstairs hallway three to the West, second bedroom to the South",
+      "description" : "A hallway.",
+      "surroundings" : "It's amazing that all of these hallways look so different from one another.",
       "directions" : [
         {
           "rel" : "north",
@@ -285,8 +314,8 @@
     {
       "slug" : "upstairs-second-bedroom",
       "name" : "Second bedroom",
-      "description" : "Second bedroom",
-      "surroundings" : "Upstairs hallway four to the North, upstairs second bedroom to the South",
+      "description" : "A well-furnished bedroom.",
+      "surroundings" : "It looks like this room has never been used. There's an en-suite to the South, and a door leading to a hallway to the North.",
       "directions" : [
         {
           "rel" : "north",
@@ -300,8 +329,8 @@
     {
       "slug" : "upstairs-second-bathroom",
       "name" : "Second bathroom",
-      "description" : "Second bathroom",
-      "surroundings" : "Second bedroom to the North, third bedroom to the West",
+      "description" : "A 'Jack and Jill' bathroom, connecting two bedrooms.",
+      "surroundings" : "You don't see these very often. It looks very fancy, but the water isn't running.",
       "directions" : [
         {
           "rel" : "north",
@@ -315,8 +344,8 @@
     {
       "slug" : "upstairs-third-bedroom",
       "name" : "Third bedroom",
-      "description" : "Third bedroom",
-      "surroundings" : "Upstairs hallway one to the West, second bathroom to the East",
+      "description" : "A bedroom.",
+      "surroundings" : "A surprisingly messy bedroom. It looks like something terrible happened in here.",
       "directions" : [
         {
           "rel" : "west",
@@ -330,8 +359,8 @@
     {
       "slug" : "upstairs-trophy-room",
       "name" : "Trophy Room",
-      "description" : "Trophy Room",
-      "surroundings" : "Upstairs hallway two to the South",
+      "description" : "A trophy room.",
+      "surroundings" : "There are various stuffed beasts adorning the walls. It's very chilling.",
       "directions" : [
         {
           "rel" : "south",
@@ -349,15 +378,16 @@
           "link" : "/rooms/hallway-two"
         },{
           "rel" : "east",
-          "link" : "/rooms/start"
+          "link" : "/rooms/entrance"
         }
       ]
     },
     {
       "slug": "hallway-two",
       "name": "Hallway Two",
-      "description": "Hallway Two",
-      "surroundings": "Kitchen to the North, hallway-four to the West, Utility room to the East, Dining hall to the South",
+      "description": "A hallway.",
+      "surroundings": "The stench in here is pretty bad. Like rotten food. There are doors in every direction, but the door to the East is locked",
+      "surroundingsWhenItemUsed" : "The stench in here is almost overwhelming now.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/kitchen"
@@ -378,8 +408,8 @@
     {
       "slug" : "utility-room",
       "name" : "Utility Room",
-      "description" : "Utility Room",
-      "surroundings" : "Hallway two to the West, basement stairway downstairs",
+      "description" : "A small, grey, utility room. It feels very cold in here.",
+      "surroundings" : "There's a staircase that goes down a long way. There's a faint light from the bottom.",
       "directions" : [{
         "rel" : "west",
         "link" : "/rooms/hallway-two"
@@ -391,8 +421,8 @@
     {
       "slug": "kitchen",
       "name": "Kitchen",
-      "description": "Kitchen",
-      "surroundings": "Waste disposal to the North, freezer to the East, hallway two to the South",
+      "description": "The kitchen.",
+      "surroundings": "Flies buzz around piles of black, rotten, fruit and meat. It looks like this has been here for a long time. And it smells like it's been here even longer.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/waste-disposal"
@@ -408,8 +438,10 @@
     {
       "slug": "freezer",
       "name": "Freezer",
-      "description": "Freezer",
-      "surroundings": "Kitchen to the West. Moose Head Picked up in this room",
+      "canChange" : true,
+      "description": "A large walk-in freezer",
+      "surroundings": "It's full of mountains of meat. And...there's a moose head on the floor.",
+      "surroundingsWhenItemPickedUp": "It's full of mountains of meat. Why was there a moose head in here? ",
       "directions" : [{
           "rel" : "west",
           "link" : "/rooms/kitchen"
@@ -420,16 +452,19 @@
         "image": "assets/images/defs.svg#moosehead",
         "description": "A moose's head. Its cold, dead eyes stare at you, looking lost and lonely",
         "messageWhenUsed": "Ah, that's better",
-        "canBeUsedIn" : "trophy-room",
+        "canBeUsedIn" : "upstairs-trophy-room",
         "unlocks" : "nothing",
-        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
+        "soundWhenUsed" : "../assets/sounds/doorUnlock2.mp3",
+        "messageWhenNotUsed" : "I will not rest until this is back where it belongs"
       }
     },
     {
       "slug": "waste-disposal",
       "name": "Waste Disposal",
-      "description": "Waste Disposal",
-      "surroundings": "Basement waste disposal at 'jump in' (requires handle), Kitchen to South",
+      "canChange" : true,
+      "surroundings": "A room that is completely empty, except for a hatch at the back, that appears to be a waste disposal chute. Unfortunately it doesn't have a handle, and can't be opened.",
+      "surroundingsWhenItemUsed": "A room that is completely empty, except for a hatch at the back, that appears to be a waste disposal chute. What could be at the bottom?",
+      "description": "",
       "directions" : [{
           "rel" : "jump in",
           "link" : "/rooms/basement-waste-disposal",
@@ -444,8 +479,8 @@
     {
       "slug": "hallway-four",
       "name": "Hallway Four",
-      "description": "Hallway Four",
-      "surroundings": "Stairway three to the North, Music room to the West, hallway two to the East",
+      "description": "A long hallway.",
+      "surroundings": "There are a few doors leading from this hallway. The carpet appears to have been torn up in a number of places.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/stairway-three"
@@ -461,8 +496,8 @@
     {
       "slug": "stairway-three",
       "name": "Stairway Three",
-      "description": "Stairway Three",
-      "surroundings": "Upstairs stairway three to upstairs, hallway four to South",
+      "description": "A stairway.",
+      "surroundings": "A large, wooden stairway.",
       "directions" : [{
           "rel" : "upstairs",
           "link" : "/rooms/upstairs-stairway-three"
@@ -475,8 +510,10 @@
     {
       "slug": "music-room",
       "name": "Music Room",
-      "description": "Music Room",
-      "surroundings": "Hallway five to North, hallway four to East, secret room one to South",
+      "canChange" : true,
+      "description": "A music room.",
+      "surroundings": "A very pleasant-looking music room, with a grand piano in the center.",
+      "surroundingsWhenItemUsed" : "A wall has moved, revealing a hidden room behind it.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/hallway-five"
@@ -494,8 +531,8 @@
     {
       "slug": "hallway-five",
       "name": "Hallway Five",
-      "description": "Hallway Five",
-      "surroundings": "Gym to North, Music room to South",
+      "description": "A small hallway.",
+      "surroundings": "There seem to be a lot of hallways in this place.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/gym"
@@ -508,8 +545,10 @@
     {
       "slug": "gym",
       "name": "Gym",
-      "description": "Gym",
-      "surroundings": "Swimming pool to East, Hallway five to South. Keycode picked up in this room",
+      "canChange" : true,
+      "description": "A home gym",
+      "surroundings": "There is a piece of paper on the floor.",
+      "surroundingsWhenItemPickedUp": "This is nicer than any gym I've ever been to.",
       "directions" : [{
           "rel" : "east",
           "link" : "/rooms/swimming-pool"
@@ -523,6 +562,7 @@
         "image": "assets/images/defs.svg#password",
         "description": "A piece of paper with 2407 written on it",
         "messageWhenUsed": "You enter the keycode into the terminal",
+        "messageWhenNotUsed" : "What could these numbers mean?",
         "canBeUsedIn" : "upstairs-study",
         "unlocks" : "/rooms/upstairs-secret-room-three",
         "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
@@ -531,8 +571,8 @@
     {
       "slug": "swimming-pool",
       "name": "Swimming Pool",
-      "description": "Swimming Pool",
-      "surroundings": "Gym to West, Showers to East",
+      "description": "An olympic-sized swimming pool",
+      "surroundings": "This really is incredible. The smell of chlorine fills the air, and the warmth of the pool can be felt against your skin.",
       "directions" : [{
           "rel" : "west",
           "link" : "/rooms/gym"
@@ -545,8 +585,8 @@
     {
       "slug": "showers",
       "name": "Showers",
-      "description": "Showers",
-      "surroundings": "Swimming pool to West",
+      "description": "A row of showers.",
+      "surroundings": "There are a row of showers here, as you'd find in a public simming pool. I wonder how many people live here?",
       "directions" : [{
           "rel" : "west",
           "link" : "/rooms/swimming-pool"
@@ -556,8 +596,10 @@
     {
       "slug": "secret-room-one",
       "name": "Secret Room One",
-      "description": "Secret Room One",
-      "surroundings": "Music Room to North. Eagle crest picked up in this room",
+      "canChange" : true,
+      "description": "A well-hidden room.",
+      "surroundings": "A room that is completely empty, save for a stone podium with a crest on top of it.",
+      "surroundingsWhenItemPickedUp": "The room is completely empty, except for the podium in the middle, where you found a crest.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/music-room"
@@ -568,6 +610,7 @@
         "image": "assets/images/defs.svg#key",
         "description": "A crest, with an eagle's head on the front",
         "messageWhenUsed": "You place the crest into the door",
+        "messageWhenNotUsed" : "What is this for? What does the eagle signify?",
         "canBeUsedIn" : "upstairs-stairway-three",
         "unlocks" : "/rooms/upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
@@ -576,22 +619,24 @@
     {
       "slug": "hallway-one",
       "name": "Hallway",
-      "description": "Hallway One",
-      "surroundings": "Statue room to North, foyer to West",
+      "description": "A short hallway.",
+      "surroundings": "You get a strange feeling. Are you alone? It's quiet, but this place is so big, it's hard to be sure.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/statue-room"
         },{
           "rel" : "west",
-          "link" : "/rooms/start"
+          "link" : "/rooms/entrance"
         }
       ]
     },
     {
       "slug": "statue-room",
       "name": "Statue Room",
-      "description": "Statue Room",
-      "surroundings": "Secret room two to North (needs statue head), hallway three to East and hallway one to South",
+      "canChange" : true,
+      "description": "A room full of statues.",
+      "surroundings": "One of them appears to have been beheaded.",
+      "surroundingsWhenItemUsed" : "At least it isn't mannequins, but statues aren't a lot better. One of the statues has moved aside, revealing a hidden doorway.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/secret-room-two",
@@ -608,9 +653,11 @@
     },
     {
       "slug": "secret-room-two",
-      "name": "Secret Room Two",
-      "description": "Secret Room Two",
-      "surroundings": "Statue Room to South. Wolf crest picked up in this room",
+      "name": "Secret room two",
+      "canChange" : true,
+      "description": "A hidden room",
+      "surroundings": "The room is cold, and empty, except for a podium in the middle. On it, sits a crest.",
+      "surroundingsWhenItemPickedUp" : "An empty room, except for a lonely looking concrete podium in the middle.",
       "directions" : [{
           "rel" : "south",
           "link" : "/rooms/statue-room"
@@ -621,6 +668,7 @@
         "image": "assets/images/defs.svg#key",
         "description": "A crest, with a wolf's head on the front",
         "messageWhenUsed": "You place the crest into the door",
+        "messageWhenNotUsed" : "This is a very unusual design",
         "canBeUsedIn" : "upstairs-stairway-three",
         "unlocks" : "/rooms/upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
@@ -629,8 +677,10 @@
     {
       "slug": "hallway-three",
       "name": "Hallway",
-      "description": "Hallway Three",
-      "surroundings": "Servants' quarters to North, statue room to West, stairway two to East, garage to South",
+      "canChange" : true,
+      "description": "A hallway.",
+      "surroundings": "This hallway is quite large. There's a locked door to the North with a plaque that reads \"Servants' Quarters\".",
+      "surroundingsWhenItemUsed": "This hallway is quite large. The door to the servants' quarters is unlocked.",
       "directions" : [
         {
           "rel" : "north",
@@ -654,8 +704,10 @@
     {
       "slug": "garage",
       "name": "Garage",
-      "description": "Garage",
-      "surroundings": "Hallway three to North. Crowbar picked up in this room",
+      "description": "A large garage.",
+      "surroundings": "The garage is empty, apart from a few tools. You think a crowbar could come in handy. Besides, you're not really sure what the rest of these tools are.",
+      "canChange" : true,
+      "surroundingsWhenItemPickedUp": "The garage is empty, apart from a few tools. You're not entirely sure what they're for.",
       "directions" : [
         {
           "rel" : "north",
@@ -665,18 +717,21 @@
       "newItem": {
         "name": "Crowbar",
         "image": "assets/images/defs.svg#crowbar",
-        "description": "A heavy crowbar.",
-        "messageWhenUsed": "You place the head carefully back onto the statue",
+        "description": "A sturdy crowbar",
+        "messageWhenUsed": "You prise off the wooden planks",
         "canBeUsedIn" : "upstairs-hallway-three",
-        "unlocks" : "/rooms/secret-room-two",
-        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3"
+        "unlocks" : "rooms/upstairs-aquarium",
+        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3",
+        "messageWhenNotUsed" : "Nothing to use this on in here"
       }
     },
     {
       "slug": "servants-quarters",
       "name": "Servants' Quarters",
-      "description": "Servants' Quarters",
-      "surroundings": "Servants bathroom to West, hallway three to South",
+      "canChange" : true,
+      "description": "The servants' quarters",
+      "surroundings": "It's actually pretty nice in here. For some reason, the head of a statue is sitting on a table in here.",
+      "surroundingsWhenItemPickedUp" : "It's actually pretty nice in here. But who were these people serving?",
       "directions" : [
         {
           "rel" : "west",
@@ -693,14 +748,15 @@
         "messageWhenUsed": "You place the head carefully back onto the statue",
         "canBeUsedIn" : "statue-room",
         "unlocks" : "/rooms/secret-room-two",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
+        "messageWhenNotUsed" : "What a strange thing to have found. I wonder who it's meant to be?"
       }
     },
     {
       "slug": "servants-bathroom",
       "name": "Servants' Bathroom",
-      "description": "Servants' Bathroom",
-      "surroundings": "Servants' quarters to East",
+      "description": "The servants' bathroom",
+      "surroundings": "There's not a lot to see in here.",
       "directions" : [{
           "rel" : "east",
           "link" : "/rooms/servants-quarters"
@@ -710,8 +766,8 @@
     {
       "slug": "stairway-two",
       "name": "Stairway Two",
-      "description": "Stairway Two",
-      "surroundings": "upstairs stairway to is upstairs, hallway three to West",
+      "description": "A stairway.",
+      "surroundings": "A sturdy-looking staircase sits in a dimly-lit room.",
       "directions" : [{
           "rel" : "upstairs",
           "link" : "/rooms/upstairs-stairway-two"
@@ -723,21 +779,10 @@
       ]
     },
     {
-      "slug": "servants-bathroom",
-      "name": "Servants' Bathroom",
-      "description": "Servants' Bathroom",
-      "surroundings": "Servants' quarters to East",
-      "directions" : [{
-          "rel" : "east",
-          "link" : "/rooms/servants-quarters"
-        }
-      ]
-    },
-    {
       "slug": "basement-stairway",
       "name": "Basement Stairway",
-      "description": "Basement Stairway",
-      "surroundings": "utility room upstairs. Basement storage West, storage two is East, wine cellar is South",
+      "description": "The basement.",
+      "surroundings": "It's cold. And dark.",
       "directions" : [{
           "rel" : "upstairs",
           "link" : "/rooms/utility-room"
@@ -756,12 +801,10 @@
     {
       "slug": "basement-storage",
       "name": "Basement Storage",
-      "description": "Basement Storage",
-      "surroundings": "Item room North, stairway East",
-      "directions" : [{
-          "rel" : "north",
-          "link" : "/rooms/basement-item-room"
-        },{
+      "description": "A storage room.",
+      "surroundings": "There are a few crates down here. Probably nothing too important in them though. There's a door to the North, but it doesn't seem to open from this side.",
+      "directions" : [
+        {
           "rel" : "east",
           "link" : "/rooms/basement-stairway"
         }
@@ -770,8 +813,10 @@
     {
       "slug": "basement-storage-two",
       "name": "Basement Storage two",
-      "description": "Basement Storage two",
-      "surroundings": "Stairway is West. Handle picked up in this room",
+      "canChange" : true,
+      "description": "A small storage room.",
+      "surroundings": "There's a metal handle on the ground.",
+      "surroundingsWhenItemPickedUp" : "There's nothing to see here.",
       "directions" : [{
           "rel" : "west",
           "link" : "/rooms/basement-stairway"
@@ -784,14 +829,17 @@
         "messageWhenUsed": "You have attached the handle",
         "canBeUsedIn" : "waste-disposal",
         "unlocks" : "/rooms/basement-waste-disposal",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
+        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
+        "messageWhenNotUsed" : "I'm not sure where I could put this..."
       }
     },
     {
       "slug": "basement-item-room",
       "name": "Item Room",
-      "description": "Item Room",
-      "surroundings": "Basement storage is South. Servants' quarters key picked up here.",
+      "canChange" : true,
+      "description": "A room full of boxes.",
+      "surroundings": "Amongst the boxes lies a small key.",
+      "surroundingsWhenItemPickedUp" : "There's nothing interesting in here any more.",
       "directions" : [{
           "rel" : "south",
           "link" : "/rooms/basement-storage"
@@ -801,8 +849,9 @@
         "name": "Small Key",
         "image": "assets/images/defs.svg#key",
         "description": "A small key, with a tag that says 'S.Q.'",
-        "messageWhenUsed": "You place the crest into the door",
-        "canBeUsedIn" : "upstairs-stairway-three",
+        "messageWhenUsed": "You unlock the door",
+        "messageWhenNotUsed" : "It doesn't look like this can be used here",
+        "canBeUsedIn" : "hallway-three",
         "unlocks" : "/rooms/upstairs-servants-quarters",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
@@ -810,8 +859,8 @@
     {
       "slug": "basement-waste-disposal",
       "name": "Waste disposal",
-      "description": "Waste disposal",
-      "surroundings": "Item room is East",
+      "description": "Ugh, it stinks down here!",
+      "surroundings": "The ground is covered in a slimy, horrible mess. There is a door to the East.",
       "directions" : [{
           "rel" : "east",
           "link" : "/rooms/basement-item-room"
@@ -821,8 +870,10 @@
     {
       "slug": "basement-wine-cellar",
       "name": "Wine Cellar",
+      "canChange" : true,
       "description": "Wine Cellar",
-      "surroundings": "Stairway is North, lab entrance is West (requires wine bottle)",
+      "surroundings": "A gigantic wine cellar. Amazingly, every space is filled, except for one.",
+      "surroundingsWhenItemUsed": "A gigantic wine cellar. One of the racks has moved, revealing a hidden doorway.",
       "directions" : [{
           "rel" : "north",
           "link" : "/rooms/basement-stairway"
@@ -837,8 +888,8 @@
     {
       "slug": "basement-lab-entrance",
       "name": "Lab Entrance",
-      "description": "Lab Entrance",
-      "surroundings": "wine cellar is east",
+      "description": "An entrance...to a laboratory? This is very unusual. There appears to be an entrance to a laboratory here! Unfortunately, as you enter, you succumb to a strange feeling. You're losing conciousness. As you fall to your knees, you can almost make out a voice nearby...",
+      "surroundings": "To be continued.",
       "directions" : [{
           "rel" : "Roll credits",
           "link" : "/rooms/credits"
