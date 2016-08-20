@@ -34,9 +34,9 @@ const commonUtils = () => {
   const valuesMatch = (a, b) => a.toString() === b.toString()
 
   return {
-    generateTimestamp: generateTimestamp,
-    getDate: getDate,
-    valuesMatch: valuesMatch
+    generateTimestamp,
+    getDate,
+    valuesMatch
   }
 }
 
