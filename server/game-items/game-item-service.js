@@ -14,7 +14,7 @@ module.exports = items => {
   }
 
   return {
-    getItemDetails: getItemDetails,
-    canItemBeUsed: canItemBeUsed
+    getItemDetails,
+    canItemBeUseds
   }
 }
