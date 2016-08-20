@@ -1,6 +1,6 @@
 const express = require('express')
 const compression = require('compression')
-// const path = require('path')
+const cors = require('cors')
 const { readFileSync } = require('fs')
 const {
   creditsFileLocation,
@@ -20,6 +20,7 @@ const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
 // Instantiate main app
 const app = express()
+app.use(cors())
 
 // Serve files
 const server = require('http').createServer(app)
@@ -30,9 +31,6 @@ app.use(compression())
 
 // Load endpoints
 require('./api/api')(app, map, items, credits, logLocation, roomLogFile)
-
-// Serve client-side files
-// app.use(express.static(__dirname, path.join('/client')))
 
 server.listen(port, () => {
   log('Server started')
