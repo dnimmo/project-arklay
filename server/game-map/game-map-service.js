@@ -50,7 +50,7 @@ module.exports = (gameMap, logLocation, logFileName) => {
   }
 
   return {
-    getRoom: getRoom,
-    examineRoom: examineRoom
+    getRoom,
+    examineRoom
   }
 }

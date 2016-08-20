@@ -35,9 +35,9 @@ module.exports = itemService => {
   }
 
   return {
-    initialiseInventory: initialiseInventory,
-    addItem: addItem,
-    removeItem: removeItem,
-    combineItems: combineItems
+    initialiseInventory,
+    addItem,
+    removeItem,
+    combineItems
   }
 }

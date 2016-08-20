@@ -16,7 +16,7 @@ const logService = (logLocation, logFileName) => {
   }
 
   return {
-    log: log
+    log
   }
 }
 
