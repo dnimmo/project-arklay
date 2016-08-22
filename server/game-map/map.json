@@ -7,8 +7,9 @@
       "surroundings" : "There's a large door in front of you.",
       "directions" : [
         {
-          "rel" : "enter",
-          "link" : "entrance"
+          "rel" : "north",
+          "link" : "entrance",
+          "displayText" : "enter"
         }
       ]
     },
@@ -19,8 +20,9 @@
       "surroundings" : "There is a grand staircase here, as well as a couple of doors.",
       "directions" : [
         {
-          "rel" : "upstairs",
-          "link" : "upstairs-foyer"
+          "rel" : "north",
+          "link" : "upstairs-foyer",
+          "displayText" : "upstairs"
         },{
           "rel" : "west",
           "link" : "dining-hall"
@@ -40,8 +42,9 @@
           "rel" : "north",
           "link" : "upstairs-hallway-one"
         }, {
-          "rel" : "downstairs",
-          "link" : "entrance"
+          "rel" : "south",
+          "link" : "entrance",
+          "displayText": "downstairs"
         }
       ]
     },
@@ -125,8 +128,9 @@
           "rel" : "east",
           "link" : "upstairs-hallway-two"
         },{
-          "rel" : "downstairs",
-          "link" : "stairway-three"
+          "rel" : "south",
+          "link" : "stairway-three",
+          "displayText" : "downstairs"
         }
       ]
     },
@@ -179,8 +183,9 @@
           "rel" : "north",
           "link" : "upstairs-hallway-two"
         },{
-          "rel" : "downstairs",
-          "link" : "stairway-two"
+          "rel" : "south",
+          "link" : "stairway-two",
+          "displayText" : "downstairs"
         }
       ]
     },
@@ -414,8 +419,9 @@
         "rel" : "west",
         "link" : "hallway-two"
       },{
-        "rel" : "downstairs",
-        "link" : "basement-stairway"
+        "rel" : "south",
+        "link" : "basement-stairway",
+        "displayText" : "downstairs"
       }]
     },
     {
@@ -466,8 +472,9 @@
       "surroundingsWhenItemUsed": "A room that is completely empty, except for a hatch at the back, that appears to be a waste disposal chute. What could be at the bottom?",
       "description": "",
       "directions" : [{
-          "rel" : "jump in",
+          "rel" : "north",
           "link" : "basement-waste-disposal",
+          "displayText": "jump in",
           "blocked" : true,
           "unlockedWith" : ["Handle"]
         },{
@@ -499,8 +506,9 @@
       "description": "A stairway.",
       "surroundings": "A large, wooden stairway.",
       "directions" : [{
-          "rel" : "upstairs",
-          "link" : "upstairs-stairway-three"
+          "rel" : "north",
+          "link" : "upstairs-stairway-three",
+          "displayText" : "upstairs"
         },{
           "rel" : "south",
           "link" : "hallway-four"
@@ -769,8 +777,9 @@
       "description": "A stairway.",
       "surroundings": "A sturdy-looking staircase sits in a dimly-lit room.",
       "directions" : [{
-          "rel" : "upstairs",
-          "link" : "upstairs-stairway-two"
+          "rel" : "north",
+          "link" : "upstairs-stairway-two",
+          "displayText" : "upstairs"
         },
         {
           "rel" : "west",
@@ -784,8 +793,9 @@
       "description": "The basement.",
       "surroundings": "It's cold. And dark.",
       "directions" : [{
-          "rel" : "upstairs",
-          "link" : "utility-room"
+          "rel" : "north",
+          "link" : "utility-room",
+          "displayText" : "upstairs"
         },{
           "rel" : "west",
           "link" : "basement-storage"
@@ -891,8 +901,9 @@
       "description": "An entrance...to a laboratory? This is very unusual. There appears to be an entrance to a laboratory here! Unfortunately, as you enter, you succumb to a strange feeling. You're losing conciousness. As you fall to your knees, you can almost make out a voice nearby...",
       "surroundings": "To be continued.",
       "directions" : [{
-          "rel" : "Roll credits",
-          "link" : "credits"
+          "rel" : "north",
+          "link" : "credits",
+          "displayText" : "Roll credits"
         }
       ]
     }
