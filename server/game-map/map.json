@@ -8,7 +8,7 @@
       "directions" : [
         {
           "rel" : "enter",
-          "link" : "/rooms/entrance"
+          "link" : "entrance"
         }
       ]
     },
@@ -20,13 +20,13 @@
       "directions" : [
         {
           "rel" : "upstairs",
-          "link" : "/rooms/upstairs-foyer"
+          "link" : "upstairs-foyer"
         },{
           "rel" : "west",
-          "link" : "/rooms/dining-hall"
+          "link" : "dining-hall"
         },{
           "rel" : "east",
-          "link" : "/rooms/hallway-one"
+          "link" : "hallway-one"
         }
       ]
     },
@@ -38,10 +38,10 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-hallway-one"
+          "link" : "upstairs-hallway-one"
         }, {
           "rel" : "downstairs",
-          "link" : "/rooms/entrance"
+          "link" : "entrance"
         }
       ]
     },
@@ -53,13 +53,13 @@
       "directions" : [
         {
           "rel" : "west",
-          "link" : "/rooms/upstairs-study"
+          "link" : "upstairs-study"
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-third-bedroom"
+          "link" : "upstairs-third-bedroom"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-foyer"
+          "link" : "upstairs-foyer"
         }
       ]
     },
@@ -73,15 +73,15 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-hallway-two"
+          "link" : "upstairs-hallway-two"
         },{
           "rel" : "west",
-          "link" : "/rooms/upstairs-secret-room-three",
+          "link" : "upstairs-secret-room-three",
           "blocked" : true,
           "unlockedWith" : ["Keycode"]
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-hallway-one"
+          "link" : "upstairs-hallway-one"
         }
       ]
     },
@@ -95,7 +95,7 @@
       "directions" : [
         {
           "rel" : "east",
-          "link" : "/rooms/upstairs-study"
+          "link" : "upstairs-study"
         }
       ],
       "newItem": {
@@ -105,7 +105,7 @@
         "messageWhenUsed": "You place the crest into the door",
         "messageWhenNotUsed" : "Cool lion, but what could this be for?",
         "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "unlocks" : "upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -118,15 +118,15 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-master-bedroom",
+          "link" : "upstairs-master-bedroom",
           "blocked" : true,
           "unlockedWith" : ["Lion Crest", "Eagle Crest", "Wolf Crest"]
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-hallway-two"
+          "link" : "upstairs-hallway-two"
         },{
           "rel" : "downstairs",
-          "link" : "/rooms/stairway-three"
+          "link" : "stairway-three"
         }
       ]
     },
@@ -138,10 +138,10 @@
       "directions" : [
         {
           "rel" : "west",
-          "link" : "/rooms/upstairs-master-en-suite"
+          "link" : "upstairs-master-en-suite"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-stairway-three"
+          "link" : "upstairs-stairway-three"
         }
       ]
     },
@@ -155,7 +155,7 @@
       "directions" : [
         {
           "rel" : "east",
-          "link" : "/rooms/upstairs-master-bedroom"
+          "link" : "upstairs-master-bedroom"
         }
       ],
       "newItem": {
@@ -165,7 +165,7 @@
         "messageWhenUsed": "You place the wine bottle back in the rack",
         "messageWhenNotUsed" : "It's a shame this is empty. Some wine would be good right now.",
         "canBeUsedIn" : "basement-wine-cellar",
-        "unlocks" : "/rooms/basement-lab-entrance",
+        "unlocks" : "basement-lab-entrance",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -177,10 +177,10 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-hallway-two"
+          "link" : "upstairs-hallway-two"
         },{
           "rel" : "downstairs",
-          "link" : "/rooms/stairway-two"
+          "link" : "stairway-two"
         }
       ]
     },
@@ -192,16 +192,16 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-trophy-room"
+          "link" : "upstairs-trophy-room"
         },{
           "rel" : "west",
-          "link" : "/rooms/upstairs-stairway-three"
+          "link" : "upstairs-stairway-three"
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-art-gallery"
+          "link" : "upstairs-art-gallery"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-study"
+          "link" : "upstairs-study"
         }
       ]
     },
@@ -213,10 +213,10 @@
       "directions" : [
         {
           "rel" : "west",
-          "link" : "/rooms/upstairs-hallway-two"
+          "link" : "upstairs-hallway-two"
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-hallway-three"
+          "link" : "upstairs-hallway-three"
         }
       ]
     },
@@ -230,18 +230,18 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-aquarium",
+          "link" : "upstairs-aquarium",
           "blocked" : true,
           "unlockedWith" : ["Crowbar"]
         },{
           "rel" : "west",
-          "link" : "/rooms/upstairs-art-gallery"
+          "link" : "upstairs-art-gallery"
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-hallway-four"
+          "link" : "upstairs-hallway-four"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-library"
+          "link" : "upstairs-library"
         }
       ]
     },
@@ -255,7 +255,7 @@
       "directions" : [
         {
           "rel" : "south",
-          "link" : "/rooms/upstairs-hallway-three"
+          "link" : "upstairs-hallway-three"
         }
       ],
       "newItem": {
@@ -265,7 +265,7 @@
         "messageWhenUsed": "You unlock the door to the utility room",
         "messageWhenNotUsed" : "This key doesn't seem to fit any locks here",
         "canBeUsedIn" : "hallway-two",
-        "unlocks" : "/rooms/utility-room",
+        "unlocks" : "utility-room",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -279,7 +279,7 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-hallway-three"
+          "link" : "upstairs-hallway-three"
         }
       ],
       "newItem": {
@@ -289,7 +289,7 @@
         "messageWhenUsed" : "You play the piano",
         "messageWhenNotUsed" : "An excellent piece of music. Though I'm not sure why I decided to steal it.",
         "canBeUsedIn" : "music-room",
-        "unlocks" : "/rooms/secret-room-one",
+        "unlocks" : "secret-room-one",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -301,13 +301,13 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-stairway-two"
+          "link" : "upstairs-stairway-two"
         },{
           "rel" : "west",
-          "link" : "/rooms/upstairs-hallway-three"
+          "link" : "upstairs-hallway-three"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-second-bedroom"
+          "link" : "upstairs-second-bedroom"
         }
       ]
     },
@@ -319,10 +319,10 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-hallway-four"
+          "link" : "upstairs-hallway-four"
         },{
           "rel" : "south",
-          "link" : "/rooms/upstairs-second-bathroom"
+          "link" : "upstairs-second-bathroom"
         }
       ]
     },
@@ -334,10 +334,10 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/upstairs-second-bedroom"
+          "link" : "upstairs-second-bedroom"
         },{
           "rel" : "west",
-          "link" : "/rooms/upstairs-third-bedroom"
+          "link" : "upstairs-third-bedroom"
         }
       ]
     },
@@ -349,10 +349,10 @@
       "directions" : [
         {
           "rel" : "west",
-          "link" : "/rooms/upstairs-hallway-one"
+          "link" : "upstairs-hallway-one"
         },{
           "rel" : "east",
-          "link" : "/rooms/upstairs-second-bathroom"
+          "link" : "upstairs-second-bathroom"
         }
       ]
     },
@@ -364,7 +364,7 @@
       "directions" : [
         {
           "rel" : "south",
-          "link" : "/rooms/upstairs-hallway-two"
+          "link" : "upstairs-hallway-two"
         }
       ]
     },
@@ -375,10 +375,10 @@
       "surroundings": "A grandfather clock is steadily ticking, its sound echoing through the room.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/hallway-two"
+          "link" : "hallway-two"
         },{
           "rel" : "east",
-          "link" : "/rooms/entrance"
+          "link" : "entrance"
         }
       ]
     },
@@ -390,18 +390,18 @@
       "surroundingsWhenItemUsed" : "The stench in here is almost overwhelming now.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/kitchen"
+          "link" : "kitchen"
         },{
           "rel" : "west",
-          "link" : "/rooms/hallway-four"
+          "link" : "hallway-four"
         },{
           "rel" : "east",
-          "link" : "/rooms/utility-room",
+          "link" : "utility-room",
           "blocked" : true,
           "unlockedWith" : ["Utility Key"]
         },{
           "rel" : "south",
-          "link" : "/rooms/dining-hall"
+          "link" : "dining-hall"
         }
       ]
     },
@@ -412,10 +412,10 @@
       "surroundings" : "There's a staircase that goes down a long way. There's a faint light from the bottom.",
       "directions" : [{
         "rel" : "west",
-        "link" : "/rooms/hallway-two"
+        "link" : "hallway-two"
       },{
         "rel" : "downstairs",
-        "link" : "/rooms/basement-stairway"
+        "link" : "basement-stairway"
       }]
     },
     {
@@ -425,13 +425,13 @@
       "surroundings": "Flies buzz around piles of black, rotten, fruit and meat. It looks like this has been here for a long time. And it smells like it's been here even longer.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/waste-disposal"
+          "link" : "waste-disposal"
         },{
           "rel" : "east",
-          "link" : "/rooms/freezer"
+          "link" : "freezer"
         },{
           "rel" : "south",
-          "link" : "/rooms/hallway-two"
+          "link" : "hallway-two"
         }
       ]
     },
@@ -444,7 +444,7 @@
       "surroundingsWhenItemPickedUp": "It's full of mountains of meat. Why was there a moose head in here? ",
       "directions" : [{
           "rel" : "west",
-          "link" : "/rooms/kitchen"
+          "link" : "kitchen"
         }
       ],
       "newItem" : {
@@ -467,12 +467,12 @@
       "description": "",
       "directions" : [{
           "rel" : "jump in",
-          "link" : "/rooms/basement-waste-disposal",
+          "link" : "basement-waste-disposal",
           "blocked" : true,
           "unlockedWith" : ["Handle"]
         },{
           "rel" : "south",
-          "link" : "/rooms/kitchen"
+          "link" : "kitchen"
         }
       ]
     },
@@ -483,13 +483,13 @@
       "surroundings": "There are a few doors leading from this hallway. The carpet appears to have been torn up in a number of places.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/stairway-three"
+          "link" : "stairway-three"
         },{
           "rel" : "west",
-          "link" : "/rooms/music-room"
+          "link" : "music-room"
         },{
           "rel" : "east",
-          "link" : "/rooms/hallway-two"
+          "link" : "hallway-two"
         }
       ]
     },
@@ -500,10 +500,10 @@
       "surroundings": "A large, wooden stairway.",
       "directions" : [{
           "rel" : "upstairs",
-          "link" : "/rooms/upstairs-stairway-three"
+          "link" : "upstairs-stairway-three"
         },{
           "rel" : "south",
-          "link" : "/rooms/hallway-four"
+          "link" : "hallway-four"
         }
       ]
     },
@@ -516,13 +516,13 @@
       "surroundingsWhenItemUsed" : "A wall has moved, revealing a hidden room behind it.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/hallway-five"
+          "link" : "hallway-five"
         },{
           "rel" : "east",
-          "link" : "/rooms/hallway-four"
+          "link" : "hallway-four"
         },{
           "rel" : "south",
-          "link" : "/rooms/secret-room-one",
+          "link" : "secret-room-one",
           "blocked" : true,
           "unlockedWith" : ["Sheet Music"]
         }
@@ -535,10 +535,10 @@
       "surroundings": "There seem to be a lot of hallways in this place.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/gym"
+          "link" : "gym"
         },{
           "rel" : "south",
-          "link" : "/rooms/music-room"
+          "link" : "music-room"
         }
       ]
     },
@@ -551,10 +551,10 @@
       "surroundingsWhenItemPickedUp": "This is nicer than any gym I've ever been to.",
       "directions" : [{
           "rel" : "east",
-          "link" : "/rooms/swimming-pool"
+          "link" : "swimming-pool"
         },{
           "rel" : "south",
-          "link" : "/rooms/hallway-five"
+          "link" : "hallway-five"
         }
       ],
       "newItem": {
@@ -564,7 +564,7 @@
         "messageWhenUsed": "You enter the keycode into the terminal",
         "messageWhenNotUsed" : "What could these numbers mean?",
         "canBeUsedIn" : "upstairs-study",
-        "unlocks" : "/rooms/upstairs-secret-room-three",
+        "unlocks" : "upstairs-secret-room-three",
         "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
       }
     },
@@ -575,10 +575,10 @@
       "surroundings": "This really is incredible. The smell of chlorine fills the air, and the warmth of the pool can be felt against your skin.",
       "directions" : [{
           "rel" : "west",
-          "link" : "/rooms/gym"
+          "link" : "gym"
         },{
           "rel" : "east",
-          "link" : "/rooms/showers"
+          "link" : "showers"
         }
       ]
     },
@@ -589,7 +589,7 @@
       "surroundings": "There are a row of showers here, as you'd find in a public simming pool. I wonder how many people live here?",
       "directions" : [{
           "rel" : "west",
-          "link" : "/rooms/swimming-pool"
+          "link" : "swimming-pool"
         }
       ]
     },
@@ -602,7 +602,7 @@
       "surroundingsWhenItemPickedUp": "The room is completely empty, except for the podium in the middle, where you found a crest.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/music-room"
+          "link" : "music-room"
         }
       ],
       "newItem": {
@@ -612,7 +612,7 @@
         "messageWhenUsed": "You place the crest into the door",
         "messageWhenNotUsed" : "What is this for? What does the eagle signify?",
         "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "unlocks" : "upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -623,10 +623,10 @@
       "surroundings": "You get a strange feeling. Are you alone? It's quiet, but this place is so big, it's hard to be sure.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/statue-room"
+          "link" : "statue-room"
         },{
           "rel" : "west",
-          "link" : "/rooms/entrance"
+          "link" : "entrance"
         }
       ]
     },
@@ -639,15 +639,15 @@
       "surroundingsWhenItemUsed" : "At least it isn't mannequins, but statues aren't a lot better. One of the statues has moved aside, revealing a hidden doorway.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/secret-room-two",
+          "link" : "secret-room-two",
           "blocked" : true,
           "unlockedWith" : ["Statue Head"]
         },{
           "rel" : "east",
-          "link" : "/rooms/hallway-three"
+          "link" : "hallway-three"
         }, {
           "rel" : "south",
-          "link" : "/rooms/hallway-one"
+          "link" : "hallway-one"
         }
       ]
     },
@@ -660,7 +660,7 @@
       "surroundingsWhenItemPickedUp" : "An empty room, except for a lonely looking concrete podium in the middle.",
       "directions" : [{
           "rel" : "south",
-          "link" : "/rooms/statue-room"
+          "link" : "statue-room"
         }
       ],
       "newItem": {
@@ -670,7 +670,7 @@
         "messageWhenUsed": "You place the crest into the door",
         "messageWhenNotUsed" : "This is a very unusual design",
         "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "/rooms/upstairs-master-bedroom",
+        "unlocks" : "upstairs-master-bedroom",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -684,20 +684,20 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/servants-quarters",
+          "link" : "servants-quarters",
           "blocked" : true,
           "unlockedWith" : ["Small Key"]
         },{
           "rel" : "west",
-          "link" : "/rooms/statue-room"
+          "link" : "statue-room"
         },
         {
           "rel" : "east",
-          "link" : "/rooms/stairway-two"
+          "link" : "stairway-two"
         },
         {
           "rel" : "south",
-          "link" : "/rooms/garage"
+          "link" : "garage"
         }
       ]
     },
@@ -711,7 +711,7 @@
       "directions" : [
         {
           "rel" : "north",
-          "link" : "/rooms/hallway-three"
+          "link" : "hallway-three"
         }
       ],
       "newItem": {
@@ -735,10 +735,10 @@
       "directions" : [
         {
           "rel" : "west",
-          "link" : "/rooms/servants-bathroom"
+          "link" : "servants-bathroom"
         },{
           "rel" : "south",
-          "link" : "/rooms/hallway-three"
+          "link" : "hallway-three"
         }
       ],
       "newItem": {
@@ -747,7 +747,7 @@
         "description": "The head of a small statue.",
         "messageWhenUsed": "You place the head carefully back onto the statue",
         "canBeUsedIn" : "statue-room",
-        "unlocks" : "/rooms/secret-room-two",
+        "unlocks" : "secret-room-two",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
         "messageWhenNotUsed" : "What a strange thing to have found. I wonder who it's meant to be?"
       }
@@ -759,7 +759,7 @@
       "surroundings": "There's not a lot to see in here.",
       "directions" : [{
           "rel" : "east",
-          "link" : "/rooms/servants-quarters"
+          "link" : "servants-quarters"
         }
       ]
     },
@@ -770,11 +770,11 @@
       "surroundings": "A sturdy-looking staircase sits in a dimly-lit room.",
       "directions" : [{
           "rel" : "upstairs",
-          "link" : "/rooms/upstairs-stairway-two"
+          "link" : "upstairs-stairway-two"
         },
         {
           "rel" : "west",
-          "link" : "/rooms/hallway-three"
+          "link" : "hallway-three"
         }
       ]
     },
@@ -785,16 +785,16 @@
       "surroundings": "It's cold. And dark.",
       "directions" : [{
           "rel" : "upstairs",
-          "link" : "/rooms/utility-room"
+          "link" : "utility-room"
         },{
           "rel" : "west",
-          "link" : "/rooms/basement-storage"
+          "link" : "basement-storage"
         },{
           "rel" : "east",
-          "link" : "/rooms/basement-storage-two"
+          "link" : "basement-storage-two"
         },{
           "rel" : "south",
-          "link" : "/rooms/basement-wine-cellar"
+          "link" : "basement-wine-cellar"
         }
       ]
     },
@@ -806,7 +806,7 @@
       "directions" : [
         {
           "rel" : "east",
-          "link" : "/rooms/basement-stairway"
+          "link" : "basement-stairway"
         }
       ]
     },
@@ -819,7 +819,7 @@
       "surroundingsWhenItemPickedUp" : "There's nothing to see here.",
       "directions" : [{
           "rel" : "west",
-          "link" : "/rooms/basement-stairway"
+          "link" : "basement-stairway"
         }
       ],
       "newItem": {
@@ -828,7 +828,7 @@
         "description": "A metal handle. It looks like it's for some sort of trap door.",
         "messageWhenUsed": "You have attached the handle",
         "canBeUsedIn" : "waste-disposal",
-        "unlocks" : "/rooms/basement-waste-disposal",
+        "unlocks" : "basement-waste-disposal",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
         "messageWhenNotUsed" : "I'm not sure where I could put this..."
       }
@@ -842,7 +842,7 @@
       "surroundingsWhenItemPickedUp" : "There's nothing interesting in here any more.",
       "directions" : [{
           "rel" : "south",
-          "link" : "/rooms/basement-storage"
+          "link" : "basement-storage"
         }
       ],
       "newItem": {
@@ -852,7 +852,7 @@
         "messageWhenUsed": "You unlock the door",
         "messageWhenNotUsed" : "It doesn't look like this can be used here",
         "canBeUsedIn" : "hallway-three",
-        "unlocks" : "/rooms/upstairs-servants-quarters",
+        "unlocks" : "upstairs-servants-quarters",
         "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
       }
     },
@@ -863,7 +863,7 @@
       "surroundings": "The ground is covered in a slimy, horrible mess. There is a door to the East.",
       "directions" : [{
           "rel" : "east",
-          "link" : "/rooms/basement-item-room"
+          "link" : "basement-item-room"
         }
       ]
     },
@@ -876,10 +876,10 @@
       "surroundingsWhenItemUsed": "A gigantic wine cellar. One of the racks has moved, revealing a hidden doorway.",
       "directions" : [{
           "rel" : "north",
-          "link" : "/rooms/basement-stairway"
+          "link" : "basement-stairway"
         },{
           "rel" : "west",
-          "link" : "/rooms/basement-lab-entrance",
+          "link" : "basement-lab-entrance",
           "blocked" : true,
           "unlockedWith" : ["Wine bottle"]
         }
@@ -892,7 +892,7 @@
       "surroundings": "To be continued.",
       "directions" : [{
           "rel" : "Roll credits",
-          "link" : "/rooms/credits"
+          "link" : "credits"
         }
       ]
     }
