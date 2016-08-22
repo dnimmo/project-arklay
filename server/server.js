@@ -24,7 +24,7 @@ app.use(cors())
 
 // Serve files
 const server = require('http').createServer(app)
-const port = portNumber
+const port = process.env.PORT || portNumber
 
 // GZIP assets
 app.use(compression())
