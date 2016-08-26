@@ -27,6 +27,9 @@ module.exports = (gameMap, logLocation, logFileName) => {
   }
 
   function isDirectionUnlocked (unlockRequirements, itemsUsed) {
+    if (!itemsUsed) {
+      return false
+    }
     const matchingItems = itemsUsed.filter(item => unlockRequirements.includes(item))
     return matchingItems.length === unlockRequirements.length
   }
