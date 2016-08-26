@@ -18,6 +18,8 @@ module.exports = (gameMap, logLocation, logFileName) => {
     const updatedDirections = tempDirections.map(direction => {
       if (direction['blocked']) {
         direction['blocked'] = !isDirectionUnlocked(direction.unlockedWith, itemsUsed)
+      } else {
+        direction = ''
       }
       return direction
     })
@@ -35,10 +37,8 @@ module.exports = (gameMap, logLocation, logFileName) => {
       log(`Attempted to retrieve non-existent room: ${slug}`)
       return false
     }
-    // If any items have been used, check to see if directions in the requested room are already unlocked
-    if (itemsUsed && itemsUsed.length > 0 && requestedRoom['directions']) {
-      requestedRoom['directions'] = getDirectionInfo(requestedRoom['directions'], itemsUsed)
-    }
+    // Get direction info: This prevents locked rooms from being sent to the client
+    requestedRoom['directions'] = getDirectionInfo(requestedRoom['directions'], itemsUsed)
     return requestedRoom
   }
 
