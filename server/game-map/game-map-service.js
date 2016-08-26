@@ -18,8 +18,6 @@ module.exports = (gameMap, logLocation, logFileName) => {
     const updatedDirections = tempDirections.map(direction => {
       if (direction['blocked']) {
         direction['blocked'] = !isDirectionUnlocked(direction.unlockedWith, itemsUsed)
-      } else {
-        direction = ''
       }
       return direction
     })
