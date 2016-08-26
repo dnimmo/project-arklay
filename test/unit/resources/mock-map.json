@@ -9,6 +9,10 @@
           "link" : "/rooms/upstairs-secret-room-three",
           "blocked" : true,
           "unlockedWith" : ["test-item"]
+        },
+        {
+          "rel" : "west",
+          "link" : "/rooms/upstairs-secret-room-three"
         }
       ]
     },

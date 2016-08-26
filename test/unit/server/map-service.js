@@ -16,10 +16,16 @@ test('returns requested room', t => {
   t.end()
 })
 
-test('returns room with directions unlocked if correct item has already been used', t => {
-  const testRoom = getRoom('start', ['test-item'])
-
-  t.equal(testRoom.directions[0]['blocked'], false)
+test('does not return direction option for any blocked rooms', t => {
+  const testRoom = getRoom('start', [])
+  console.log(testRoom.directions)
+  t.equal(testRoom.directions.length, 1)
+  t.end()
+})
+//
+test('returns room with all unlocked directions if correct items have already been used', t => {
+  const testRoom = getRoom('test-room', ['test-item'])
+  t.equal(testRoom.directions.length, 3)
   t.end()
 })
 

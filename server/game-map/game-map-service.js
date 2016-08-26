@@ -1,35 +1,28 @@
 module.exports = (gameMap, logLocation, logFileName) => {
   const { log } = require('../logging-service/logging-service')(logLocation, logFileName)
 
-  function getRoomExtraInfo (roomSlug) {
-    const { examineInfo } = getRoom(roomSlug)
+  function getRoomExtraInfo (roomSlug, itemsUsed = []) {
+    const { examineInfo } = getRoom(roomSlug, itemsUsed)
     return examineInfo
   }
 
-  function getItem (roomSlug) {
-    const { newItem } = getRoom(roomSlug)
+  function getItem (roomSlug, itemsUsed = []) {
+    const { newItem } = getRoom(roomSlug, itemsUsed)
     return newItem || false
   }
 
   function getDirectionInfo (directions, itemsUsed) {
-    const tempDirections = directions.slice()
-    // Check to see if any directions are locked, and if they are, check to see if all of the necessary items to unlock them have already been used
-
-    const updatedDirections = tempDirections.map(direction => {
-      if (direction['blocked']) {
-        direction['blocked'] = !isDirectionUnlocked(direction.unlockedWith, itemsUsed)
-      }
-      return direction
-    })
-    return updatedDirections
+    // Only return unlocked directions
+    return directions.filter(direction => isDirectionUnlocked(direction, itemsUsed))
   }
 
-  function isDirectionUnlocked (unlockRequirements, itemsUsed) {
-    if (!itemsUsed) {
-      return false
+  function isDirectionUnlocked ({ blocked, unlockedWith }, itemsUsed) {
+    if (typeof(blocked) === 'undefined') {
+      // Room was never blocked to begin with
+      return true
     }
-    const matchingItems = itemsUsed.filter(item => unlockRequirements.includes(item))
-    return matchingItems.length === unlockRequirements.length
+    const matchingItems = itemsUsed.filter(item => unlockedWith.includes(item))
+    return matchingItems.length === unlockedWith.length
   }
 
   const getRoom = (slug, itemsUsed) => {
