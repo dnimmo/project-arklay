@@ -32,7 +32,7 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   app.use('/credits', credits)
 
   // Serve requested room on /rooms/:requested-room-slug
-  // Requires { itemsUsed: [arrayOfItems] }
+  // Requires [arrayOfItems]
   rooms.post('/:slug', (request, response) => response.json(getRoom(request.params.slug, request.body.itemsUsed)))
 
   // Serve requested item details on /items/:item-name
@@ -53,8 +53,7 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
 
   // Returns original inventory plus the added item
   // Requires inventory object
-  inventory.patch('/add/:itemName', (request, response) =>
-    response.json(addItem(request.body.inventory, request.params.itemName)))
+  inventory.patch('/add/:itemName', (request, response) => response.json(addItem(request.body.inventory, request.params.itemName)))
 
   inventory.patch('/remove/:itemName', (request, response) => response.json(removeItem(request.body.inventory, request.params.itemName)))
 
