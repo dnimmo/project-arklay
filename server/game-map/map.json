@@ -101,7 +101,7 @@
           "link" : "upstairs-study"
         }
       ],
-      "item": "Lion Crest"
+      "item": "lion-crest"
     },
     {
       "slug" : "upstairs-stairway-three",
@@ -153,7 +153,7 @@
           "link" : "upstairs-master-bedroom"
         }
       ],
-      "item": "Wine bottle"
+      "item": "wine-bottle"
     },
     {
       "slug" : "upstairs-stairway-two",
@@ -245,7 +245,7 @@
           "link" : "upstairs-hallway-three"
         }
       ],
-      "item": "Utility Key"
+      "item": "utility-key"
     },
     {
       "slug" : "upstairs-library",
@@ -260,7 +260,7 @@
           "link" : "upstairs-hallway-three"
         }
       ],
-      "item": "Sheet Music"
+      "item": "sheet-music"
     },
     {
       "slug" : "upstairs-hallway-four",
@@ -417,7 +417,7 @@
           "link" : "kitchen"
         }
       ],
-      "item" : "Moose Head"
+      "item" : "moose-head"
     },
     {
       "slug": "waste-disposal",
@@ -520,7 +520,7 @@
           "link" : "hallway-five"
         }
       ],
-      "item": "Keycode"
+      "item": "keycode"
     },
     {
       "slug": "swimming-pool",
@@ -559,7 +559,7 @@
           "link" : "music-room"
         }
       ],
-      "item" : "Eagle Crest"
+      "item" : "eagle-crest"
     },
     {
       "slug": "hallway-one",
@@ -608,7 +608,7 @@
           "link" : "statue-room"
         }
       ],
-      "item": "Wolf Crest"
+      "item": "wolf-crest"
     },
     {
       "slug": "hallway-three",
@@ -650,7 +650,7 @@
           "link" : "hallway-three"
         }
       ],
-      "item": "Crowbar"
+      "item": "crowbar"
     },
     {
       "slug": "servants-quarters",
@@ -668,7 +668,7 @@
           "link" : "hallway-three"
         }
       ],
-      "item": "Statue Head"
+      "item": "statue-head"
     },
     {
       "slug": "servants-bathroom",
@@ -742,7 +742,7 @@
           "link" : "basement-stairway"
         }
       ],
-      "item": "Handle"
+      "item": "handle"
     },
     {
       "slug": "basement-item-room",
@@ -756,7 +756,7 @@
           "link" : "basement-storage"
         }
       ],
-      "item": "Small Key"
+      "item": "small-key"
     },
     {
       "slug": "basement-waste-disposal",
