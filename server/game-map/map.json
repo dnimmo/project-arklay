@@ -101,16 +101,7 @@
           "link" : "upstairs-study"
         }
       ],
-      "newItem": {
-        "name": "Lion Crest",
-        "image": "assets/images/defs.svg#key",
-        "description": "A crest, with a lion's head on the front",
-        "messageWhenUsed": "You place the crest into the door",
-        "messageWhenNotUsed" : "Cool lion, but what could this be for?",
-        "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "upstairs-master-bedroom",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Lion Crest"
     },
     {
       "slug" : "upstairs-stairway-three",
@@ -162,16 +153,7 @@
           "link" : "upstairs-master-bedroom"
         }
       ],
-      "newItem": {
-        "name": "Wine bottle",
-        "image": "assets/images/defs.svg#key",
-        "description": "An expensive-looking bottle of wine",
-        "messageWhenUsed": "You place the wine bottle back in the rack",
-        "messageWhenNotUsed" : "It's a shame this is empty. Some wine would be good right now.",
-        "canBeUsedIn" : "basement-wine-cellar",
-        "unlocks" : "basement-lab-entrance",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Wine bottle"
     },
     {
       "slug" : "upstairs-stairway-two",
@@ -263,16 +245,7 @@
           "link" : "upstairs-hallway-three"
         }
       ],
-      "newItem": {
-        "name": "Utility Key",
-        "image": "assets/images/defs.svg#key",
-        "description": "A small key, with a tag that reads 'Utility'",
-        "messageWhenUsed": "You unlock the door to the utility room",
-        "messageWhenNotUsed" : "This key doesn't seem to fit any locks here",
-        "canBeUsedIn" : "hallway-two",
-        "unlocks" : "utility-room",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Utility Key"
     },
     {
       "slug" : "upstairs-library",
@@ -287,16 +260,7 @@
           "link" : "upstairs-hallway-three"
         }
       ],
-      "newItem": {
-        "name" : "Sheet Music",
-        "image" : "assets/images/defs.svg#key",
-        "description" : "Sheet music for Beethoven's Piano Sonata No. 14",
-        "messageWhenUsed" : "You play the piano",
-        "messageWhenNotUsed" : "An excellent piece of music. Though I'm not sure why I decided to steal it.",
-        "canBeUsedIn" : "music-room",
-        "unlocks" : "secret-room-one",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Sheet Music"
     },
     {
       "slug" : "upstairs-hallway-four",
@@ -453,16 +417,7 @@
           "link" : "kitchen"
         }
       ],
-      "newItem" : {
-        "name" : "Moose Head",
-        "image": "assets/images/defs.svg#moosehead",
-        "description": "A moose's head. Its cold, dead eyes stare at you, looking lost and lonely",
-        "messageWhenUsed": "Ah, that's better",
-        "canBeUsedIn" : "upstairs-trophy-room",
-        "unlocks" : "nothing",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock2.mp3",
-        "messageWhenNotUsed" : "I will not rest until this is back where it belongs"
-      }
+      "item" : "Moose Head"
     },
     {
       "slug": "waste-disposal",
@@ -565,16 +520,7 @@
           "link" : "hallway-five"
         }
       ],
-      "newItem": {
-        "name": "Keycode",
-        "image": "assets/images/defs.svg#password",
-        "description": "A piece of paper with 2407 written on it",
-        "messageWhenUsed": "You enter the keycode into the terminal",
-        "messageWhenNotUsed" : "What could these numbers mean?",
-        "canBeUsedIn" : "upstairs-study",
-        "unlocks" : "upstairs-secret-room-three",
-        "soundWhenUsed" : "../assets/sounds/keyboard.mp3"
-      }
+      "item": "Keycode"
     },
     {
       "slug": "swimming-pool",
@@ -613,16 +559,7 @@
           "link" : "music-room"
         }
       ],
-      "newItem": {
-        "name": "Eagle Crest",
-        "image": "assets/images/defs.svg#key",
-        "description": "A crest, with an eagle's head on the front",
-        "messageWhenUsed": "You place the crest into the door",
-        "messageWhenNotUsed" : "What is this for? What does the eagle signify?",
-        "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "upstairs-master-bedroom",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item" : "Eagle Crest"
     },
     {
       "slug": "hallway-one",
@@ -671,16 +608,7 @@
           "link" : "statue-room"
         }
       ],
-      "newItem": {
-        "name": "Wolf Crest",
-        "image": "assets/images/defs.svg#key",
-        "description": "A crest, with a wolf's head on the front",
-        "messageWhenUsed": "You place the crest into the door",
-        "messageWhenNotUsed" : "This is a very unusual design",
-        "canBeUsedIn" : "upstairs-stairway-three",
-        "unlocks" : "upstairs-master-bedroom",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Wolf Crest"
     },
     {
       "slug": "hallway-three",
@@ -722,16 +650,7 @@
           "link" : "hallway-three"
         }
       ],
-      "newItem": {
-        "name": "Crowbar",
-        "image": "assets/images/defs.svg#crowbar",
-        "description": "A sturdy crowbar",
-        "messageWhenUsed": "You prise off the wooden planks",
-        "canBeUsedIn" : "upstairs-hallway-three",
-        "unlocks" : "rooms/upstairs-aquarium",
-        "soundWhenUsed" : "../assets/sounds/crowbarImpact.mp3",
-        "messageWhenNotUsed" : "Nothing to use this on in here"
-      }
+      "item": "Crowbar"
     },
     {
       "slug": "servants-quarters",
@@ -749,16 +668,7 @@
           "link" : "hallway-three"
         }
       ],
-      "newItem": {
-        "name": "Statue Head",
-        "image": "assets/images/defs.svg#key",
-        "description": "The head of a small statue.",
-        "messageWhenUsed": "You place the head carefully back onto the statue",
-        "canBeUsedIn" : "statue-room",
-        "unlocks" : "secret-room-two",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
-        "messageWhenNotUsed" : "What a strange thing to have found. I wonder who it's meant to be?"
-      }
+      "item": "Statue Head"
     },
     {
       "slug": "servants-bathroom",
@@ -832,16 +742,7 @@
           "link" : "basement-stairway"
         }
       ],
-      "newItem": {
-        "name": "Handle",
-        "image": "assets/images/defs.svg#key",
-        "description": "A metal handle. It looks like it's for some sort of trap door.",
-        "messageWhenUsed": "You have attached the handle",
-        "canBeUsedIn" : "waste-disposal",
-        "unlocks" : "basement-waste-disposal",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3",
-        "messageWhenNotUsed" : "I'm not sure where I could put this..."
-      }
+      "item": "Handle"
     },
     {
       "slug": "basement-item-room",
@@ -855,16 +756,7 @@
           "link" : "basement-storage"
         }
       ],
-      "newItem": {
-        "name": "Small Key",
-        "image": "assets/images/defs.svg#key",
-        "description": "A small key, with a tag that says 'S.Q.'",
-        "messageWhenUsed": "You unlock the door",
-        "messageWhenNotUsed" : "It doesn't look like this can be used here",
-        "canBeUsedIn" : "hallway-three",
-        "unlocks" : "upstairs-servants-quarters",
-        "soundWhenUsed" : "../assets/sounds/doorUnlock.mp3"
-      }
+      "item": "Small Key"
     },
     {
       "slug": "basement-waste-disposal",
