@@ -89,7 +89,7 @@ test('Returns an initialised inventory with items', t => {
 })
 
 test('Can add an item with /add/item-name', t => {
-  const expectedResult = { items: ['test-item'], itemsUsed: [] }
+  const expectedResult = 'test-item'
   request(app)
     .patch('/inventory/add/test-item')
     .send({ items: [], itemsUsed: [] })
@@ -99,7 +99,7 @@ test('Can add an item with /add/item-name', t => {
       }
       const result = JSON.parse(response.text)
 
-      t.deepEqual(result, expectedResult)
+      t.equal(result.items[0].name, expectedResult)
       t.end()
     })
 })

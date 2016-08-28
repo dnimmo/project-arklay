@@ -1,5 +1,6 @@
 module.exports = itemService => {
   const { getItemDetails } = itemService
+  const allItemAttributes = ['name', 'displayName', 'image', 'description', 'messageWhenUsed', 'messageWhenNotUsed', 'canBeUsedIn', 'unlocks', 'soundWhenUsed']
 
   function updateInventory ({ items, itemsUsed }, itemsToAdd, itemsToRemove) {
     let updatedItems = items.concat(itemsToAdd).filter(item => !itemsToRemove.includes(item))
@@ -20,7 +21,7 @@ module.exports = itemService => {
   }
 
   // Only add item if it isn't already in the inventory, otherwise just return inventory as-is
-  const addItem = (inventory, item) => inventory.items.includes(item) || inventory.itemsUsed.includes(item) ? inventory : updateInventory(inventory, [item], [])
+  const addItem = (inventory, item) => inventory.items.includes(item) || inventory.itemsUsed.includes(item) ? inventory : updateInventory(inventory, [getItemDetails(item, allItemAttributes)], [])
 
   const removeItem = (inventory, item) => updateInventory(inventory, [], [item])
 

@@ -40,10 +40,10 @@ test('should be able to initialise used items array with items passed in', t => 
 
 test('should be able to add an item to the inventory', t => {
   const inventory = { items: [], itemsUsed: [] }
-  const expectedResult = { items: ['test-item'], itemsUsed: [] }
+  const expectedResult = 'test-item'
   const result = addItem(inventory, 'test-item')
 
-  t.deepEqual(result, expectedResult)
+  t.equal(result.items[0].name, expectedResult)
   t.end()
 })
 
