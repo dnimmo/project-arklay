@@ -3,7 +3,7 @@
     {
       "name": "lion-crest",
       "displayName": "Lion Crest",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A crest, with a lion's head on the front",
       "messageWhenUsed": "You place the crest into the door",
       "messageWhenNotUsed" : "Cool lion, but what could this be for?",
@@ -14,7 +14,7 @@
     {
       "name": "wine-bottle",
       "displayName": "Wine bottle",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "An expensive-looking bottle of wine",
       "messageWhenUsed": "You place the wine bottle back in the rack",
       "messageWhenNotUsed" : "It's a shame this is empty. Some wine would be good right now.",
@@ -25,7 +25,7 @@
     {
       "name": "utility-key",
       "displayName": "Utility Key",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A small key, with a tag that reads 'Utility'",
       "messageWhenUsed": "You unlock the door to the utility room",
       "messageWhenNotUsed" : "This key doesn't seem to fit any locks here",
@@ -36,7 +36,7 @@
     {
       "name" : "sheet-music",
       "displayName" : "Sheet Music",
-      "image" : "assets/images/defs.svg#key",
+      "image" : "images/defs.svg#key",
       "description" : "Sheet music for Beethoven's Piano Sonata No. 14",
       "messageWhenUsed" : "You play the piano",
       "messageWhenNotUsed" : "An excellent piece of music. Though I'm not sure why I decided to steal it.",
@@ -47,7 +47,7 @@
     {
       "name" : "moose-head",
       "displayName" : "Moose Head",
-      "image": "assets/images/defs.svg#moosehead",
+      "image": "images/defs.svg#moosehead",
       "description": "A moose's head. Its cold, dead eyes stare at you, looking lost and lonely",
       "messageWhenUsed": "Ah, that's better",
       "canBeUsedIn" : "upstairs-trophy-room",
@@ -58,7 +58,7 @@
     {
       "name": "keycode",
       "displayName": "Keycode",
-      "image": "assets/images/defs.svg#password",
+      "image": "images/defs.svg#password",
       "description": "A piece of paper with 2407 written on it",
       "messageWhenUsed": "You enter the keycode into the terminal",
       "messageWhenNotUsed" : "What could these numbers mean?",
@@ -69,7 +69,7 @@
     {
       "name": "eagle-crest",
       "displayName": "Eagle Crest",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A crest, with an eagle's head on the front",
       "messageWhenUsed": "You place the crest into the door",
       "messageWhenNotUsed" : "What is this for? What does the eagle signify?",
@@ -80,7 +80,7 @@
     {
       "name": "wolf-crest",
       "displayName": "Wolf Crest",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A crest, with a wolf's head on the front",
       "messageWhenUsed": "You place the crest into the door",
       "messageWhenNotUsed" : "This is a very unusual design",
@@ -91,7 +91,7 @@
     {
       "name" : "crowbar",
       "displayName": "Crowbar",
-      "image": "assets/images/defs.svg#crowbar",
+      "image": "images/defs.svg#crowbar",
       "description": "A sturdy crowbar",
       "messageWhenUsed": "You prise off the wooden planks",
       "canBeUsedIn" : "upstairs-hallway-three",
@@ -102,7 +102,7 @@
     {
       "name": "statue-head",
       "displayName": "Statue Head",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "The head of a small statue.",
       "messageWhenUsed": "You place the head carefully back onto the statue",
       "canBeUsedIn" : "statue-room",
@@ -113,7 +113,7 @@
     {
       "name": "handle",
       "dislayName": "Handle",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A metal handle. It looks like it's for some sort of trap door.",
       "messageWhenUsed": "You have attached the handle",
       "canBeUsedIn" : "waste-disposal",
@@ -124,7 +124,7 @@
     {
       "name": "small-key",
       "displayName": "Small Key",
-      "image": "assets/images/defs.svg#key",
+      "image": "images/defs.svg#key",
       "description": "A small key, with a tag that says 'S.Q.'",
       "messageWhenUsed": "You unlock the door",
       "messageWhenNotUsed" : "It doesn't look like this can be used here",
