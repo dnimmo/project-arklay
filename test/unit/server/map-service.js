@@ -18,7 +18,6 @@ test('returns requested room', t => {
 
 test('does not return direction option for any blocked rooms', t => {
   const testRoom = getRoom('start', [])
-  console.log(testRoom.directions)
   t.equal(testRoom.directions.length, 1)
   t.end()
 })
