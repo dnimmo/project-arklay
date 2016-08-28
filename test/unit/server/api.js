@@ -92,7 +92,7 @@ test('Can add an item with /add/item-name', t => {
   const expectedResult = { items: ['test-item'], itemsUsed: [] }
   request(app)
     .patch('/inventory/add/test-item')
-    .send({ inventory: { items: [], itemsUsed: [] } })
+    .send({ items: [], itemsUsed: [] })
     .end((error, response) => {
       if (error) {
         console.log(error)
