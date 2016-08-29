@@ -5,5 +5,5 @@ module.exports = {
   itemFileLocation: './server/game-items/items.json',
   roomLogFile: 'room-requests.log',
   serverLogFile: 'server.log',
-  portNumber: 8080
+  portNumber: 8081
 }
