@@ -12,6 +12,10 @@ module.exports = itemService => {
     }
   }
 
+  function itemAlreadyDiscovered (inventory, itemName) {
+    return inventory.items.map(item => item.name).includes(itemName) || inventory.itemsUsed.includes(itemName)
+  }
+
   const initialiseInventory = (items, itemsUsed) => {
     // Can be initialied with item data (for loading game)
     return {
@@ -21,7 +25,7 @@ module.exports = itemService => {
   }
 
   // Only add item if it isn't already in the inventory, otherwise just return inventory as-is
-  const addItem = (inventory, item) => inventory.items.includes(item) || inventory.itemsUsed.includes(item) ? inventory : updateInventory(inventory, [getItemDetails(item, allItemAttributes)], [])
+  const addItem = (inventory, itemName) => itemAlreadyDiscovered(inventory, itemName) ? inventory : updateInventory(inventory, [getItemDetails(itemName, allItemAttributes)], [])
 
   const removeItem = (inventory, item) => updateInventory(inventory, [], [item])
 
@@ -32,7 +36,7 @@ module.exports = itemService => {
       return false
     }
 
-    return updateInventory(inventory, [item1.creates], [item1name, item2name])
+    return updateInventory(inventory, [getItemDetails(item1.creates, allItemAttributes)], [item1name, item2name])
   }
 
   return {
