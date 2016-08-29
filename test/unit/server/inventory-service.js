@@ -48,7 +48,7 @@ test('should be able to add an item to the inventory', t => {
 })
 
 test('should not be able to add a duplicate item to the inventory', t => {
-  const inventory = { items: ['test-item'], itemsUsed: [] }
+  const inventory = { items: [{ canBeUsedIn: 'test-room', description: false, displayName: false, image: false, messageWhenNotUsed: false, messageWhenUsed: false, name: 'test-item', soundWhenUsed: false, unlocks: false }], itemsUsed: [] }
   const result = addItem(inventory, 'test-item')
 
   t.deepEqual(result, inventory)
@@ -64,7 +64,7 @@ test('should not be able to add an item that has already been used to the invent
 })
 
 test('should be able to remove an item from the inventory', t => {
-  const inventory = { items: ['test-item'], itemsUsed: [] }
+  const inventory = { items: [{name: 'test-item'}], itemsUsed: [] }
   const expectedResult = { items: [], itemsUsed: ['test-item'] }
   const result = removeItem(inventory, 'test-item')
 
@@ -73,10 +73,10 @@ test('should be able to remove an item from the inventory', t => {
 })
 
 test('should be able to return an updated inventory when two items are combined', t => {
-  const inventory = { items: ['test-item', 'test-item-2'], itemsUsed: [] }
+  const inventory = { items: [{name:'test-item'}, {name:'test-item-2'}], itemsUsed: [] }
   const testItem1 = 'test-item'
   const testItem2 = 'test-item-2'
-  const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2'] }
+  const expectedResult = { items: [{ canBeUsedIn: false, description: false, displayName: false, image: false, messageWhenNotUsed: false, messageWhenUsed: false, name: 'test-item-3', soundWhenUsed: false, unlocks: false }], itemsUsed: ['test-item', 'test-item-2'] }
   const result = combineItems(inventory, testItem1, testItem2)
 
   t.deepEqual(result, expectedResult)
@@ -84,7 +84,7 @@ test('should be able to return an updated inventory when two items are combined'
 })
 
 test('should return false if items can not be combined', t => {
-  const inventory = { items: ['test-item', 'test-item-3'], itemsUsed: [] }
+  const inventory = { items: [{name: 'test-item'}, {name: 'test-item-3'}], itemsUsed: [] }
   const result = combineItems(inventory, 'test-item', 'test-item-3')
 
   t.equal(result, false)

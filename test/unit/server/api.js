@@ -108,7 +108,7 @@ test('Can remove items on /remove/item-name', t => {
   const expectedResult = { items: [], itemsUsed: ['test-item'] }
   request(app)
     .patch('/inventory/remove/test-item')
-    .send({ inventory: { items: ['test-item'], itemsUsed: [] } })
+    .send({ inventory: { items: [{name:'test-item'}], itemsUsed: [] } })
     .end((error, response) => {
       if (error) {
         console.log(error)
@@ -121,10 +121,10 @@ test('Can remove items on /remove/item-name', t => {
 })
 
 test('Can combine items on /combine/item-1/item-2', t => {
-  const expectedResult = { items: ['test-item-3'], itemsUsed: ['test-item', 'test-item-2'] }
+  const expectedResult = { items: [{canBeUsedIn: false, description: false, displayName: false, image: false, messageWhenNotUsed: false, messageWhenUsed: false, name: 'test-item-3', soundWhenUsed: false, unlocks: false }], itemsUsed: ['test-item', 'test-item-2'] }
   request(app)
     .post('/inventory/combine/test-item/test-item-2')
-    .send({ inventory: { items: ['test-item', 'test-item-2'], itemsUsed: [] } })
+    .send({ inventory: { items: [{name: 'test-item'}, {name: 'test-item-2'}], itemsUsed: [] } })
     .end((error, response) => {
       if (error) {
         console.log(error)
