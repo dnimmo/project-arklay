@@ -55,11 +55,11 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
   // Requires inventory object
   inventory.patch('/add/:itemName', (request, response) => response.json(addItem(request.body, request.params.itemName)))
 
-  inventory.patch('/remove/:itemName', (request, response) => response.json(removeItem(request.body.inventory, request.params.itemName)))
+  inventory.patch('/remove/:itemName', (request, response) => response.json(removeItem(request.body, request.params.itemName)))
 
   // Returns new inventory if items can be combined
   // Requires inventory object
-  inventory.post('/combine/:item1/:item2', (request, response) => response.json(combineItems(request.body.inventory, request.params.item1, request.params.item2)))
+  inventory.post('/combine/:item1/:item2', (request, response) => response.json(combineItems(request.body, request.params.item1, request.params.item2)))
 
   // Serve the credits on /credits
   credits.get('/', (request, response) => response.json(creditsFile))
