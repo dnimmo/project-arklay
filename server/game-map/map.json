@@ -81,7 +81,7 @@
           "rel" : "west",
           "link" : "upstairs-secret-room-three",
           "blocked" : true,
-          "unlockedWith" : ["Keycode"]
+          "unlockedWith" : ["keycode"]
         },{
           "rel" : "east",
           "link" : "upstairs-hallway-one"
@@ -114,7 +114,7 @@
           "rel" : "north",
           "link" : "upstairs-master-bedroom",
           "blocked" : true,
-          "unlockedWith" : ["Lion Crest", "Eagle Crest", "Wolf Crest"]
+          "unlockedWith" : ["lion-crest", "eagle-crest", "wolf-crest"]
         },{
           "rel" : "east",
           "link" : "upstairs-hallway-two"
@@ -219,7 +219,7 @@
           "rel" : "north",
           "link" : "upstairs-aquarium",
           "blocked" : true,
-          "unlockedWith" : ["Crowbar"]
+          "unlockedWith" : ["crowbar"]
         },{
           "rel" : "west",
           "link" : "upstairs-art-gallery"
@@ -367,7 +367,7 @@
           "rel" : "east",
           "link" : "utility-room",
           "blocked" : true,
-          "unlockedWith" : ["Utility Key"]
+          "unlockedWith" : ["utility-key"]
         },{
           "rel" : "south",
           "link" : "dining-hall"
@@ -431,7 +431,7 @@
           "link" : "basement-waste-disposal",
           "displayText": "jump in",
           "blocked" : true,
-          "unlockedWith" : ["Handle"]
+          "unlockedWith" : ["handle"]
         },{
           "rel" : "south",
           "link" : "kitchen"
@@ -487,7 +487,7 @@
           "rel" : "south",
           "link" : "secret-room-one",
           "blocked" : true,
-          "unlockedWith" : ["Sheet Music"]
+          "unlockedWith" : ["sheet-music"]
         }
       ]
     },
@@ -586,7 +586,7 @@
           "rel" : "north",
           "link" : "secret-room-two",
           "blocked" : true,
-          "unlockedWith" : ["Statue Head"]
+          "unlockedWith" : ["statue-head"]
         },{
           "rel" : "east",
           "link" : "hallway-three"
@@ -622,7 +622,7 @@
           "rel" : "north",
           "link" : "servants-quarters",
           "blocked" : true,
-          "unlockedWith" : ["Small Key"]
+          "unlockedWith" : ["small-key"]
         },{
           "rel" : "west",
           "link" : "statue-room"
@@ -783,7 +783,7 @@
           "rel" : "west",
           "link" : "basement-lab-entrance",
           "blocked" : true,
-          "unlockedWith" : ["Wine bottle"]
+          "unlockedWith" : ["wine-bottle"]
         }
       ]
     },

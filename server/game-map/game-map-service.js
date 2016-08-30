@@ -33,9 +33,6 @@ module.exports = (gameMap, logLocation, logFileName) => {
     }
     // Get direction info: This prevents locked rooms from being sent to the client
     requestedRoom['directions'] = getDirectionInfo(requestedRoom['directions'], itemsUsed)
-    console.log(itemsUsed)
-    console.log('===')
-    console.log(requestedRoom.directions)
     return requestedRoom
   }
 
