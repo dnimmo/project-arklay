@@ -15,7 +15,7 @@ test('Calls the map service when a room is requested', t => {
   const testRoomID = 'start'
   request(app)
     .post(`/rooms/${testRoomID}`)
-    .send({itemsUsed: []})
+    .send([])
     .end((error, response) => {
       if (error) {
         console.log(error)

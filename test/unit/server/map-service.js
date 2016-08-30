@@ -24,6 +24,7 @@ test('does not return direction option for any blocked rooms', t => {
 //
 test('returns room with all unlocked directions if correct items have already been used', t => {
   const testRoom = getRoom('test-room', ['test-item'])
+  console.log(testRoom)
   t.equal(testRoom.directions.length, 3)
   t.end()
 })
