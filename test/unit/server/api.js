@@ -26,6 +26,23 @@ test('Calls the map service when a room is requested', t => {
     })
 })
 
+test('returns room with all unlocked directions if correct items have already been used', t => {
+  const testRoomID = 'test-room'
+  const itemsUsed = ['test-item']
+
+  request(app)
+    .post(`/rooms/${testRoomID}`)
+    .send(itemsUsed)
+    .end((error, response) => {
+      if (error) {
+        console.log(error)
+      }
+      const result = JSON.parse(response.text)
+      t.equal(result.directions.length, 3)
+      t.end()
+    })
+})
+
 test('Returns item info when requested', t => {
   const testItemName = 'test-item'
   request(app)
