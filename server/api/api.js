@@ -33,10 +33,7 @@ module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName
 
   // Serve requested room on /rooms/:requested-room-slug
   // Requires [arrayOfItems]
-  rooms.post('/:slug', (request, response) => {
-    const room = getRoom(request.params.slug, request.body)
-    response.json(room)
-  })
+  rooms.post('/:slug', (request, response) => response.json(getRoom(request.params.slug, request.body)))
 
   // Serve requested item details on /items/:item-name
   // Requires { properties: [arrayOfRequestedProperties] }
