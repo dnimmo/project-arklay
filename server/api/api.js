@@ -1,12 +1,12 @@
 const express = require('express')
 const { json, urlencoded } = require('body-parser')
 
-module.exports = (app, mapFile, itemsFile, creditsFile, logLocation, logFileName) => {
+module.exports = (app, mapFile, itemsFile, creditsFile) => {
   // used for parsing message body on 'post'
   app.use(json())
   app.use(urlencoded({ extended: true }))
 
-  const { getRoom } = require('../game-map/game-map-service')(mapFile, logLocation, logFileName)
+  const { getRoom } = require('../game-map/game-map-service')(mapFile)
 
   const {
     getItemDetails,

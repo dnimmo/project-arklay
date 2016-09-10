@@ -1,6 +1,4 @@
-module.exports = (gameMap, logLocation, logFileName) => {
-  const { log } = require('../logging-service/logging-service')(logLocation, logFileName)
-
+module.exports = gameMap => {
   function getRoomExtraInfo (roomSlug, itemsUsed = []) {
     const { examineInfo } = getRoom(roomSlug, itemsUsed)
     return examineInfo
@@ -28,7 +26,6 @@ module.exports = (gameMap, logLocation, logFileName) => {
   const getRoom = (slug, itemsUsed) => {
     const requestedRoom = gameMap.filter(room => room.slug === slug)[0]
     if (!requestedRoom) {
-      log(`Attempted to retrieve non-existent room: ${slug}`)
       return false
     }
     // Get direction info: This prevents locked rooms from being sent to the client
