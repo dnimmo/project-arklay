@@ -1,13 +1,11 @@
 {
   "name": "project-arklay",
-  "version": "1.0.0",
-  "description": "A short demo for an upcoming web-based text adventure game",
+  "version": "2.0.0",
+  "description": "An API for creating text-adventure games",
   "main": "./server/server.js",
   "scripts": {
-    "build": "npm run check-standards && webpack ./client/app.js ./client/bundle.js --config ./config/webpack.config.js",
     "check-standards": "standard",
-    "setup": "npm install -g pm2",
-    "start": "pm2 start server/server.js",
+    "start": "forever start server/server.js",
     "test": "tape test/**/*.js"
   },
   "repository": {

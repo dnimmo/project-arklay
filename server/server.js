@@ -20,9 +20,9 @@ app.use(cors())
 
 // Prevent caching of responses
 app.use((request, response, next) => {
-  response.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-  response.header('Expires', '-1');
-  response.header('Pragma', 'no-cache');
+  response.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  response.header('Expires', '-1')
+  response.header('Pragma', 'no-cache')
   next()
 })
 

@@ -15,7 +15,7 @@ module.exports = gameMap => {
   }
 
   function isDirectionUnlocked ({ blocked, unlockedWith }, itemsUsed) {
-    if (typeof(blocked) === 'undefined') {
+    if (typeof (blocked) === 'undefined') {
       // Room was never blocked to begin with
       return true
     }
