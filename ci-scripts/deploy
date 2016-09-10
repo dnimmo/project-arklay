@@ -1,4 +1,4 @@
-cd /root/project-arklay
+cd project-arklay
 git pull
 npm install --production
 forever restartall
