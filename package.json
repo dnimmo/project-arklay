@@ -5,6 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "check-standards": "standard",
+    "setup": "npm install -g tape standard",
     "start": "forever start server/server.js",
     "test": "tape test/**/*.js"
   },
