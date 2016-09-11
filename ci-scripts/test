@@ -1,1 +1,1 @@
-npm run setup && npm run check-standards && npm run test
+npm run check-standards && npm run test
