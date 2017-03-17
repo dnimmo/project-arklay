@@ -1,32 +1,42 @@
-const fs = require('fs')
 const express = require('express')
-const app = express()
-const server = require('http').createServer(app)
 const compression = require('compression')
-const port = 8080
+const cors = require('cors')
+const { readFileSync } = require('fs')
+const {
+  creditsFileLocation,
+  mapFileLocation,
+  itemFileLocation,
+  portNumber
+} = require('../config/app-config')
 
-// Load the map and credits
-const map = JSON.parse(fs.readFileSync('src/assets/resources/map.json', 'utf8')).rooms
-const credits = JSON.parse(fs.readFileSync('src/assets/resources/credits.json', 'utf8'))
+// Load the map and credits files
+const map = JSON.parse(readFileSync(mapFileLocation, 'utf8')).rooms
+const items = JSON.parse(readFileSync(itemFileLocation)).items
+const credits = JSON.parse(readFileSync(creditsFileLocation, 'utf8'))
 
-const mapService = require('./game-map/service')(map)
+// Instantiate main app
+const app = express()
+app.use(cors())
 
-//  GZIP assets
-app.use(compression())
+// Prevent caching of responses
+app.use((request, response, next) => {
+  response.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  response.header('Expires', '-1')
+  response.header('Pragma', 'no-cache')
+  next()
+})
 
 // Serve files
-app.use(express.static(__dirname + '/build'))
-app.get('/rooms/:slug', function(request, response){
-  // Get the slug of the requested room
-  return response.json(mapService.getRoom(request.params.slug))
-})
+const server = require('http').createServer(app)
+const port = process.env.PORT || portNumber
 
-// Serve the credits
-app.get('/credits', function(request, response){
-  response.json(credits)
-})
+// GZIP assets
+app.use(compression())
 
-server.listen(port, function(){
-	console.log('Server listening at port %d', port)
+// Load endpoints
+require('./api/api')(app, map, items, credits)
+
+server.listen(port, () => {
+  console.log(`Server listening at port ${port}`)
   console.log('ctrl+c to stop server')
 })
